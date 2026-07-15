@@ -1,0 +1,50 @@
+cff-version: 1.2.0
+message: "If you use this dataset or code, please cite both the Zenodo dataset and the associated ACM article."
+title: "Network-Controlled Dataset of Blockchain Benchmarks for Evaluating Repeatability and Performance Predictability"
+type: dataset
+authors:
+  - family-names: "Schiavoni"
+    given-names: "Valerio"
+    orcid: "https://orcid.org/0000-0003-1493-6603"
+  - family-names: "Matos"
+    given-names: "Miguel"
+    orcid: "https://orcid.org/0000-0001-6916-2866"
+  - family-names: "Fabris"
+    given-names: "Francesco"
+    orcid: "https://orcid.org/0000-0002-1950-8838"
+  - family-names: "Bernardo"
+    given-names: "Marco"
+    orcid: "https://orcid.org/0000-0003-0267-6170"
+  - family-names: "Di Perna"
+    given-names: "Vincenzo P."
+    orcid: "https://orcid.org/0009-0003-8834-9900"
+year: 2026
+doi: "10.5281/zenodo.17681717"
+url: "https://doi.org/10.5281/zenodo.17681717"
+license: "CC-BY-4.0"
+repository-code: "https://github.com/vindipe/blockchain-repeatability-benchmarking"
+references:
+  - type: article
+    title: "The Impact of Network Topology on Performance Metrics and Energy Consumption for Blockchains: Towards Repeatable Benchmarking"
+    authors:
+      - family-names: "Di Perna"
+        given-names: "Vincenzo P."
+        orcid: "https://orcid.org/0009-0003-8834-9900"
+      - family-names: "Schiavoni"
+        given-names: "Valerio"
+        orcid: "https://orcid.org/0000-0003-1493-6603"
+      - family-names: "Matos"
+        given-names: "Miguel"
+        orcid: "https://orcid.org/0000-0001-6916-2866"
+      - family-names: "Fabris"
+        given-names: "Francesco"
+        orcid: "https://orcid.org/0000-0002-1950-8838"
+      - family-names: "Bernardo"
+        given-names: "Marco"
+        orcid: "https://orcid.org/0000-0003-0267-6170"
+    year: 2026
+    journal: "Distributed Ledger Technologies: Research and Practice"
+    publisher:
+      name: "Association for Computing Machinery"
+    doi: "10.1145/3828757"
+    url: "https://doi.org/10.1145/3828757"
