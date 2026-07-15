@@ -2,9 +2,8 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17681717.svg)](https://doi.org/10.5281/zenodo.17681717)
 ![Data License: CC BY 4.0](https://img.shields.io/badge/data%20license-CC--BY--4.0-lightgrey.svg)
-![Code License: MIT](https://img.shields.io/badge/code%20license-MIT-blue.svg)
 
-This repository contains the public dataset and analysis utilities for evaluating the repeatability and performance predictability of blockchain benchmarks under controlled network conditions.
+This repository contains the public dataset for evaluating the repeatability and performance predictability of blockchain benchmarks under controlled network conditions.
 
 The dataset is associated with the ACM *Distributed Ledger Technologies: Research and Practice* article:
 
@@ -40,9 +39,6 @@ The resulting dataset has 300 configuration rows and 50 columns. It contains agg
 ├── README.md
 ├── CITATION.cff
 ├── LICENSE
-├── LICENSE-CODE
-├── requirements.txt
-├── plotter.py
 ├── dataset/
 │   ├── README.md
 │   └── reproducibility-dataset.csv
@@ -55,30 +51,7 @@ The resulting dataset has 300 configuration rows and 50 columns. It contains agg
 
 ## Using the dataset
 
-Create a Python environment and install the required packages:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-Generate aggregate summaries and overview figures:
-
-```bash
-python3 plotter.py
-```
-
-The script validates the expected schema and writes PNG/PDF figures plus a grouped CSV summary to `img/`.
-
-Optional filters are available:
-
-```bash
-python3 plotter.py --help
-python3 plotter.py --blockchains Algorand Diem --network-sizes "10 nodes"
-```
-
-The generated plots are transparent exploratory summaries of the released aggregate data; they are not presented as pixel-identical reproductions of individual figures in the article.
+The complete released dataset is available at [`dataset/reproducibility-dataset.csv`](dataset/reproducibility-dataset.csv). It can be inspected with standard CSV, spreadsheet, statistical, or data-analysis tools. The repository preserves the archived data without adding an unofficial analysis or plotting implementation.
 
 ## Repeating the experiments
 
@@ -94,12 +67,9 @@ Consult the paper and Lilith artifact for the complete environment, deployment, 
 - Energy relative-dispersion fields are complete for all 300 configurations.
 - See [`docs/data_dictionary.md`](docs/data_dictionary.md) for every column and [`docs/provenance.md`](docs/provenance.md) for version and checksum information.
 
-## Licenses
+## License
 
-The repository follows the same split-license model used for the related CryptoEntropy repository:
-
-- **Dataset and documentation:** Creative Commons Attribution 4.0 International (CC BY 4.0). See [`LICENSE`](LICENSE).
-- **Python code:** MIT License. See [`LICENSE-CODE`](LICENSE-CODE).
+The dataset and documentation are licensed under the Creative Commons Attribution 4.0 International license (CC BY 4.0). See [`LICENSE`](LICENSE).
 
 ## Citation
 

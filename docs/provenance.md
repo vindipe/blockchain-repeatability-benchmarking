@@ -1,6 +1,6 @@
 # Provenance and Versioning
 
-The repository mirrors the current public files associated with the Zenodo concept DOI and adds repository-oriented documentation and analysis code.
+The repository mirrors the current public files associated with the Zenodo concept DOI and adds repository-oriented documentation.
 
 ## Zenodo identifiers
 
@@ -21,4 +21,4 @@ The current version was published on 15 July 2026 with the ACM-DLT companion ins
 
 ## Repository additions
 
-The root README, citation metadata, licenses, data dictionary, methodology notes, and plotting utility are repository additions. They do not alter the archived CSV.
+The root README, citation metadata, license, data dictionary, and methodology notes are repository additions. They do not alter the archived CSV.
