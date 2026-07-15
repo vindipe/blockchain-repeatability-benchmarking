@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this dataset or code, please cite both the Zenodo dataset and the associated ACM article."
+message: "If you use this dataset, please cite both the Zenodo dataset and the associated ACM article."
 title: "Network-Controlled Dataset of Blockchain Benchmarks for Evaluating Repeatability and Performance Predictability"
 type: dataset
 authors:
@@ -22,7 +22,7 @@ year: 2026
 doi: "10.5281/zenodo.17681717"
 url: "https://doi.org/10.5281/zenodo.17681717"
 license: "CC-BY-4.0"
-repository-code: "https://github.com/vindipe/blockchain-repeatability-benchmarking"
+repository-artifact: "https://github.com/vindipe/blockchain-repeatability-benchmarking"
 references:
   - type: article
     title: "The Impact of Network Topology on Performance Metrics and Energy Consumption for Blockchains: Towards Repeatable Benchmarking"
