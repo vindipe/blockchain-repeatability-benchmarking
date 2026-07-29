@@ -1,33 +1,46 @@
-# Dataset
+# Datasets
 
-`reproducibility-dataset.csv` is the public aggregate dataset archived in the current Zenodo release.
+This directory contains both the repeated-execution input and the
+configuration-level aggregate dataset.
 
-## Experimental matrix
+## `reproducibility-runs.csv`
 
-Each row is uniquely identified by:
+The run-level release contains 4,105 rows and 26 columns. Each row is a
+measurement exported by the benchmark pipeline and includes:
+
+- campaign identifier (`hash`) and run number;
+- blockchain, topology, workload, dataset, and infrastructure fields;
+- submitted, committed, and aborted transaction counts;
+- load, throughput, latency, energy, and network measurements;
+- benchmark start timestamp.
+
+The file preserves all supplied rows, including rows with
+`commit_number == 0`. See
+[`../docs/run_level_data_dictionary.md`](../docs/run_level_data_dictionary.md)
+for the schema and [`../docs/methodology.md`](../docs/methodology.md) for the
+selection performed by the analysis script.
+
+## `reproducibility-dataset.csv`
+
+This is the 300-row, 50-column aggregate dataset published in the preceding
+Zenodo version. Each row is identified by:
 
 ```text
 blockchain, mode, workload, network_size
 ```
 
-The complete factorial matrix contains:
+The complete matrix is:
 
 ```text
 5 blockchains x 5 topologies x 6 workloads x 2 network sizes = 300 rows
 ```
 
-The other configuration fields are constant in this release: 8 CPU cores, 16 GB RAM, 10 secondaries, the 2023 workload dataset, hop-based link strategy, and non-dynamic topology.
+For throughput, latency, and energy, the CSV reports observation counts, means,
+extrema, quartiles, standard deviations, absolute ranges, and relative
+dispersion measures. `commit_number_mean` reports the mean committed-transaction
+count.
 
-## Measurements
-
-For throughput, latency, and energy, the CSV reports:
-
-- observation count;
-- mean, maximum, minimum, first quartile, third quartile, and standard deviation;
-- relative minimum and maximum deviation from the mean;
-- interquartile range and its percentage of the mean;
-- absolute range and standard deviation as a percentage of the mean.
-
-`commit_number_mean` reports the mean number of committed transactions.
-
-Relative fields are blank when the corresponding mean or denominator makes the statistic undefined. See [`../docs/data_dictionary.md`](../docs/data_dictionary.md) for the complete schema.
+Running `analysis/plot_reproducibility.py` produces a fresh copy at
+`outputs/reproducibility-dataset.csv`. See
+[`../docs/data_dictionary.md`](../docs/data_dictionary.md) for the aggregate
+schema.
