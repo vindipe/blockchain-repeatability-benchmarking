@@ -1,99 +1,147 @@
-# Network-Controlled Blockchain Benchmarking Dataset
+# Network-Controlled Blockchain Benchmarking Dataset and Analysis
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17681717.svg)](https://doi.org/10.5281/zenodo.17681717)
 ![Data License: CC BY 4.0](https://img.shields.io/badge/data%20license-CC--BY--4.0-lightgrey.svg)
 
-This repository contains the public dataset for evaluating the repeatability and performance predictability of blockchain benchmarks under controlled network conditions.
+This repository contains the aggregate and repeated-execution datasets, together
+with the Python analysis used to generate the repeatability tables and figures
+for controlled, topology-aware blockchain benchmarking.
 
-The dataset is associated with the ACM *Distributed Ledger Technologies: Research and Practice* article:
+The artifact is associated with:
 
-> Vincenzo P. Di Perna, Valerio Schiavoni, Miguel Matos, Francesco Fabris, Marco Bernardo.  
-> **The Impact of Network Topology on Performance Metrics and Energy Consumption for Blockchains: Towards Repeatable Benchmarking.**  
-> *Distributed Ledger Technologies: Research and Practice*, ACM, 2026.  
+> Vincenzo P. Di Perna, Valerio Schiavoni, Miguel Matos, Francesco Fabris,
+> Marco Bernardo.
+>
+> **The Impact of Network Topology on Performance Metrics and Energy Consumption
+> for Blockchains: Towards Repeatable Benchmarking.**
+>
+> *Distributed Ledger Technologies: Research and Practice*, ACM, 2026.
+>
 > DOI: <https://doi.org/10.1145/3828757>
 
-The archival dataset is available on Zenodo:
+It also supports the run-to-run analysis in the IEEE Access manuscript
+**Experimental Repeatability and Performance Predictability in
+Network-Controlled Blockchain Evaluation**.
 
-> **Network-Controlled Dataset of Blockchain Benchmarks for Evaluating Repeatability and Performance Predictability.**  
-> Concept DOI: <https://doi.org/10.5281/zenodo.17681717>  
-> Current version DOI: <https://doi.org/10.5281/zenodo.21381461>
+The archival record is available through the stable Zenodo concept DOI:
+<https://doi.org/10.5281/zenodo.17681717>.
 
-## What this repository contains
-
-The released CSV contains one aggregate observation for every blockchain, topology, workload, and network-size configuration in the experimental matrix. Each row summarizes repeated executions through counts, means, extrema, quartiles, standard deviations, absolute ranges, and relative-dispersion measures.
-
-The matrix covers:
-
-- five blockchains: Algorand, Diem, Ethereum, Quorum, and Solana;
-- five network topologies: fat-tree, full mesh, hypercube, scale-free, and torus;
-- six workloads: DDoS, FIFA, GAFAM, Gaming, PayPal, and VISA;
-- two network sizes: 10 and 40 nodes;
-- throughput, latency, energy, and committed-transaction measurements.
-
-The resulting dataset has 300 configuration rows and 50 columns. It contains aggregate statistics rather than the individual run-level traces.
-
-## Repository structure
+## Contents
 
 ```text
 .
 ├── README.md
 ├── CITATION.cff
 ├── LICENSE
+├── requirements.txt
+├── analysis/
+│   └── plot_reproducibility.py
 ├── dataset/
 │   ├── README.md
-│   └── reproducibility-dataset.csv
-└── docs/
-    ├── README-ACM-DLT.md
-    ├── data_dictionary.md
-    ├── methodology.md
-    └── provenance.md
+│   ├── reproducibility-dataset.csv
+│   └── reproducibility-runs.csv
+├── docs/
+│   ├── README-ACM-DLT.md
+│   ├── data_dictionary.md
+│   ├── methodology.md
+│   ├── provenance.md
+│   └── run_level_data_dictionary.md
+└── outputs/
+    └── .gitkeep
 ```
 
-## Using the dataset
+- `dataset/reproducibility-runs.csv` contains 4,105 repeated-execution
+  observations and 26 raw columns.
+- `dataset/reproducibility-dataset.csv` is the previously released aggregate
+  dataset with 300 configurations and 50 columns.
+- `analysis/plot_reproducibility.py` is the analysis script used to aggregate
+  the repeated observations and generate the paper tables and figures.
+- `outputs/` is populated when the analysis is run.
 
-The complete released dataset is available at [`dataset/reproducibility-dataset.csv`](dataset/reproducibility-dataset.csv). It can be inspected with standard CSV, spreadsheet, statistical, or data-analysis tools. The repository preserves the archived data without adding an unofficial analysis or plotting implementation.
+## Experimental matrix
+
+The released measurements cover:
+
+- five blockchains: Algorand, Diem, Ethereum Clique, Quorum IBFT, and Solana;
+- five topologies: fat-tree, full mesh, hypercube, scale-free, and torus;
+- six workloads: DDoS, FIFA, GAFAM, Gaming, PayPal, and VISA;
+- two validator-set sizes: 10 and 40 nodes;
+- throughput, latency, energy, and committed-transaction measurements.
+
+The IEEE Access analysis focuses on GAFAM, PayPal, and VISA. The script also
+retains the three additional workloads used by the broader ACM DLT artifact and
+generates separate figures for them.
+
+## Reproduce the analysis
+
+Python 3.12 was used for the validation recorded in this release.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requirements.txt
+python3 analysis/plot_reproducibility.py
+```
+
+The script can be launched from any working directory because input and output
+paths are resolved relative to the repository.
+
+It writes:
+
+- `outputs/reproducibility-dataset.csv`;
+- six LaTeX tables, including the repeatability summaries and ANOVA/ICC table;
+- twelve figure variants, each in PNG and PDF format.
+
+## Preserved analysis behavior
+
+The scientific selection and aggregation logic of the analysis script has been
+preserved. It:
+
+1. maps the raw labels to the names used in the papers;
+2. selects the `diablo`/2023, hop-based observations with 8 cores, 16 GB RAM,
+   10 secondaries, and non-dynamic topology;
+3. converts negative energy values to missing values before aggregation;
+4. groups the selected observations by blockchain, topology, workload, and
+   network size, together with the fixed configuration columns;
+5. computes counts, means, extrema, quartiles, sample standard deviations,
+   IQR-based measures, directional deviations, WCD summaries, factorial ANOVA,
+   and ICC;
+6. uses GAFAM, PayPal, and VISA for the primary IEEE Access summaries.
+
+The raw `hash` column identifies benchmark campaigns. The published analysis
+does not use `hash` as a grouping key and does not remove CSV rows with
+`commit_number == 0` before configuration-level aggregation. These choices are
+documented here to reproduce the supplied script exactly; no new campaign
+selection or outcome-state reconstruction has been introduced in this release.
+
+## Documentation
+
+- [`dataset/README.md`](dataset/README.md) explains both CSV files.
+- [`docs/data_dictionary.md`](docs/data_dictionary.md) documents the aggregate
+  schema.
+- [`docs/run_level_data_dictionary.md`](docs/run_level_data_dictionary.md)
+  documents the repeated-execution schema.
+- [`docs/methodology.md`](docs/methodology.md) describes the implemented
+  selection and analysis flow.
+- [`docs/provenance.md`](docs/provenance.md) records source files and checksums.
 
 ## Repeating the experiments
 
-The experiments were conducted with [Lilith: A Topology-Aware Benchmark Tool for Blockchains](https://doi.org/10.5281/zenodo.11409100). The companion instructions preserved in [`docs/README-ACM-DLT.md`](docs/README-ACM-DLT.md) point to the Lilith release and its batched `multi-run.sh` execution workflow.
+The measurements were produced with
+[Lilith: A Topology-Aware Benchmark Tool for Blockchains](https://doi.org/10.5281/zenodo.11409100).
+The companion instructions in
+[`docs/README-ACM-DLT.md`](docs/README-ACM-DLT.md) point to the Lilith release
+and its batched `multi-run.sh` workflow.
 
-Consult the paper and Lilith artifact for the complete environment, deployment, workload, topology, and measurement methodology. This repository provides the released aggregate dataset and does not independently contain the complete Lilith execution environment or run-level measurements.
+This repository reproduces the analysis from released measurements. Consult the
+papers and Lilith artifact for the complete infrastructure, deployment,
+workload, topology, and measurement methodology.
 
-## Data notes
+## License and citation
 
-- `mode` identifies the network topology.
-- The three `*_count` columns report the number of repeated observations contributing to the corresponding aggregate statistics; values range from 9 to 26.
-- Forty-nine configurations report zero mean throughput and latency. Relative statistics that require division by those means are therefore blank where undefined.
-- Energy relative-dispersion fields are complete for all 300 configurations.
-- See [`docs/data_dictionary.md`](docs/data_dictionary.md) for every column and [`docs/provenance.md`](docs/provenance.md) for version and checksum information.
+The datasets, analysis code, and documentation are released under the Creative
+Commons Attribution 4.0 International license (CC BY 4.0). See
+[`LICENSE`](LICENSE).
 
-## License
-
-The dataset and documentation are licensed under the Creative Commons Attribution 4.0 International license (CC BY 4.0). See [`LICENSE`](LICENSE).
-
-## Citation
-
-When reusing this repository, please cite both the Zenodo dataset and the associated ACM article.
-
-```bibtex
-@dataset{schiavoni_blockchain_repeatability_2026,
-  author    = {Schiavoni, Valerio and Matos, Miguel and Fabris, Francesco and Bernardo, Marco and Di Perna, Vincenzo P.},
-  title     = {Network-Controlled Dataset of Blockchain Benchmarks for Evaluating Repeatability and Performance Predictability},
-  year      = {2026},
-  publisher = {Zenodo},
-  doi       = {10.5281/zenodo.17681717},
-  url       = {https://doi.org/10.5281/zenodo.17681717}
-}
-```
-
-```bibtex
-@article{diperna_network_topology_2026,
-  author  = {Di Perna, Vincenzo P. and Schiavoni, Valerio and Matos, Miguel and Fabris, Francesco and Bernardo, Marco},
-  title   = {The Impact of Network Topology on Performance Metrics and Energy Consumption for Blockchains: Towards Repeatable Benchmarking},
-  journal = {Distributed Ledger Technologies: Research and Practice},
-  year    = {2026},
-  publisher = {Association for Computing Machinery},
-  doi     = {10.1145/3828757},
-  url     = {https://doi.org/10.1145/3828757}
-}
-```
+When reusing the artifact, cite both the Zenodo dataset and the associated ACM
+article. Citation metadata is available in [`CITATION.cff`](CITATION.cff).

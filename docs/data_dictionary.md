@@ -1,6 +1,9 @@
-# Data Dictionary
+# Aggregate Data Dictionary
 
-The CSV has 50 columns grouped into configuration, aggregate measurements, and repeatability/dispersion statistics.
+`dataset/reproducibility-dataset.csv` has 50 columns grouped into
+configuration, aggregate measurements, and repeatability/dispersion statistics.
+The source repeated-execution schema is documented separately in
+[`run_level_data_dictionary.md`](run_level_data_dictionary.md).
 
 ## Configuration columns
 

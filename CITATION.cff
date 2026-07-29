@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this dataset, please cite both the Zenodo dataset and the associated ACM article."
+message: "If you use this dataset or analysis code, please cite both the Zenodo artifact and the associated ACM article."
 title: "Network-Controlled Dataset of Blockchain Benchmarks for Evaluating Repeatability and Performance Predictability"
 type: dataset
 authors:
