@@ -77,18 +77,10 @@ generates separate figures for them.
 Python 3.12 was used for the validation recorded in this release.
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements.txt
-python analysis/plot_reproducibility.py
-```
-
-On Windows PowerShell, activate the environment with:
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python analysis\plot_reproducibility.py
+python3 -m pip install -r requirements.txt
+python3 analysis/plot_reproducibility.py
 ```
 
 The script can be launched from any working directory because input and output
