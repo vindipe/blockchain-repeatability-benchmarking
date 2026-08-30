@@ -36,6 +36,7 @@ The archival record is available through the stable Zenodo concept DOI:
 ├── requirements.txt
 ├── analysis/
 │   ├── audit_observed_runs.py
+│   ├── balanced_sensitivity.py
 │   ├── compute_corrected_dispersion.py
 │   ├── derive_run_outcomes.py
 │   └── plot_reproducibility.py
@@ -54,6 +55,7 @@ The archival record is available through the stable Zenodo concept DOI:
 │   └── .gitkeep
 └── tests/
     ├── test_audit_observed_runs.py
+    ├── test_balanced_sensitivity.py
     ├── test_compute_corrected_dispersion.py
     └── test_derive_run_outcomes.py
 ```
@@ -72,6 +74,10 @@ The archival record is available through the stable Zenodo concept DOI:
 - `analysis/compute_corrected_dispersion.py` applies those masks symmetrically
   to means, extrema, quartiles, sample standard deviations, and signed
   deviations.
+- `analysis/balanced_sensitivity.py` repeats the analysis after sampling nine
+  observed executions per configuration without replacement. Sampling occurs
+  before outcome and metric eligibility checks, so the corresponding
+  denominators remain explicit rather than being forced to nine.
 - `outputs/` is populated when the analysis or audit is run.
 
 ## Experimental matrix
@@ -100,6 +106,7 @@ source .venv/bin/activate
 python3 -m pip install -r requirements.txt
 python3 analysis/derive_run_outcomes.py
 python3 analysis/compute_corrected_dispersion.py
+python3 analysis/balanced_sensitivity.py
 ```
 
 The script can be launched from any working directory because input and output
@@ -111,6 +118,7 @@ Audit the observed design and run its regression tests with:
 python3 analysis/audit_observed_runs.py
 python3 analysis/derive_run_outcomes.py
 python3 analysis/compute_corrected_dispersion.py
+python3 analysis/balanced_sensitivity.py
 python3 -m unittest discover -s tests -v
 ```
 
@@ -172,6 +180,14 @@ are `100 * (y - mean) / mean`; the implementation verifies the `-100%` lower
 bound and the `100(n-1)%` upper bound for non-negative observations. Sample
 standard deviation is computed with `ddof=1` and is undefined when fewer than
 two metric values are available.
+
+The balanced sensitivity analysis uses all 300 configurations, each of which
+contains at least nine observed executions. It performs 5,000 repetitions with
+seed `20260830`. In every repetition it draws nine real rows per configuration
+without replacement and only then applies the derived outcome and
+metric-eligibility masks. It writes configuration-, factor-, denominator-, and
+extrema-level comparisons to `outputs/revision/balanced_n9/`. The raw datasets
+are never modified and no synthetic row is created.
 
 ## Documentation
 

@@ -58,10 +58,10 @@ to the 300 configurations, with two to six hashes per configuration.
 No complete manifest is available from which a scheduled-attempt count can be
 reconstructed. The primary M1 design therefore retains all real observed
 executions and reports `n_observed` for every configuration; it does not create
-synthetic rows or force a ten-run eligibility rule. A later balanced sensitivity
-analysis will repeatedly sample nine eligible real runs per configuration after
-the metric-specific eligibility masks are defined. That later step is outside
-M1 and is intentionally not implemented by this audit.
+synthetic rows or force a ten-run eligibility rule. The balanced sensitivity
+analysis in `analysis/balanced_sensitivity.py` repeatedly samples nine observed
+executions per configuration before applying outcome and metric-specific
+eligibility masks.
 
 ## Observable outcome states and eligibility (M2)
 
@@ -117,8 +117,26 @@ For every configuration, the processed inventory reports `n_observed`,
 `n_submitted`, `n_positive_commit`, `n_zero_commit`, `n_no_submission`,
 `n_inconsistent`, and metric-specific valid counts. Of the 300 six-workload
 configurations, 231 contain at least nine positive-commit runs and can enter the
-later balanced sensitivity analysis. The corresponding count is 129 of 150 in
-the legacy three-workload subset.
+balanced sensitivity analysis with at least nine positive-commit observations.
+The corresponding count is 129 of 150 in the legacy three-workload subset.
+
+### Balanced observed-run sensitivity
+
+`analysis/balanced_sensitivity.py` compares the all-observed primary analysis
+with a balanced design based only on released rows. Using seed `20260830`, it
+performs 5,000 repetitions. Each repetition samples nine observed executions
+from every configuration without replacement. Because sampling is performed
+before outcome classification and metric filtering, each configuration has
+exactly nine observed rows but may have fewer than nine positive-commit, TPS,
+or latency observations. This preserves the distinction between outcome
+incidence and conditional performance.
+
+The sensitivity output reports the primary estimate and the median, 2.5th
+percentile, and 97.5th percentile across balanced repetitions for
+configuration-level statistics, factor-conditioned means and medians, and
+dataset-wide extrema. A separate denominator table reports the sampled outcome
+and metric-valid counts. The procedure creates no synthetic data and leaves the
+released CSV files unchanged.
 
 ## Metrics and transformations
 
@@ -160,6 +178,22 @@ python3 analysis/derive_run_outcomes.py
 
 creates `outputs/revision/m2_outcomes/run_outcomes.csv`,
 `configuration_outcome_counts.csv`, and `outcome_summary.json`. Running:
+
+```bash
+python3 analysis/compute_corrected_dispersion.py
+```
+
+creates `outputs/revision/m3_dispersion/configuration_metric_statistics.csv`
+and `dispersion_summary.json`. Running:
+
+```bash
+python3 analysis/balanced_sensitivity.py
+```
+
+creates `outputs/revision/balanced_n9/balanced_sensitivity_summary.json` and
+the `configuration_sensitivity.csv`, `denominator_sensitivity.csv`,
+`factor_sensitivity.csv`, and `extrema_sensitivity.csv` comparison tables.
+Running:
 
 ```bash
 python3 analysis/plot_reproducibility.py
