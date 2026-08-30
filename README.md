@@ -37,6 +37,7 @@ The archival record is available through the stable Zenodo concept DOI:
 ├── analysis/
 │   ├── audit_observed_runs.py
 │   ├── balanced_sensitivity.py
+│   ├── bootstrap_dispersion_tables.py
 │   ├── compute_corrected_dispersion.py
 │   ├── derive_run_outcomes.py
 │   └── plot_reproducibility.py
@@ -56,6 +57,7 @@ The archival record is available through the stable Zenodo concept DOI:
 └── tests/
     ├── test_audit_observed_runs.py
     ├── test_balanced_sensitivity.py
+    ├── test_bootstrap_dispersion_tables.py
     ├── test_compute_corrected_dispersion.py
     └── test_derive_run_outcomes.py
 ```
@@ -78,6 +80,9 @@ The archival record is available through the stable Zenodo concept DOI:
   observed executions per configuration without replacement. Sampling occurs
   before outcome and metric eligibility checks, so the corresponding
   denominators remain explicit rather than being forced to nine.
+- `analysis/bootstrap_dispersion_tables.py` resamples metric-eligible executions
+  within configurations, propagates percentile intervals to unweighted means
+  and medians across configuration cells, and writes standalone LaTeX tables.
 - `outputs/` is populated when the analysis or audit is run.
 
 ## Experimental matrix
@@ -107,6 +112,7 @@ python3 -m pip install -r requirements.txt
 python3 analysis/derive_run_outcomes.py
 python3 analysis/compute_corrected_dispersion.py
 python3 analysis/balanced_sensitivity.py
+python3 analysis/bootstrap_dispersion_tables.py
 ```
 
 The script can be launched from any working directory because input and output
@@ -119,6 +125,7 @@ python3 analysis/audit_observed_runs.py
 python3 analysis/derive_run_outcomes.py
 python3 analysis/compute_corrected_dispersion.py
 python3 analysis/balanced_sensitivity.py
+python3 analysis/bootstrap_dispersion_tables.py
 python3 -m unittest discover -s tests -v
 ```
 
@@ -188,6 +195,18 @@ without replacement and only then applies the derived outcome and
 metric-eligibility masks. It writes configuration-, factor-, denominator-, and
 extrema-level comparisons to `outputs/revision/balanced_n9/`. The raw datasets
 are never modified and no synthetic row is created.
+
+M4/M7 uncertainty is computed separately from the balanced sensitivity.
+`bootstrap_dispersion_tables.py` uses 5,000 within-configuration bootstrap
+replicates and seed `20260831`. For each metric/configuration cell, it resamples
+the metric-eligible executions with replacement at their original count,
+recomputes IQR% and sample-Std%, and propagates the replicates to both the
+unweighted mean and median across cells. It reports 95% percentile intervals,
+the number of contributing configuration cells, total metric observations, and
+the metric-specific run-count range. Cells with fewer than two eligible values
+do not contribute a dispersion estimate. The script writes machine-readable
+CSV files and 18 standalone LaTeX tables: nine for the six-workload corpus and
+nine for the legacy three-workload subset.
 
 ## Documentation
 

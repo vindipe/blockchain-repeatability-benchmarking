@@ -138,6 +138,32 @@ dataset-wide extrema. A separate denominator table reports the sampled outcome
 and metric-valid counts. The procedure creates no synthetic data and leaves the
 released CSV files unchanged.
 
+### Bootstrap uncertainty and generated tables (M4/M7)
+
+`analysis/bootstrap_dispersion_tables.py` quantifies uncertainty in the
+configuration-level IQR% and sample-Std% estimates. Its resampling unit is one
+metric-eligible observed execution within a fixed configuration. Each
+configuration is resampled with replacement at its original metric-specific
+count for 5,000 repetitions using seed `20260831`. This differs from the
+balanced sensitivity: the bootstrap preserves each cell's observed eligible
+count and estimates sampling uncertainty, whereas the balanced analysis draws
+nine observed rows to assess design imbalance.
+
+For every bootstrap repetition, configuration-level IQR% and sample-Std% are
+aggregated over the remaining factorial dimensions by both the unweighted mean
+and the median. The reported 95% intervals are the 2.5th and 97.5th percentiles
+of those propagated aggregate estimates. A configuration requires at least two
+metric-eligible observations to contribute a dispersion estimate. Every table
+row reports the number of contributing configuration cells, their total metric
+observations, and the minimum--maximum metric-specific count.
+
+The script produces separate topology-, workload-, and validator-set tables for
+TPS, latency, and all-observed energy. It writes one complete set for all six
+workloads and a second diagnostic set for the legacy GAFAM/PayPal/VISA subset.
+Each `.tex` file is a complete, generated `table*` environment intended for
+manuscript inclusion through `\input`; numerical entries are never maintained
+manually in the paper source.
+
 ## Metrics and transformations
 
 The script:
@@ -194,6 +220,15 @@ creates `outputs/revision/balanced_n9/balanced_sensitivity_summary.json` and
 the `configuration_sensitivity.csv`, `denominator_sensitivity.csv`,
 `factor_sensitivity.csv`, and `extrema_sensitivity.csv` comparison tables.
 Running:
+
+```bash
+python3 analysis/bootstrap_dispersion_tables.py
+```
+
+creates `outputs/revision/m4_bootstrap/bootstrap_summary.json`,
+`configuration_bootstrap_intervals.csv`, `factor_bootstrap_summary.csv`, and
+standalone LaTeX tables below the `six_workloads/tables/` and
+`legacy_three_workloads/tables/` subdirectories. Running:
 
 ```bash
 python3 analysis/plot_reproducibility.py
