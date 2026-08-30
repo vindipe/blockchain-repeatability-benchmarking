@@ -57,6 +57,14 @@ class BootstrapDispersionTableTests(unittest.TestCase):
             self.assertIn("Auto-generated", latex)
             self.assertIn(r"\begin{table*}[t]", latex)
             self.assertIn(r"\label{tab:repeatability_topology_tps}", latex)
+            legacy_latex = (
+                output
+                / "legacy_three_workloads"
+                / "table_topology_tps.tex"
+            ).read_text(encoding="utf-8")
+            self.assertIn(
+                r"\label{tab:repeatability_topology_tps}", legacy_latex
+            )
 
             factor = pd.read_csv(output / "factor_bootstrap_summary.csv")
             defined = factor["contributing_configuration_cells"] > 0
