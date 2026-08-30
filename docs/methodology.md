@@ -88,8 +88,30 @@ network traffic remain valid observed measurements when their stored values are
 finite and non-negative, regardless of commit outcome. An additional
 positive-commit energy mask supports direct alignment with TPS and latency.
 Seven positive-commit rows have stored TPS equal to `0.0`; they remain valid at
-M2 because the value is a precision issue, not evidence of failure. M3
-recomputes TPS before performance statistics are regenerated.
+the outcome level because TPS is not used to classify a run. Diablo computed
+TPS as the committed count divided by its last observed event time, then
+printed one decimal place. The released CSV preserves the rounded TPS but not
+that last-event time, and the Zenodo archive contains no raw `results.json` from
+which it could be recovered. M3 therefore treats these seven TPS measurements
+as left-censored (`0 < TPS < 0.05`) and excludes them only from point-valued TPS
+statistics. It does not substitute a workload duration, because that would
+change Diablo's metric rather than recover its missing precision.
+
+### M3 symmetric dispersion
+
+For every configuration/metric pair, M3 applies one eligibility mask to the
+mean, minimum, maximum, quartiles, sample standard deviation, and every derived
+deviation. For an eligible value `y` and its configuration mean `m`, the signed
+deviation is `y - m` and the signed relative deviation is
+`100 * (y - m) / m`. Negative deviations denote observations below the mean;
+they are not negative physical measurements. For non-negative observations the
+implementation checks the lower bound of `-100%` and the upper bound of
+`100(n-1)%`.
+
+The sample standard deviation uses `pandas.Series.std(ddof=1)`, corresponding
+to a denominator of `n-1`, and is reported only for `n >= 2`. M3 produces both
+all-observed and positive-commit energy views, while TPS and latency use their
+positive-commit point-valid masks.
 
 For every configuration, the processed inventory reports `n_observed`,
 `n_submitted`, `n_positive_commit`, `n_zero_commit`, `n_no_submission`,

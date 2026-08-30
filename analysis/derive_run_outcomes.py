@@ -74,6 +74,8 @@ DERIVED_FLAG_COLUMNS = (
     "no_submission_derived",
     "inconsistent_derived",
     "tps_valid_positive_commit",
+    "tps_censored_positive_commit",
+    "tps_point_valid_positive_commit",
     "latency_valid_positive_commit",
     "energy_valid_observed",
     "energy_valid_positive_commit",
@@ -145,10 +147,18 @@ def derive_outcomes(selected: pd.DataFrame) -> pd.DataFrame:
         & (derived["MiB-Tx"] >= 0)
     )
 
-    # A stored TPS value of 0.0 remains eligible when commit_number > 0.  Seven
-    # such rows exist because the released TPS field is rounded; M3 recomputes
-    # TPS at full precision rather than reclassifying those executions.
+    # A stored TPS value of 0.0 remains a positive-commit TPS observation, but
+    # it is left-censored by Diablo's one-decimal textual export.  The released
+    # artifact does not retain Diablo's last-event time, so these values cannot
+    # be reconstructed as exact point estimates.  M3 excludes them only from
+    # point-valued TPS statistics; it never reclassifies their run outcome.
     derived["tps_valid_positive_commit"] = positive_commit & throughput_available
+    derived["tps_censored_positive_commit"] = (
+        positive_commit & throughput_available & (derived["average_throughput"] == 0)
+    )
+    derived["tps_point_valid_positive_commit"] = (
+        positive_commit & throughput_available & (derived["average_throughput"] > 0)
+    )
     derived["latency_valid_positive_commit"] = positive_commit & latency_available
     derived["energy_valid_observed"] = energy_available
     derived["energy_valid_positive_commit"] = positive_commit & energy_available
@@ -176,6 +186,8 @@ def configuration_outcome_counts(derived: pd.DataFrame) -> pd.DataFrame:
             n_no_submission=("no_submission_derived", "sum"),
             n_inconsistent=("inconsistent_derived", "sum"),
             n_tps_valid=("tps_valid_positive_commit", "sum"),
+            n_tps_censored=("tps_censored_positive_commit", "sum"),
+            n_tps_point_valid=("tps_point_valid_positive_commit", "sum"),
             n_latency_valid=("latency_valid_positive_commit", "sum"),
             n_energy_valid_observed=("energy_valid_observed", "sum"),
             n_energy_valid_positive_commit=(

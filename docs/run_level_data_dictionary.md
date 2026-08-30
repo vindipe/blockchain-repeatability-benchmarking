@@ -20,7 +20,7 @@ by the benchmark pipeline.
 | `commit_number` | Number of committed transactions. Zero values are preserved. |
 | `abort_number` | Number of aborted transactions. |
 | `average_load` | Average offered workload reported by the benchmark pipeline. |
-| `average_throughput` | Average committed throughput in transactions per second. |
+| `average_throughput` | Average committed throughput in transactions per second exported by Diablo with one decimal place. A stored zero with `commit_number > 0` is a left-censored positive TPS, not a true zero-throughput outcome. |
 | `average_latency` | Average transaction latency in seconds. |
 | `median_latency` | Median transaction latency in seconds. |
 | `start_bench` | Benchmark start timestamp. |

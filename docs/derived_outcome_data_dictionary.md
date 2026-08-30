@@ -23,7 +23,9 @@ deployment or execution failure from the absence of committed transactions.
 
 | Field | Definition |
 |---|---|
-| `tps_valid_positive_commit` | Positive-commit outcome and finite, non-negative stored TPS. A stored `0.0` is retained pending the full-precision M3 recomputation. |
+| `tps_valid_positive_commit` | Positive-commit outcome and finite, non-negative stored TPS, including left-censored stored zeros. |
+| `tps_censored_positive_commit` | Positive-commit outcome with stored TPS `0.0`; Diablo's one-decimal export implies `0 < TPS < 0.05`, but the exact value is not recoverable from the released files. |
+| `tps_point_valid_positive_commit` | Positive-commit outcome with a finite stored TPS strictly greater than zero; this is the M3 eligibility mask for point-valued TPS statistics. |
 | `latency_valid_positive_commit` | Positive-commit outcome and finite, strictly positive average block latency. |
 | `energy_valid_observed` | Finite, non-negative energy measurement, independent of commit outcome. |
 | `energy_valid_positive_commit` | `energy_valid_observed` restricted to positive-commit outcomes. |

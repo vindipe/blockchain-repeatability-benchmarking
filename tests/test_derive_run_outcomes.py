@@ -92,6 +92,8 @@ class RunOutcomeDerivationTests(unittest.TestCase):
             full["metric_valid_counts"],
             {
                 "tps_valid_positive_commit": 3125,
+                "tps_censored_positive_commit": 7,
+                "tps_point_valid_positive_commit": 3118,
                 "latency_valid_positive_commit": 3125,
                 "energy_valid_observed": 4080,
                 "energy_valid_positive_commit": 3125,
@@ -100,11 +102,13 @@ class RunOutcomeDerivationTests(unittest.TestCase):
         )
         self.assertEqual(full["positive_commit_with_stored_tps_zero"], 7)
 
-    def test_positive_commit_with_rounded_zero_tps_remains_valid(self) -> None:
+    def test_positive_commit_with_rounded_zero_tps_is_censored(self) -> None:
         row = synthetic_row(commit_number=1, average_throughput=0.0)
         derived = derive_outcomes(pd.DataFrame([row])).iloc[0]
         self.assertEqual(derived["outcome_status_derived"], "positive_commit")
         self.assertTrue(derived["tps_valid_positive_commit"])
+        self.assertTrue(derived["tps_censored_positive_commit"])
+        self.assertFalse(derived["tps_point_valid_positive_commit"])
         self.assertTrue(derived["latency_valid_positive_commit"])
 
     def test_zero_commit_keeps_energy_and_network_but_not_performance(self) -> None:

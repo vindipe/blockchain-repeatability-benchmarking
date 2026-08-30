@@ -36,6 +36,7 @@ The archival record is available through the stable Zenodo concept DOI:
 ├── requirements.txt
 ├── analysis/
 │   ├── audit_observed_runs.py
+│   ├── compute_corrected_dispersion.py
 │   ├── derive_run_outcomes.py
 │   └── plot_reproducibility.py
 ├── dataset/
@@ -53,6 +54,7 @@ The archival record is available through the stable Zenodo concept DOI:
 │   └── .gitkeep
 └── tests/
     ├── test_audit_observed_runs.py
+    ├── test_compute_corrected_dispersion.py
     └── test_derive_run_outcomes.py
 ```
 
@@ -67,6 +69,9 @@ The archival record is available through the stable Zenodo concept DOI:
   statistics.
 - `analysis/derive_run_outcomes.py` derives observable execution states and
   metric-specific validity masks without inferring failures from absent logs.
+- `analysis/compute_corrected_dispersion.py` applies those masks symmetrically
+  to means, extrema, quartiles, sample standard deviations, and signed
+  deviations.
 - `outputs/` is populated when the analysis or audit is run.
 
 ## Experimental matrix
@@ -93,7 +98,8 @@ Python 3.12 was used for the validation recorded in this release.
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install -r requirements.txt
-python3 analysis/plot_reproducibility.py
+python3 analysis/derive_run_outcomes.py
+python3 analysis/compute_corrected_dispersion.py
 ```
 
 The script can be launched from any working directory because input and output
@@ -104,10 +110,12 @@ Audit the observed design and run its regression tests with:
 ```bash
 python3 analysis/audit_observed_runs.py
 python3 analysis/derive_run_outcomes.py
+python3 analysis/compute_corrected_dispersion.py
 python3 -m unittest discover -s tests -v
 ```
 
-The plotting script writes:
+The legacy plotting script remains available to reproduce the earlier released
+outputs, but it is not the source of corrected M3 results. It writes:
 
 - `outputs/reproducibility-dataset.csv`;
 - six LaTeX tables, including the repeatability summaries and ANOVA/ICC table;
@@ -150,8 +158,20 @@ technical failure because deployment and execution logs are not available.
 Throughput and block latency are valid for conditional performance analysis
 only when a positive commit is observed. Energy and network measurements remain
 available for all 4,080 selected executions, including zero-commit and
-no-submission outcomes. Seven positive-commit rows whose stored TPS is `0.0`
-remain eligible; their full-precision TPS is recomputed in M3.
+no-submission outcomes. Seven positive-commit rows have stored TPS equal to
+`0.0` because Diablo exported TPS with one decimal place. The released files do
+not contain Diablo's last-event time, so the exact positive value cannot be
+reconstructed. M3 retains these runs as positive-commit outcomes, labels their
+TPS as left-censored (`0 < TPS < 0.05`), and excludes only those seven TPS
+values from point-valued dispersion statistics.
+
+M3 writes a long-form table with one row per configuration and metric to
+`outputs/revision/m3_dispersion/configuration_metric_statistics.csv`. Every
+statistic in a row uses the same eligibility mask. Signed relative deviations
+are `100 * (y - mean) / mean`; the implementation verifies the `-100%` lower
+bound and the `100(n-1)%` upper bound for non-negative observations. Sample
+standard deviation is computed with `ddof=1` and is undefined when fewer than
+two metric values are available.
 
 ## Documentation
 
