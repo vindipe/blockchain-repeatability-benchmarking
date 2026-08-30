@@ -63,3 +63,8 @@ hashes can contain partial run sequences, configuration-level `n_observed`
 ranges from 9 to 26 even though the within-campaign `run` field ranges from 1 to
 10. The hash is retained for auditability, not used to define a treatment or an
 evidence level.
+
+Outcome states and metric-specific validity are not encoded in the raw file.
+They are added by `analysis/derive_run_outcomes.py` to a separate processed
+output documented in
+[`derived_outcome_data_dictionary.md`](derived_outcome_data_dictionary.md).

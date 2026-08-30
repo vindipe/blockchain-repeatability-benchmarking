@@ -22,6 +22,11 @@ from 9 to 26; they are not a balanced ten-run design. See
 for the schema and [`../docs/methodology.md`](../docs/methodology.md) for the
 selection performed by the analysis script.
 
+The raw CSV is immutable. M2 writes a separate processed copy under
+`outputs/revision/m2_outcomes/`, adding derived outcome states and
+metric-specific validity flags documented in
+[`../docs/derived_outcome_data_dictionary.md`](../docs/derived_outcome_data_dictionary.md).
+
 ## `reproducibility-dataset.csv`
 
 This is the 300-row, 50-column aggregate dataset published in the preceding

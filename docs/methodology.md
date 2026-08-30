@@ -43,9 +43,9 @@ dataset, link_strategy, network_size, dynamic
 
 It therefore does not use `hash` or `run` as grouping keys. Rows with
 `commit_number == 0` are preserved and are not removed before the
-configuration-level statistics are computed. This release documents and
-reproduces that behavior without adding a new campaign-selection manifest or
-new outcome-state reconstruction.
+configuration-level statistics in the original plotting script. The revised
+pipeline retains that script for provenance and implements outcome-state
+reconstruction in a separate preprocessing stage.
 
 ## Observed-design audit (M1)
 
@@ -62,6 +62,41 @@ synthetic rows or force a ten-run eligibility rule. A later balanced sensitivity
 analysis will repeatedly sample nine eligible real runs per configuration after
 the metric-specific eligibility masks are defined. That later step is outside
 M1 and is intentionally not implemented by this audit.
+
+## Observable outcome states and eligibility (M2)
+
+`analysis/derive_run_outcomes.py` classifies each selected row using only the
+released transaction counters. The mutually exclusive states are:
+
+- `positive_commit`: `submit_number > 0` and `commit_number > 0`;
+- `zero_commit`: `submit_number > 0` and `commit_number == 0`;
+- `no_submission`: both counters are zero;
+- `inconsistent`: missing, negative, non-integral, or contradictory counters,
+  including `commit_number > submit_number`.
+
+No row is labelled as a deployment or execution failure because the released
+artifact does not contain the logs required to support that diagnosis. The
+selected corpus contains 3,125 positive-commit executions, 953 zero-commit
+executions, two no-submission executions, and no inconsistent rows. At
+configuration level, 205 cells contain only positive commits, 46 have mixed
+outcomes, and 49 contain no positive-commit execution.
+
+Metric validity is separate from outcome classification. TPS and block latency
+enter conditional performance distributions only for positive-commit runs;
+block latency is structurally undefined when no block is committed. Energy and
+network traffic remain valid observed measurements when their stored values are
+finite and non-negative, regardless of commit outcome. An additional
+positive-commit energy mask supports direct alignment with TPS and latency.
+Seven positive-commit rows have stored TPS equal to `0.0`; they remain valid at
+M2 because the value is a precision issue, not evidence of failure. M3
+recomputes TPS before performance statistics are regenerated.
+
+For every configuration, the processed inventory reports `n_observed`,
+`n_submitted`, `n_positive_commit`, `n_zero_commit`, `n_no_submission`,
+`n_inconsistent`, and metric-specific valid counts. Of the 300 six-workload
+configurations, 231 contain at least nine positive-commit runs and can enter the
+later balanced sensitivity analysis. The corresponding count is 129 of 150 in
+the legacy three-workload subset.
 
 ## Metrics and transformations
 
@@ -96,6 +131,13 @@ python3 analysis/audit_observed_runs.py
 
 creates `outputs/revision/m1_observed_design/audit_summary.json`,
 `configuration_inventory.csv`, and `campaign_inventory.csv`. Running:
+
+```bash
+python3 analysis/derive_run_outcomes.py
+```
+
+creates `outputs/revision/m2_outcomes/run_outcomes.csv`,
+`configuration_outcome_counts.csv`, and `outcome_summary.json`. Running:
 
 ```bash
 python3 analysis/plot_reproducibility.py

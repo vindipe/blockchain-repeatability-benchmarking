@@ -36,6 +36,7 @@ The archival record is available through the stable Zenodo concept DOI:
 ├── requirements.txt
 ├── analysis/
 │   ├── audit_observed_runs.py
+│   ├── derive_run_outcomes.py
 │   └── plot_reproducibility.py
 ├── dataset/
 │   ├── README.md
@@ -44,13 +45,15 @@ The archival record is available through the stable Zenodo concept DOI:
 ├── docs/
 │   ├── README-ACM-DLT.md
 │   ├── data_dictionary.md
+│   ├── derived_outcome_data_dictionary.md
 │   ├── methodology.md
 │   ├── provenance.md
 │   └── run_level_data_dictionary.md
 ├── outputs/
 │   └── .gitkeep
 └── tests/
-    └── test_audit_observed_runs.py
+    ├── test_audit_observed_runs.py
+    └── test_derive_run_outcomes.py
 ```
 
 - `dataset/reproducibility-runs.csv` contains 4,105 repeated-execution
@@ -62,6 +65,8 @@ The archival record is available through the stable Zenodo concept DOI:
 - `analysis/audit_observed_runs.py` inventories the observed configuration and
   campaign structure without classifying outcomes or computing performance
   statistics.
+- `analysis/derive_run_outcomes.py` derives observable execution states and
+  metric-specific validity masks without inferring failures from absent logs.
 - `outputs/` is populated when the analysis or audit is run.
 
 ## Experimental matrix
@@ -98,6 +103,7 @@ Audit the observed design and run its regression tests with:
 
 ```bash
 python3 analysis/audit_observed_runs.py
+python3 analysis/derive_run_outcomes.py
 python3 -m unittest discover -s tests -v
 ```
 
@@ -133,11 +139,19 @@ manifest is available, the artifact reports observed rather than scheduled
 attempt counts. No observations are synthesized or discarded to force a fixed
 cell size.
 
-The raw `hash` column identifies benchmark campaigns. The published analysis
-does not use `hash` as a grouping key and does not remove CSV rows with
-`commit_number == 0` before configuration-level aggregation. These choices are
-documented here to reproduce the supplied script exactly; no new campaign
-selection or outcome-state reconstruction has been introduced in this release.
+The raw `hash` column identifies benchmark campaigns. The original plotting
+script does not use `hash` as a grouping key and does not remove CSV rows with
+`commit_number == 0` before configuration-level aggregation. M2 adds a separate
+derived layer rather than overwriting that script or either released CSV. It
+classifies 3,125 positive-commit executions, 953 submitted zero-commit
+executions, and two no-submission executions. It does not label any row as a
+technical failure because deployment and execution logs are not available.
+
+Throughput and block latency are valid for conditional performance analysis
+only when a positive commit is observed. Energy and network measurements remain
+available for all 4,080 selected executions, including zero-commit and
+no-submission outcomes. Seven positive-commit rows whose stored TPS is `0.0`
+remain eligible; their full-precision TPS is recomputed in M3.
 
 ## Documentation
 
@@ -146,6 +160,8 @@ selection or outcome-state reconstruction has been introduced in this release.
   schema.
 - [`docs/run_level_data_dictionary.md`](docs/run_level_data_dictionary.md)
   documents the repeated-execution schema.
+- [`docs/derived_outcome_data_dictionary.md`](docs/derived_outcome_data_dictionary.md)
+  documents the M2 status and metric-validity fields.
 - [`docs/methodology.md`](docs/methodology.md) describes the implemented
   selection, observed-design audit, and analysis flow.
 - [`docs/provenance.md`](docs/provenance.md) records source files and checksums.
