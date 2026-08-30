@@ -5,9 +5,9 @@ by the benchmark pipeline.
 
 | Column | Meaning |
 |---|---|
-| `hash` | Identifier of the benchmark campaign/export group. |
+| `hash` | Technical provenance identifier of the benchmark campaign/export group; it is not an experimental factor. |
 | `workload` | Raw workload identifier (`10000`, `dota`, `football`, `gafam`, `paypal`, or `visa`). |
-| `run` | Run number within the supplied campaign data; values range from 1 to 10. |
+| `run` | Run number within the supplied campaign data; values range from 1 to 10 and are not global replicate identifiers. |
 | `mode` | Raw controlled-topology label. The analysis removes a terminal `-l` suffix and maps `full-mesh` to `full mesh`. |
 | `dataset` | Workload-source identifier. `diablo` is mapped to `2023`; `our` is mapped to `2024`. |
 | `link_strategy` | Network-link strategy; the analysis selects `hop`. |
@@ -55,3 +55,11 @@ fixed experimental filters are applied, the script groups observations by the
 configuration fields documented in `methodology.md`. It does not include
 `hash` or `run` in the grouping key and does not remove zero-commit rows before
 aggregation.
+
+The M1 audit verifies that all `(hash, run)` pairs are unique and that each of
+the 1,006 selected campaign hashes is nested in exactly one configuration. Each
+configuration contains observations from two to six hashes. Because campaign
+hashes can contain partial run sequences, configuration-level `n_observed`
+ranges from 9 to 26 even though the within-campaign `run` field ranges from 1 to
+10. The hash is retained for auditability, not used to define a treatment or an
+evidence level.

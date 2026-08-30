@@ -26,9 +26,12 @@ ram           = 16
 dynamic       = 0
 ```
 
-This selects 4,080 rows spanning 300 nominal blockchain-topology-workload-size
-configurations. The three primary IEEE Access workloads (GAFAM, PayPal, and
-VISA) contain 2,053 selected rows spanning 150 nominal configurations.
+This selects 4,080 observed executions spanning 300
+blockchain-topology-workload-size configurations. Configuration-level counts
+range from 9 to 26, and only four configurations contain exactly 10
+observations. The legacy GAFAM, PayPal, and VISA subset contains 2,053 observed
+executions across 150 configurations; only two of those configurations contain
+exactly 10 observations.
 
 The raw `hash` column identifies benchmark campaigns. The supplied analysis
 groups all selected observations by:
@@ -43,6 +46,22 @@ It therefore does not use `hash` or `run` as grouping keys. Rows with
 configuration-level statistics are computed. This release documents and
 reproduces that behavior without adding a new campaign-selection manifest or
 new outcome-state reconstruction.
+
+## Observed-design audit (M1)
+
+`analysis/audit_observed_runs.py` treats each selected CSV row as an observed
+execution and reports its configuration and campaign provenance. It verifies
+that `(hash, run)` pairs are unique and that every campaign hash is nested in a
+single configuration. In the selected corpus, 1,006 campaign hashes contribute
+to the 300 configurations, with two to six hashes per configuration.
+
+No complete manifest is available from which a scheduled-attempt count can be
+reconstructed. The primary M1 design therefore retains all real observed
+executions and reports `n_observed` for every configuration; it does not create
+synthetic rows or force a ten-run eligibility rule. A later balanced sensitivity
+analysis will repeatedly sample nine eligible real runs per configuration after
+the metric-specific eligibility masks are defined. That later step is outside
+M1 and is intentionally not implemented by this audit.
 
 ## Metrics and transformations
 
@@ -72,7 +91,14 @@ implemented condition is not satisfied.
 Running:
 
 ```bash
-python analysis/plot_reproducibility.py
+python3 analysis/audit_observed_runs.py
+```
+
+creates `outputs/revision/m1_observed_design/audit_summary.json`,
+`configuration_inventory.csv`, and `campaign_inventory.csv`. Running:
+
+```bash
+python3 analysis/plot_reproducibility.py
 ```
 
 creates `outputs/reproducibility-dataset.csv`, six LaTeX tables, and twelve

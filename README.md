@@ -35,6 +35,7 @@ The archival record is available through the stable Zenodo concept DOI:
 ├── LICENSE
 ├── requirements.txt
 ├── analysis/
+│   ├── audit_observed_runs.py
 │   └── plot_reproducibility.py
 ├── dataset/
 │   ├── README.md
@@ -46,8 +47,10 @@ The archival record is available through the stable Zenodo concept DOI:
 │   ├── methodology.md
 │   ├── provenance.md
 │   └── run_level_data_dictionary.md
-└── outputs/
-    └── .gitkeep
+├── outputs/
+│   └── .gitkeep
+└── tests/
+    └── test_audit_observed_runs.py
 ```
 
 - `dataset/reproducibility-runs.csv` contains 4,105 repeated-execution
@@ -56,7 +59,10 @@ The archival record is available through the stable Zenodo concept DOI:
   dataset with 300 configurations and 50 columns.
 - `analysis/plot_reproducibility.py` is the analysis script used to aggregate
   the repeated observations and generate the paper tables and figures.
-- `outputs/` is populated when the analysis is run.
+- `analysis/audit_observed_runs.py` inventories the observed configuration and
+  campaign structure without classifying outcomes or computing performance
+  statistics.
+- `outputs/` is populated when the analysis or audit is run.
 
 ## Experimental matrix
 
@@ -68,9 +74,11 @@ The released measurements cover:
 - two validator-set sizes: 10 and 40 nodes;
 - throughput, latency, energy, and committed-transaction measurements.
 
-The IEEE Access analysis focuses on GAFAM, PayPal, and VISA. The script also
-retains the three additional workloads used by the broader ACM DLT artifact and
-generates separate figures for them.
+The released corpus contains all six workloads. The current plotting script
+retains the earlier GAFAM, PayPal, and VISA summaries and generates separate
+figures for the other three workloads. The M1 audit reports both the complete
+six-workload corpus and that legacy three-workload subset so that their scopes
+cannot be confused.
 
 ## Reproduce the analysis
 
@@ -86,13 +94,20 @@ python3 analysis/plot_reproducibility.py
 The script can be launched from any working directory because input and output
 paths are resolved relative to the repository.
 
-It writes:
+Audit the observed design and run its regression tests with:
+
+```bash
+python3 analysis/audit_observed_runs.py
+python3 -m unittest discover -s tests -v
+```
+
+The plotting script writes:
 
 - `outputs/reproducibility-dataset.csv`;
 - six LaTeX tables, including the repeatability summaries and ANOVA/ICC table;
 - twelve figure variants, each in PNG and PDF format.
 
-## Preserved analysis behavior
+## Current analysis and observed-design audit
 
 The scientific selection and aggregation logic of the analysis script has been
 preserved. It:
@@ -108,6 +123,16 @@ preserved. It:
    and ICC;
 6. uses GAFAM, PayPal, and VISA for the primary IEEE Access summaries.
 
+The separate M1 audit applies the same fixed filters and verifies the design
+before any outcome or metric processing. It finds 4,080 observed executions in
+300 six-workload configurations, with configuration-level counts from 9 to 26;
+only four configurations contain exactly 10 observations. The legacy
+three-workload subset contains 2,053 observations in 150 configurations, of
+which only two contain exactly 10 observations. Because no complete scheduling
+manifest is available, the artifact reports observed rather than scheduled
+attempt counts. No observations are synthesized or discarded to force a fixed
+cell size.
+
 The raw `hash` column identifies benchmark campaigns. The published analysis
 does not use `hash` as a grouping key and does not remove CSV rows with
 `commit_number == 0` before configuration-level aggregation. These choices are
@@ -122,7 +147,7 @@ selection or outcome-state reconstruction has been introduced in this release.
 - [`docs/run_level_data_dictionary.md`](docs/run_level_data_dictionary.md)
   documents the repeated-execution schema.
 - [`docs/methodology.md`](docs/methodology.md) describes the implemented
-  selection and analysis flow.
+  selection, observed-design audit, and analysis flow.
 - [`docs/provenance.md`](docs/provenance.md) records source files and checksums.
 
 ## Repeating the experiments
