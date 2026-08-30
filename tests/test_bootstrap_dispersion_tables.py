@@ -51,7 +51,6 @@ class BootstrapDispersionTableTests(unittest.TestCase):
             table_path = (
                 output
                 / "six_workloads"
-                / "tables"
                 / "table_topology_tps.tex"
             )
             latex = table_path.read_text(encoding="utf-8")

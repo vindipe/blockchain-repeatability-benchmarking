@@ -54,6 +54,9 @@ The archival record is available through the stable Zenodo concept DOI:
 │   └── run_level_data_dictionary.md
 ├── outputs/
 │   └── .gitkeep
+├── paper_tables/
+│   ├── six_workloads/
+│   └── legacy_three_workloads/
 └── tests/
     ├── test_audit_observed_runs.py
     ├── test_balanced_sensitivity.py
@@ -206,7 +209,10 @@ the number of contributing configuration cells, total metric observations, and
 the metric-specific run-count range. Cells with fewer than two eligible values
 do not contribute a dispersion estimate. The script writes machine-readable
 CSV files and 18 standalone LaTeX tables: nine for the six-workload corpus and
-nine for the legacy three-workload subset.
+nine for the legacy three-workload subset. The current generated versions are
+tracked under `paper_tables/` so that the manuscript consumes exact script
+output rather than manually transcribed values; rerunning the script replaces
+those files deterministically.
 
 ## Documentation
 

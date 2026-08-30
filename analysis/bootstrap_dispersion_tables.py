@@ -54,6 +54,7 @@ except ImportError:  # Direct execution
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT_DIR = REPOSITORY_ROOT / "outputs" / "revision" / "m4_bootstrap"
+DEFAULT_TABLE_DIR = REPOSITORY_ROOT / "paper_tables"
 DEFAULT_REPETITIONS = 5_000
 DEFAULT_SEED = 20260831
 INTERVAL_LOWER = 0.025
@@ -423,6 +424,7 @@ def run_bootstrap(
     output_dir: Path | None,
     repetitions: int = DEFAULT_REPETITIONS,
     seed: int = DEFAULT_SEED,
+    table_dir: Path | None = None,
 ) -> dict[str, object]:
     if repetitions < 1:
         raise ValueError("repetitions must be positive")
@@ -473,13 +475,15 @@ def run_bootstrap(
             output_dir / "configuration_bootstrap_intervals.csv", index=False
         )
         factor_table.to_csv(output_dir / "factor_bootstrap_summary.csv", index=False)
+    latex_root = table_dir if table_dir is not None else output_dir
+    if latex_root is not None:
         for scope in ("six_workloads", "legacy_three_workloads"):
-            table_dir = output_dir / scope / "tables"
-            table_dir.mkdir(parents=True, exist_ok=True)
+            scope_table_dir = latex_root / scope
+            scope_table_dir.mkdir(parents=True, exist_ok=True)
             for factor_name in FACTOR_SPECS:
                 for metric_name in TABLE_METRIC_NAMES:
                     filename = f"table_{factor_name}_{metric_name.split('_')[0]}.tex"
-                    path = table_dir / filename
+                    path = scope_table_dir / filename
                     path.write_text(
                         render_latex_table(
                             factor_table,
@@ -491,7 +495,11 @@ def run_bootstrap(
                         ),
                         encoding="utf-8",
                     )
-                    generated_tables.append(path.relative_to(output_dir).as_posix())
+                    try:
+                        displayed = path.relative_to(REPOSITORY_ROOT)
+                    except ValueError:
+                        displayed = path
+                    generated_tables.append(displayed.as_posix())
 
     summary = {
         "method": {
@@ -519,6 +527,12 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    parser.add_argument(
+        "--table-dir",
+        type=Path,
+        default=DEFAULT_TABLE_DIR,
+        help="Directory for standalone manuscript table files.",
+    )
     parser.add_argument("--repetitions", type=int, default=DEFAULT_REPETITIONS)
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
     return parser.parse_args(argv)
@@ -527,7 +541,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     summary = run_bootstrap(
-        args.input, args.output_dir, args.repetitions, args.seed
+        args.input,
+        args.output_dir,
+        args.repetitions,
+        args.seed,
+        table_dir=args.table_dir,
     )
     print(json.dumps(summary, indent=2, sort_keys=True))
     return 0

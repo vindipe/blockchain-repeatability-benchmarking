@@ -162,7 +162,9 @@ TPS, latency, and all-observed energy. It writes one complete set for all six
 workloads and a second diagnostic set for the legacy GAFAM/PayPal/VISA subset.
 Each `.tex` file is a complete, generated `table*` environment intended for
 manuscript inclusion through `\input`; numerical entries are never maintained
-manually in the paper source.
+manually in the paper source. Machine-readable outputs remain below
+`outputs/revision/m4_bootstrap/`, while the manuscript-ready generated tables
+are tracked below `paper_tables/` and are deterministically replaced on rerun.
 
 ## Metrics and transformations
 
@@ -227,8 +229,8 @@ python3 analysis/bootstrap_dispersion_tables.py
 
 creates `outputs/revision/m4_bootstrap/bootstrap_summary.json`,
 `configuration_bootstrap_intervals.csv`, `factor_bootstrap_summary.csv`, and
-standalone LaTeX tables below the `six_workloads/tables/` and
-`legacy_three_workloads/tables/` subdirectories. Running:
+standalone LaTeX tables below `paper_tables/six_workloads/` and
+`paper_tables/legacy_three_workloads/`. Running:
 
 ```bash
 python3 analysis/plot_reproducibility.py
