@@ -95,7 +95,9 @@ def finite(series: pd.Series) -> pd.Series:
 
 
 def integer_like(series: pd.Series) -> pd.Series:
-    return finite(series) & np.isclose(series, np.round(series))
+    return finite(series) & np.isclose(
+        series, np.round(series), rtol=0.0, atol=1e-9
+    )
 
 
 def derive_outcomes(selected: pd.DataFrame) -> pd.DataFrame:

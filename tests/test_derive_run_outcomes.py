@@ -140,6 +140,12 @@ class RunOutcomeDerivationTests(unittest.TestCase):
         self.assertEqual(derived["outcome_status_derived"], "inconsistent")
         self.assertTrue(derived["inconsistent_derived"])
 
+    def test_non_integral_large_transaction_count_is_inconsistent(self) -> None:
+        row = synthetic_row(submit_number=540000.1, commit_number=10)
+        derived = derive_outcomes(pd.DataFrame([row])).iloc[0]
+        self.assertEqual(derived["outcome_status_derived"], "inconsistent")
+        self.assertTrue(derived["inconsistent_derived"])
+
     def test_configuration_counts_are_exhaustive(self) -> None:
         raw = load_runs(DATASET)
         derived = derive_outcomes(prepare_selected_runs(raw))
