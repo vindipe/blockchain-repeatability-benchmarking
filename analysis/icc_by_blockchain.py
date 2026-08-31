@@ -153,6 +153,7 @@ def render_icc_table(table: pd.DataFrame, repetitions: int, seed: int) -> str:
         r"\caption{Within-blockchain log-scale random-intercept ICC estimates. Brackets give 95\% configuration-cluster bootstrap intervals.}",
         r"\label{tab:icc_by_blockchain}",
         r"\small",
+        r"\resizebox{\textwidth}{!}{%",
         r"\begin{tabular}{lccc}",
         r"\hline",
         r"Blockchain & TPS ICC [95\% CI] & Latency ICC [95\% CI] & Energy ICC [95\% CI] \\",
@@ -172,12 +173,50 @@ def render_icc_table(table: pd.DataFrame, repetitions: int, seed: int) -> str:
         [
             r"\hline",
             r"\end{tabular}",
+            r"}",
             rf"\parbox{{\textwidth}}{{\footnotesize REML random-intercept models use configuration as the grouping factor and positive-service observations on the natural-log scale. Intervals use {repetitions:,} cluster-bootstrap replicates from deterministic streams beginning at seed {seed}.}}",
             r"\end{table*}",
             "",
         ]
     )
     return "\n".join(lines)
+
+
+def render_tables_from_results(output_dir: Path, table_dir: Path) -> dict[str, object]:
+    """Rebuild manuscript tables from a completed machine-readable ICC run."""
+
+    path = output_dir / "icc_by_blockchain.csv"
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Cannot render ICC tables because the completed result is missing: {path}"
+        )
+    table = pd.read_csv(path)
+    required = {"scope", "blockchain", "metric", "bootstrap_repetitions", "seed"}
+    missing = sorted(required.difference(table.columns))
+    if missing:
+        raise ValueError(f"ICC result is missing required columns: {', '.join(missing)}")
+
+    rendered: dict[str, object] = {"source": str(path), "scopes": {}}
+    for scope in ("legacy_three_workloads", "six_workloads"):
+        selected = table.loc[table["scope"] == scope].copy()
+        if selected.empty:
+            raise ValueError(f"ICC result contains no rows for {scope}")
+        repetitions = selected["bootstrap_repetitions"].unique()
+        if len(repetitions) != 1:
+            raise ValueError(f"ICC result has inconsistent bootstrap counts for {scope}")
+        scope_tables = table_dir / scope
+        scope_tables.mkdir(parents=True, exist_ok=True)
+        scope_seed = int(selected["seed"].min())
+        (scope_tables / "table_icc_by_blockchain.tex").write_text(
+            render_icc_table(selected, int(repetitions[0]), scope_seed),
+            encoding="utf-8",
+        )
+        rendered["scopes"][scope] = {
+            "rows": int(len(selected)),
+            "bootstrap_repetitions": int(repetitions[0]),
+            "first_seed": scope_seed,
+        }
+    return rendered
 
 
 def run_icc(
@@ -236,8 +275,9 @@ def run_icc(
         selected.to_csv(scope_output / "icc_by_blockchain.csv", index=False)
         scope_tables = table_dir / scope
         scope_tables.mkdir(parents=True, exist_ok=True)
+        scope_seed = int(selected["seed"].min())
         (scope_tables / "table_icc_by_blockchain.tex").write_text(
-            render_icc_table(selected, repetitions, seed), encoding="utf-8"
+            render_icc_table(selected, repetitions, scope_seed), encoding="utf-8"
         )
     summary = {
         "method": "REML intercept-only mixed model on log metric",
@@ -263,11 +303,20 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--repetitions", type=int, default=DEFAULT_REPETITIONS)
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
     parser.add_argument("--workers", type=int, default=None)
+    parser.add_argument(
+        "--render-existing-tables",
+        action="store_true",
+        help="Rebuild LaTeX tables from an existing completed ICC CSV without refitting.",
+    )
     return parser.parse_args(argv)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
+    if args.render_existing_tables:
+        summary = render_tables_from_results(args.output_dir, args.table_dir)
+        print(json.dumps(summary, indent=2, sort_keys=True))
+        return 0
     summary = run_icc(
         args.input,
         args.output_dir,

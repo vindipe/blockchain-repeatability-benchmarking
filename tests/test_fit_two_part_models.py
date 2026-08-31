@@ -67,10 +67,29 @@ class TwoPartModelTests(unittest.TestCase):
         table = targeted_three_way_sensitivity(self.legacy)
         self.assertEqual(len(table), 8)
         self.assertTrue(table["fully_estimable"].all())
-        latex = render_three_way_sensitivity_table(table)
+        latex = render_three_way_sensitivity_table(
+            table, outcome_quasi_separation=True
+        )
         self.assertIn(r"\label{tab:three_way_sensitivity}", latex)
+        self.assertIn(r"\resizebox{\textwidth}{!}", latex)
         self.assertIn("likelihood-ratio", latex)
         self.assertIn("HC3 Type-II", latex)
+        self.assertIn("quasi-separation", latex)
+
+    def test_quasi_separation_is_disclosed_in_the_primary_table(self):
+        _, outcome, _ = fit_binomial(self.legacy)
+        parts = []
+        for metric in METRIC_SPECS:
+            _, primary, _, diagnostics = fit_linear_metric(self.legacy, metric)
+            primary.insert(0, "metric", metric)
+            primary["design_full_rank"] = bool(diagnostics["full_rank"])
+            parts.append(primary)
+        latex = render_term_table(
+            outcome,
+            pd.concat(parts, ignore_index=True),
+            outcome_quasi_separation=True,
+        )
+        self.assertIn("quasi-separation", latex)
 
 
 if __name__ == "__main__":

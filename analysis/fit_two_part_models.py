@@ -427,7 +427,11 @@ def p_text(value: float) -> str:
     return f"{value:.3f}"
 
 
-def render_term_table(outcome: pd.DataFrame, performance: pd.DataFrame) -> str:
+def render_term_table(
+    outcome: pd.DataFrame,
+    performance: pd.DataFrame,
+    outcome_quasi_separation: bool = False,
+) -> str:
     suppressed_metrics = sorted(
         {
             str(row["metric"])
@@ -440,6 +444,13 @@ def render_term_table(outcome: pd.DataFrame, performance: pd.DataFrame) -> str:
         "the corresponding conditional log-performance design matrix is "
         "rank-deficient; the estimability audit gives the exact rank deficiency."
         if suppressed_metrics
+        else ""
+    )
+    outcome_caution_note = (
+        " The binomial outcome component exhibits quasi-separation in this "
+        "scope; its likelihood-ratio rows are retained as model-screening "
+        "evidence for service incidence, not as finite-sample causal inference."
+        if outcome_quasi_separation
         else ""
     )
     lines = [
@@ -486,6 +497,7 @@ def render_term_table(outcome: pd.DataFrame, performance: pd.DataFrame) -> str:
             r"\vspace{1mm}",
             r"\parbox{\textwidth}{\footnotesize Outcome interactions are likelihood-ratio deletion tests; each outcome main-factor row is a hierarchical omnibus test of that factor and all interactions containing it. Performance tests are Type-II tests on log-transformed, positive-service observations with HC3 covariance; $\eta_p^2$ is partial eta squared. Degrees of freedom are provided in the machine-readable output."
             + suppression_note
+            + outcome_caution_note
             + "}",
             r"\end{table*}",
             "",
@@ -518,13 +530,23 @@ def render_estimability_table(table: pd.DataFrame) -> str:
     return "\n".join(lines)
 
 
-def render_three_way_sensitivity_table(table: pd.DataFrame) -> str:
+def render_three_way_sensitivity_table(
+    table: pd.DataFrame, outcome_quasi_separation: bool = False
+) -> str:
+    outcome_caution_note = (
+        " The outcome likelihood-ratio rows are retained as model-screening "
+        "evidence because the binomial component exhibits quasi-separation in "
+        "this scope."
+        if outcome_quasi_separation
+        else ""
+    )
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
         r"\caption{Targeted three-way interaction sensitivity tests. Terms are reported only when the augmented design matrix is full rank and all added columns increase model rank.}",
         r"\label{tab:three_way_sensitivity}",
         r"\small",
+        r"\resizebox{\textwidth}{!}{%",
         r"\begin{tabular}{lllrrrc}",
         r"\hline",
         r"Component & Metric & Interaction & Test statistic & df & $p$ & Status \\",
@@ -550,8 +572,11 @@ def render_three_way_sensitivity_table(table: pd.DataFrame) -> str:
         [
             r"\hline",
             r"\end{tabular}",
+            r"}",
             r"\vspace{1mm}",
-            r"\parbox{\textwidth}{\footnotesize Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests on the augmented log-linear model. For non-estimable rows, df is shown as added rank over added columns.}",
+            r"\parbox{\textwidth}{\footnotesize Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests on the augmented log-linear model. For non-estimable rows, df is shown as added rank over added columns."
+            + outcome_caution_note
+            + "}",
             r"\end{table*}",
             "",
         ]
@@ -603,13 +628,25 @@ def run_models(input_path: Path, output_dir: Path, table_dir: Path) -> dict[str,
             scope_output / "three_way_sensitivity.csv", index=False
         )
         (scope_tables / "table_two_part_factorial_models.tex").write_text(
-            render_term_table(outcome_tests, performance), encoding="utf-8"
+            render_term_table(
+                outcome_tests,
+                performance,
+                outcome_quasi_separation=bool(
+                    outcome_diag["quasi_separation_warning"]
+                ),
+            ),
+            encoding="utf-8",
         )
         (scope_tables / "table_three_way_estimability.tex").write_text(
             render_estimability_table(estimability), encoding="utf-8"
         )
         (scope_tables / "table_three_way_sensitivity.tex").write_text(
-            render_three_way_sensitivity_table(three_way_sensitivity),
+            render_three_way_sensitivity_table(
+                three_way_sensitivity,
+                outcome_quasi_separation=bool(
+                    outcome_diag["quasi_separation_warning"]
+                ),
+            ),
             encoding="utf-8",
         )
         scope_summary = {

@@ -3,6 +3,7 @@
 \caption{Targeted three-way interaction sensitivity tests. Terms are reported only when the augmented design matrix is full rank and all added columns increase model rank.}
 \label{tab:three_way_sensitivity}
 \small
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lllrrrc}
 \hline
 Component & Metric & Interaction & Test statistic & df & $p$ & Status \\
@@ -17,6 +18,7 @@ Conditional performance & Energy & B $\times$ T $\times$ W & 0.62 & 32 & 0.953 &
 Conditional performance & Energy & B $\times$ W $\times$ S & 2.17 & 8 & 0.027 & reported \\
 \hline
 \end{tabular}
+}
 \vspace{1mm}
-\parbox{\textwidth}{\footnotesize Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests on the augmented log-linear model. For non-estimable rows, df is shown as added rank over added columns.}
+\parbox{\textwidth}{\footnotesize Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests on the augmented log-linear model. For non-estimable rows, df is shown as added rank over added columns. The outcome likelihood-ratio rows are retained as model-screening evidence because the binomial component exhibits quasi-separation in this scope.}
 \end{table*}

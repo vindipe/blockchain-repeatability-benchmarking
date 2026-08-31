@@ -240,13 +240,18 @@ observations are structurally absent from some factor cells; the artifact
 reports this rather than treating aliased coefficients as estimable.
 Targeted three-way sensitivity tests are reported only when every added column
 increases model rank; otherwise the table marks the term as not estimable.
+When the binomial outcome component flags quasi-separation, its likelihood-ratio
+rows are explicitly labelled in the generated tables as model-screening
+evidence for service incidence rather than finite-sample causal inference.
 
 ICC is estimated separately within each blockchain and metric using an
 intercept-only REML mixed model on the natural-log scale, with configuration as
 the random intercept. The script reports the between-configuration and
 within-configuration variance components and 95% configuration-cluster
 bootstrap intervals. The pooled global ICC is not used as evidence of
-run-to-run repeatability.
+run-to-run repeatability. A completed ICC CSV can be rendered again without
+refitting with the --render-existing-tables option; the table note records the
+first deterministic bootstrap seed actually used for its scope.
 
 ## Documentation
 

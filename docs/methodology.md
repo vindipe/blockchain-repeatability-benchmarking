@@ -180,6 +180,9 @@ A main factor cannot be removed while retaining interactions containing that
 factor without violating model hierarchy; each main-factor result is therefore
 a hierarchical omnibus likelihood-ratio test of that factor and all its
 interactions. Complete or quasi-complete separation is checked and reported.
+When the diagnostic flags quasi-separation, the outcome likelihood-ratio rows
+are treated as model-screening evidence for service incidence rather than
+finite-sample causal inference.
 For conditional log-performance, primary inference uses Type-II tests with HC3
 heteroscedasticity-robust covariance. Classical sums of squares are used only
 to derive partial eta squared. Type-III HC3 tests under sum-to-zero contrasts
@@ -208,6 +211,9 @@ complete configuration clusters with replacement, relabelling duplicated
 clusters, refitting the model, and taking the 2.5th and 97.5th percentiles of
 1,000 deterministic bootstrap replicates (base seed `20260901`). The pooled
 global raw-scale ICC is not used as evidence of repeatability.
+The script can also rebuild the LaTeX tables from a completed machine-readable
+ICC CSV without refitting; each scope reports the first seed used by its own
+deterministic bootstrap stream.
 
 ## Metrics and transformations
 

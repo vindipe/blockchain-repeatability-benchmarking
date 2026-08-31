@@ -1,8 +1,16 @@
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import numpy as np
+import pandas as pd
 
-from analysis.icc_by_blockchain import cluster_bootstrap, fit_random_intercept
+from analysis.icc_by_blockchain import (
+    cluster_bootstrap,
+    fit_random_intercept,
+    render_icc_table,
+    render_tables_from_results,
+)
 
 
 class ICCModelTests(unittest.TestCase):
@@ -29,6 +37,51 @@ class ICCModelTests(unittest.TestCase):
         )
         np.testing.assert_allclose(first, second)
         self.assertEqual(failures_first, failures_second)
+
+    def test_generated_table_scales_to_text_width(self):
+        table = pd.DataFrame(
+            [
+                {
+                    "blockchain": "Algorand",
+                    "metric": metric,
+                    "icc": 0.5,
+                    "ci_lower": 0.4,
+                    "ci_upper": 0.6,
+                }
+                for metric in ("TPS", "Latency", "Energy")
+            ]
+        )
+        latex = render_icc_table(table, repetitions=10, seed=1)
+        self.assertIn(r"\resizebox{\textwidth}{!}", latex)
+
+    def test_tables_can_be_rebuilt_from_completed_results(self):
+        rows = []
+        for scope, seed in (
+            ("legacy_three_workloads", 1),
+            ("six_workloads", 4),
+        ):
+            for metric in ("TPS", "Latency", "Energy"):
+                rows.append(
+                    {
+                        "scope": scope,
+                        "blockchain": "Algorand",
+                        "metric": metric,
+                        "icc": 0.5,
+                        "ci_lower": 0.4,
+                        "ci_upper": 0.6,
+                        "bootstrap_repetitions": 10,
+                        "seed": seed,
+                    }
+                )
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            pd.DataFrame(rows).to_csv(root / "icc_by_blockchain.csv", index=False)
+            summary = render_tables_from_results(root, root / "tables")
+            self.assertEqual(summary["scopes"]["six_workloads"]["first_seed"], 4)
+            self.assertTrue(
+                (root / "tables" / "legacy_three_workloads"
+                 / "table_icc_by_blockchain.tex").exists()
+            )
 
 
 if __name__ == "__main__":
