@@ -166,6 +166,46 @@ manually in the paper source. Machine-readable outputs remain below
 `outputs/revision/m4_bootstrap/`, while the manuscript-ready generated tables
 are tracked below `paper_tables/` and are deterministically replaced on rerun.
 
+### Two-part factorial models and ICC (S1--S3/R2.4)
+
+`analysis/fit_two_part_models.py` separates outcome incidence from conditional
+performance. The outcome component is a binomial GLM for
+`positive_commit_derived`. The conditional component fits natural-log TPS,
+latency, and energy using the corresponding positive-service validity mask.
+Each primary model includes blockchain, topology, workload, validator-set size,
+and all six two-way interactions.
+
+For the outcome model, interaction terms use likelihood-ratio deletion tests.
+A main factor cannot be removed while retaining interactions containing that
+factor without violating model hierarchy; each main-factor result is therefore
+a hierarchical omnibus likelihood-ratio test of that factor and all its
+interactions. Complete or quasi-complete separation is checked and reported.
+For conditional log-performance, primary inference uses Type-II tests with HC3
+heteroscedasticity-robust covariance. Classical sums of squares are used only
+to derive partial eta squared. Type-III HC3 tests under sum-to-zero contrasts
+are retained as a sensitivity. Residual-versus-fitted and Q--Q plots,
+Breusch--Pagan statistics, and Jarque--Bera statistics are written with the
+machine-readable term tables.
+
+The script verifies design-matrix rank before inference. All legacy
+three-workload two-way models and both targeted three-way additions are full
+rank. The six-workload outcome model remains full rank, but each conditional
+performance model is rank-deficient by two because some factor combinations
+have no positive-service observations. The corresponding three-way additions
+are also not fully estimable. These diagnostics prevent aliased terms from
+being interpreted as ordinary coefficients when the paper is extended to all
+six workloads.
+
+`analysis/icc_by_blockchain.py` fits a separate intercept-only REML mixed model
+for each blockchain and metric on the natural-log scale, with configuration as
+the random intercept. It reports between-configuration variance,
+within-configuration variance, and
+`ICC = between / (between + within)`. Uncertainty is quantified by resampling
+complete configuration clusters with replacement, relabelling duplicated
+clusters, refitting the model, and taking the 2.5th and 97.5th percentiles of
+1,000 deterministic bootstrap replicates (base seed `20260901`). The pooled
+global raw-scale ICC is not used as evidence of repeatability.
+
 ## Metrics and transformations
 
 The script:
@@ -231,6 +271,23 @@ creates `outputs/revision/m4_bootstrap/bootstrap_summary.json`,
 `configuration_bootstrap_intervals.csv`, `factor_bootstrap_summary.csv`, and
 standalone LaTeX tables below `paper_tables/six_workloads/` and
 `paper_tables/legacy_three_workloads/`. Running:
+
+```bash
+python3 analysis/fit_two_part_models.py
+```
+
+creates term-level outcome and conditional-performance tests, Type-III
+sensitivities, design-rank audits, residual diagnostics, and generated model
+tables below `outputs/revision/statistical_models/` and `paper_tables/`.
+Running:
+
+```bash
+python3 analysis/icc_by_blockchain.py
+```
+
+creates the within-blockchain variance-component and ICC table, bootstrap
+intervals, and generated LaTeX tables below
+`outputs/revision/icc_by_blockchain/` and `paper_tables/`. Running:
 
 ```bash
 python3 analysis/plot_reproducibility.py

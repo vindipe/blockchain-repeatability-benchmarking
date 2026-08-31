@@ -40,6 +40,8 @@ The archival record is available through the stable Zenodo concept DOI:
 │   ├── bootstrap_dispersion_tables.py
 │   ├── compute_corrected_dispersion.py
 │   ├── derive_run_outcomes.py
+│   ├── fit_two_part_models.py
+│   ├── icc_by_blockchain.py
 │   └── plot_reproducibility.py
 ├── dataset/
 │   ├── README.md
@@ -86,6 +88,13 @@ The archival record is available through the stable Zenodo concept DOI:
 - `analysis/bootstrap_dispersion_tables.py` resamples metric-eligible executions
   within configurations, propagates percentile intervals to unweighted means
   and medians across configuration cells, and writes standalone LaTeX tables.
+- `analysis/fit_two_part_models.py` fits the binomial outcome model and the
+  log-linear conditional-performance models, audits rank and estimability,
+  computes HC3 Type-II tests and Type-III sensitivities, and writes residual
+  diagnostics and standalone LaTeX tables.
+- `analysis/icc_by_blockchain.py` replaces the pooled raw-scale ICC with REML
+  random-intercept ICCs within each blockchain on the natural-log scale and
+  attaches configuration-cluster bootstrap intervals.
 - `outputs/` is populated when the analysis or audit is run.
 
 ## Experimental matrix
@@ -116,6 +125,8 @@ python3 analysis/derive_run_outcomes.py
 python3 analysis/compute_corrected_dispersion.py
 python3 analysis/balanced_sensitivity.py
 python3 analysis/bootstrap_dispersion_tables.py
+python3 analysis/fit_two_part_models.py
+python3 analysis/icc_by_blockchain.py
 ```
 
 The script can be launched from any working directory because input and output
@@ -129,6 +140,8 @@ python3 analysis/derive_run_outcomes.py
 python3 analysis/compute_corrected_dispersion.py
 python3 analysis/balanced_sensitivity.py
 python3 analysis/bootstrap_dispersion_tables.py
+python3 analysis/fit_two_part_models.py
+python3 analysis/icc_by_blockchain.py
 python3 -m unittest discover -s tests -v
 ```
 
@@ -213,6 +226,25 @@ nine for the legacy three-workload subset. The current generated versions are
 tracked under `paper_tables/` so that the manuscript consumes exact script
 output rather than manually transcribed values; rerunning the script replaces
 those files deterministically.
+
+S1--S3/R2.4 replace the earlier pooled raw-scale ANOVA/ICC interpretation.
+The outcome component is a binomial GLM for an observed positive commit. The
+conditional component fits natural-log TPS, latency, and energy for
+metric-eligible positive-service executions. Primary linear-model inference
+uses Type-II tests with HC3 covariance; Type-III tests under sum-to-zero
+contrasts are retained as a sensitivity. All two-way interactions are fitted,
+and both targeted three-way additions are checked for design-matrix rank before
+inference. The legacy three-workload models are full rank. In the six-workload
+corpus, conditional models are rank-deficient by two because positive-service
+observations are structurally absent from some factor cells; the artifact
+reports this rather than treating aliased coefficients as estimable.
+
+ICC is estimated separately within each blockchain and metric using an
+intercept-only REML mixed model on the natural-log scale, with configuration as
+the random intercept. The script reports the between-configuration and
+within-configuration variance components and 95% configuration-cluster
+bootstrap intervals. The pooled global ICC is not used as evidence of
+run-to-run repeatability.
 
 ## Documentation
 
