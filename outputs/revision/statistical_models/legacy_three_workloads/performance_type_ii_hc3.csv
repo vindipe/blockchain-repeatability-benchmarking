@@ -1,0 +1,31 @@
+metric,term,term_formula,test,statistic,df,residual_df,p_value,partial_eta_squared,design_full_rank
+TPS,Blockchain,"C(blockchain, Sum)",HC3 Type-II F,18610.63018815578,4.0,1710.0,0.0,0.8461646061997821,True
+TPS,Topology,"C(mode, Sum)",HC3 Type-II F,5.952100745022372,4.0,1710.0,9.352450341708889e-05,0.01657128913034043,True
+TPS,Workload,"C(workload, Sum)",HC3 Type-II F,1212.4361542681931,2.0,1710.0,0.0,0.2945792575173574,True
+TPS,Size,"C(network_size, Sum)",HC3 Type-II F,160.81511972353186,1.0,1710.0,2.759644992913621e-35,0.11949606594482265,True
+TPS,Blockchain $\times$ topology,"C(blockchain, Sum):C(mode, Sum)",HC3 Type-II F,10.607906960615852,16.0,1710.0,2.6465777705261295e-26,0.04728008745842533,True
+TPS,Blockchain $\times$ workload,"C(blockchain, Sum):C(workload, Sum)",HC3 Type-II F,250.76150103065638,8.0,1710.0,1.0153934485127032e-281,0.6102340552492033,True
+TPS,Blockchain $\times$ size,"C(blockchain, Sum):C(network_size, Sum)",HC3 Type-II F,27.68782326500528,4.0,1710.0,2.640729541237055e-22,0.12358655207116076,True
+TPS,Topology $\times$ workload,"C(mode, Sum):C(workload, Sum)",HC3 Type-II F,2.0801928964123406,8.0,1710.0,0.03467184354154733,0.01162564551006957,True
+TPS,Topology $\times$ size,"C(mode, Sum):C(network_size, Sum)",HC3 Type-II F,0.8884250003169717,4.0,1710.0,0.4700026422265612,0.001994640405527793,True
+TPS,Workload $\times$ size,"C(workload, Sum):C(network_size, Sum)",HC3 Type-II F,24.88748105042179,2.0,1710.0,2.21730047413056e-11,0.044270499587649496,True
+Latency,Blockchain,"C(blockchain, Sum)",HC3 Type-II F,5383.481438433421,4.0,1716.0,0.0,0.7590063234861678,True
+Latency,Topology,"C(mode, Sum)",HC3 Type-II F,22.33498731947429,4.0,1716.0,5.3247295803654174e-18,0.12263666157432365,True
+Latency,Workload,"C(workload, Sum)",HC3 Type-II F,785.3911946933337,2.0,1716.0,6.70429309803583e-243,0.5243101415043104,True
+Latency,Size,"C(network_size, Sum)",HC3 Type-II F,115.12611336176214,1.0,1716.0,4.844693228505435e-26,0.017555596176175,True
+Latency,Blockchain $\times$ topology,"C(blockchain, Sum):C(mode, Sum)",HC3 Type-II F,23.285901293426814,16.0,1716.0,2.5511843360791793e-62,0.07447282415174666,True
+Latency,Blockchain $\times$ workload,"C(blockchain, Sum):C(workload, Sum)",HC3 Type-II F,493.1508983242219,8.0,1716.0,0.0,0.5665495998734865,True
+Latency,Blockchain $\times$ size,"C(blockchain, Sum):C(network_size, Sum)",HC3 Type-II F,178.96569405537963,4.0,1716.0,3.049337282018681e-128,0.28646930624069716,True
+Latency,Topology $\times$ workload,"C(mode, Sum):C(workload, Sum)",HC3 Type-II F,4.437925337357043,8.0,1716.0,2.456109546250687e-05,0.019577612369117137,True
+Latency,Topology $\times$ size,"C(mode, Sum):C(network_size, Sum)",HC3 Type-II F,6.518844955478691,4.0,1716.0,3.32359392181197e-05,0.015650415737459317,True
+Latency,Workload $\times$ size,"C(workload, Sum):C(network_size, Sum)",HC3 Type-II F,5.981370116240595,2.0,1716.0,0.0025783192026718467,0.013527284420449228,True
+Energy,Blockchain,"C(blockchain, Sum)",HC3 Type-II F,0.26298421312544207,4.0,1716.0,0.9017759134406694,0.0004916357484712381,True
+Energy,Topology,"C(mode, Sum)",HC3 Type-II F,0.6873293232755674,4.0,1716.0,0.6007170076396939,0.0015434263738260728,True
+Energy,Workload,"C(workload, Sum)",HC3 Type-II F,1575.5855500025,2.0,1716.0,0.0,0.6563207334376214,True
+Energy,Size,"C(network_size, Sum)",HC3 Type-II F,0.31966232934010447,1.0,1716.0,0.571884555482623,0.0002559763564678329,True
+Energy,Blockchain $\times$ topology,"C(blockchain, Sum):C(mode, Sum)",HC3 Type-II F,0.407351911366673,16.0,1716.0,0.9812663910791648,0.0037294934594276287,True
+Energy,Blockchain $\times$ workload,"C(blockchain, Sum):C(workload, Sum)",HC3 Type-II F,0.5872276027506778,8.0,1716.0,0.7891477724053402,0.0026912354564839233,True
+Energy,Blockchain $\times$ size,"C(blockchain, Sum):C(network_size, Sum)",HC3 Type-II F,0.5665985148340723,4.0,1716.0,0.6869261595920131,0.0014314591843427478,True
+Energy,Topology $\times$ workload,"C(mode, Sum):C(workload, Sum)",HC3 Type-II F,0.8331405309355421,8.0,1716.0,0.5732979050054626,0.0035909394611228123,True
+Energy,Topology $\times$ size,"C(mode, Sum):C(network_size, Sum)",HC3 Type-II F,0.24437515338429708,4.0,1716.0,0.9131446042706004,0.0005683380284443885,True
+Energy,Workload $\times$ size,"C(workload, Sum):C(network_size, Sum)",HC3 Type-II F,0.5267777941782575,2.0,1716.0,0.590600094270231,0.0006362494867482993,True

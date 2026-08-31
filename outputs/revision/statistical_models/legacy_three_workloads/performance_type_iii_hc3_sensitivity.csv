@@ -1,0 +1,31 @@
+metric,term,term_formula,test,statistic,df,residual_df,p_value,design_full_rank
+TPS,Blockchain,"C(blockchain, Sum)",HC3 Type-III F,9715.86345979084,4.0,1710.0,0.0,True
+TPS,Topology,"C(mode, Sum)",HC3 Type-III F,10.427505410826571,4.0,1710.0,2.404641041666854e-08,True
+TPS,Workload,"C(workload, Sum)",HC3 Type-III F,188.52421606879147,2.0,1710.0,1.0265105678564674e-74,True
+TPS,Size,"C(network_size, Sum)",HC3 Type-III F,190.38503637271205,1.0,1710.0,3.84448439057534e-41,True
+TPS,Blockchain $\times$ topology,"C(blockchain, Sum):C(mode, Sum)",HC3 Type-III F,10.607906960615852,16.0,1710.0,2.6465777705261295e-26,True
+TPS,Blockchain $\times$ workload,"C(blockchain, Sum):C(workload, Sum)",HC3 Type-III F,250.76150103065638,8.0,1710.0,1.0153934485127032e-281,True
+TPS,Blockchain $\times$ size,"C(blockchain, Sum):C(network_size, Sum)",HC3 Type-III F,27.68782326500528,4.0,1710.0,2.640729541237055e-22,True
+TPS,Topology $\times$ workload,"C(mode, Sum):C(workload, Sum)",HC3 Type-III F,2.0801928964123406,8.0,1710.0,0.03467184354154733,True
+TPS,Topology $\times$ size,"C(mode, Sum):C(network_size, Sum)",HC3 Type-III F,0.8884250003169717,4.0,1710.0,0.4700026422265612,True
+TPS,Workload $\times$ size,"C(workload, Sum):C(network_size, Sum)",HC3 Type-III F,24.88748105042179,2.0,1710.0,2.21730047413056e-11,True
+Latency,Blockchain,"C(blockchain, Sum)",HC3 Type-III F,4593.179284812839,4.0,1716.0,0.0,True
+Latency,Topology,"C(mode, Sum)",HC3 Type-III F,45.902072366537986,4.0,1716.0,1.1117065566199651e-36,True
+Latency,Workload,"C(workload, Sum)",HC3 Type-III F,777.4433254125596,2.0,1716.0,4.2937335557468466e-241,True
+Latency,Size,"C(network_size, Sum)",HC3 Type-III F,8.64140685056629,1.0,1716.0,0.0033300127234265862,True
+Latency,Blockchain $\times$ topology,"C(blockchain, Sum):C(mode, Sum)",HC3 Type-III F,23.285901293426814,16.0,1716.0,2.5511843360791793e-62,True
+Latency,Blockchain $\times$ workload,"C(blockchain, Sum):C(workload, Sum)",HC3 Type-III F,493.1508983242219,8.0,1716.0,0.0,True
+Latency,Blockchain $\times$ size,"C(blockchain, Sum):C(network_size, Sum)",HC3 Type-III F,178.96569405537963,4.0,1716.0,3.049337282018681e-128,True
+Latency,Topology $\times$ workload,"C(mode, Sum):C(workload, Sum)",HC3 Type-III F,4.437925337357043,8.0,1716.0,2.456109546250687e-05,True
+Latency,Topology $\times$ size,"C(mode, Sum):C(network_size, Sum)",HC3 Type-III F,6.518844955478691,4.0,1716.0,3.32359392181197e-05,True
+Latency,Workload $\times$ size,"C(workload, Sum):C(network_size, Sum)",HC3 Type-III F,5.981370116240595,2.0,1716.0,0.0025783192026718467,True
+Energy,Blockchain,"C(blockchain, Sum)",HC3 Type-III F,0.2465846164137907,4.0,1716.0,0.9118165665349613,True
+Energy,Topology,"C(mode, Sum)",HC3 Type-III F,0.6866337080606663,4.0,1716.0,0.6012003589100592,True
+Energy,Workload,"C(workload, Sum)",HC3 Type-III F,1407.4862945622974,2.0,1716.0,0.0,True
+Energy,Size,"C(network_size, Sum)",HC3 Type-III F,0.002439991315519175,1.0,1716.0,0.9606092505405629,True
+Energy,Blockchain $\times$ topology,"C(blockchain, Sum):C(mode, Sum)",HC3 Type-III F,0.407351911366673,16.0,1716.0,0.9812663910791648,True
+Energy,Blockchain $\times$ workload,"C(blockchain, Sum):C(workload, Sum)",HC3 Type-III F,0.5872276027506778,8.0,1716.0,0.7891477724053402,True
+Energy,Blockchain $\times$ size,"C(blockchain, Sum):C(network_size, Sum)",HC3 Type-III F,0.5665985148340723,4.0,1716.0,0.6869261595920131,True
+Energy,Topology $\times$ workload,"C(mode, Sum):C(workload, Sum)",HC3 Type-III F,0.8331405309355421,8.0,1716.0,0.5732979050054626,True
+Energy,Topology $\times$ size,"C(mode, Sum):C(network_size, Sum)",HC3 Type-III F,0.24437515338429708,4.0,1716.0,0.9131446042706004,True
+Energy,Workload $\times$ size,"C(workload, Sum):C(network_size, Sum)",HC3 Type-III F,0.5267777941782575,2.0,1716.0,0.590600094270231,True

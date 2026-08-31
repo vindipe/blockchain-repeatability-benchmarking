@@ -1,0 +1,9 @@
+component,metric,interaction,test,statistic,df,p_value,added_columns,added_rank,fully_estimable,status,residual_df
+Outcome,Positive commit,Blockchain $\times$ topology $\times$ workload,likelihood-ratio chi-square,42.242523288730695,32.0,0.10636699466074781,32,32,True,reported,
+Outcome,Positive commit,Blockchain $\times$ workload $\times$ size,likelihood-ratio chi-square,182.33604997990602,8.0,3.326395374505319e-35,8,8,True,reported,
+Conditional performance,TPS,Blockchain $\times$ topology $\times$ workload,HC3 Type-II F,3.0794337865276606,32.0,2.0954046710684338e-08,32,32,True,reported,1678.0
+Conditional performance,TPS,Blockchain $\times$ workload $\times$ size,HC3 Type-II F,30.372580900547973,8.0,9.88767195986345e-45,8,8,True,reported,1702.0
+Conditional performance,Latency,Blockchain $\times$ topology $\times$ workload,HC3 Type-II F,6.640631095701167,32.0,1.495333808637011e-26,32,32,True,reported,1684.0
+Conditional performance,Latency,Blockchain $\times$ workload $\times$ size,HC3 Type-II F,58.85704126393487,8.0,5.323609532699271e-85,8,8,True,reported,1708.0
+Conditional performance,Energy,Blockchain $\times$ topology $\times$ workload,HC3 Type-II F,0.6205306854051186,32.0,0.9526991658122589,32,32,True,reported,1684.0
+Conditional performance,Energy,Blockchain $\times$ workload $\times$ size,HC3 Type-II F,2.1652105198112963,8.0,0.027468095911778317,8,8,True,reported,1708.0

@@ -1,0 +1,41 @@
+{
+  "configuration_cells": 300,
+  "generated_latex_tables": [
+    "paper_tables/six_workloads/table_topology_tps.tex",
+    "paper_tables/six_workloads/table_topology_latency.tex",
+    "paper_tables/six_workloads/table_topology_energy.tex",
+    "paper_tables/six_workloads/table_workload_tps.tex",
+    "paper_tables/six_workloads/table_workload_latency.tex",
+    "paper_tables/six_workloads/table_workload_energy.tex",
+    "paper_tables/six_workloads/table_scaling_tps.tex",
+    "paper_tables/six_workloads/table_scaling_latency.tex",
+    "paper_tables/six_workloads/table_scaling_energy.tex",
+    "paper_tables/legacy_three_workloads/table_topology_tps.tex",
+    "paper_tables/legacy_three_workloads/table_topology_latency.tex",
+    "paper_tables/legacy_three_workloads/table_topology_energy.tex",
+    "paper_tables/legacy_three_workloads/table_workload_tps.tex",
+    "paper_tables/legacy_three_workloads/table_workload_latency.tex",
+    "paper_tables/legacy_three_workloads/table_workload_energy.tex",
+    "paper_tables/legacy_three_workloads/table_scaling_tps.tex",
+    "paper_tables/legacy_three_workloads/table_scaling_latency.tex",
+    "paper_tables/legacy_three_workloads/table_scaling_energy.tex"
+  ],
+  "method": {
+    "bootstrap_unit": "metric-eligible observed execution within configuration",
+    "confidence_level": 0.95,
+    "configuration_aggregation": [
+      "unweighted mean",
+      "median"
+    ],
+    "interval": "percentile",
+    "minimum_metric_count_for_dispersion": 2,
+    "repetitions": 5000,
+    "resampling": "with replacement at the original metric-specific cell size",
+    "seed": 20260831
+  },
+  "metrics": [
+    "tps_positive_commit",
+    "latency_positive_commit",
+    "energy_observed"
+  ]
+}

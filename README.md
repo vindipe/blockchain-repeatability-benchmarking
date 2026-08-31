@@ -55,7 +55,7 @@ The archival record is available through the stable Zenodo concept DOI:
 │   ├── provenance.md
 │   └── run_level_data_dictionary.md
 ├── outputs/
-│   └── .gitkeep
+│   └── revision/                 # versioned definitive analysis outputs
 ├── paper_tables/
 │   ├── six_workloads/
 │   └── legacy_three_workloads/
@@ -95,7 +95,11 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
 - `analysis/icc_by_blockchain.py` replaces the pooled raw-scale ICC with REML
   random-intercept ICCs within each blockchain on the natural-log scale and
   attaches configuration-cluster bootstrap intervals.
-- `outputs/` is populated when the analysis or audit is run.
+- `outputs/revision/` contains the definitive versioned CSV, JSON, diagnostic
+  PDF, and generated-table outputs from the completed revision analyses. A
+  GitHub source ZIP therefore includes the executed results and does not
+  require rerunning the analysis to recover the manuscript tables or audit
+  files.
 
 ## Experimental matrix
 

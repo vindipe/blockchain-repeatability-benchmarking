@@ -1,6 +1,8 @@
 .DS_Store
 outputs/*
 !outputs/.gitkeep
+!outputs/revision/
+!outputs/revision/**
 __pycache__/
 *.py[cod]
 .venv/

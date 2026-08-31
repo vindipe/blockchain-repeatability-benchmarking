@@ -1,0 +1,70 @@
+{
+  "all_targeted_three_way_models_fully_estimable": true,
+  "all_two_way_models_full_rank": true,
+  "conditional_models": {
+    "Energy": {
+      "adjusted_r_squared": 0.6657864542434255,
+      "breusch_pagan_lm": 88.75893354344466,
+      "breusch_pagan_p_value": 0.0015119843105382302,
+      "columns": 54,
+      "condition_number": 5.740692900957614,
+      "full_rank": true,
+      "jarque_bera": 41.6147421428453,
+      "jarque_bera_p_value": 9.193345053192993e-10,
+      "observations": 1770,
+      "r_squared": 0.6757996356595355,
+      "rank": 54,
+      "rank_deficiency": 0,
+      "warnings": []
+    },
+    "Latency": {
+      "adjusted_r_squared": 0.8661727380883235,
+      "breusch_pagan_lm": 519.8264439795901,
+      "breusch_pagan_p_value": 7.044457493005336e-78,
+      "columns": 54,
+      "condition_number": 5.740692900957614,
+      "full_rank": true,
+      "jarque_bera": 7709.2023506263195,
+      "jarque_bera_p_value": 0.0,
+      "observations": 1770,
+      "r_squared": 0.8701822603502336,
+      "rank": 54,
+      "rank_deficiency": 0,
+      "warnings": []
+    },
+    "TPS": {
+      "adjusted_r_squared": 0.8957476342009564,
+      "breusch_pagan_lm": 292.5467141258647,
+      "breusch_pagan_p_value": 7.454305847155275e-35,
+      "columns": 54,
+      "condition_number": 5.760322887792442,
+      "full_rank": true,
+      "jarque_bera": 33784.379473314555,
+      "jarque_bera_p_value": 0.0,
+      "observations": 1764,
+      "r_squared": 0.8988817098602583,
+      "rank": 54,
+      "rank_deficiency": 0,
+      "warnings": []
+    }
+  },
+  "outcome_model": {
+    "auc": 0.9624233894312352,
+    "brier_score": 0.05241863832037353,
+    "columns": 54,
+    "condition_number": 5.832020714861743,
+    "configuration_cells_with_single_observed_outcome": 120,
+    "converged": true,
+    "deviance": 669.0451386894151,
+    "full_rank": true,
+    "iterations": 26,
+    "maximum_absolute_coefficient": 18.712653448450915,
+    "mcfadden_pseudo_r2": 0.5936940422296729,
+    "observations": 2053,
+    "pearson_chi2_per_residual_df": 0.4121183610997473,
+    "quasi_separation_warning": true,
+    "rank": 54,
+    "rank_deficiency": 0
+  },
+  "rows": 2053
+}

@@ -1,0 +1,10 @@
+{
+  "base_seed": 20260901,
+  "bootstrap_failures": 0,
+  "group": "configuration within blockchain",
+  "interval": "95% configuration-cluster percentile bootstrap",
+  "method": "REML intercept-only mixed model on log metric",
+  "minimum_converged_bootstrap_replicates": 1000,
+  "models": 30,
+  "repetitions": 1000
+}

@@ -1,0 +1,11 @@
+term,term_formula,test,statistic,df,p_value
+Blockchain,"C(blockchain, Sum)",Wald chi-square,2.2124255996266727e-06,4,0.9999999999993882
+Topology,"C(mode, Sum)",Wald chi-square,2.6324462145022628e-08,4,0.9999999999999999
+Workload,"C(workload, Sum)",Wald chi-square,9.881376642659982e-08,5,1.0
+Size,"C(network_size, Sum)",Wald chi-square,1.6692614278734365e-12,1,0.9999989691339417
+Blockchain $\times$ topology,"C(blockchain, Sum):C(mode, Sum)",Wald chi-square,15.181321521666973,16,0.5114004834692898
+Blockchain $\times$ workload,"C(blockchain, Sum):C(workload, Sum)",Wald chi-square,74.46338925432448,20,3.346761806872724e-08
+Blockchain $\times$ size,"C(blockchain, Sum):C(network_size, Sum)",Wald chi-square,44.912194949272966,4,4.14664197334124e-09
+Topology $\times$ workload,"C(mode, Sum):C(workload, Sum)",Wald chi-square,22.727575912482056,20,0.30236828709017133
+Topology $\times$ size,"C(mode, Sum):C(network_size, Sum)",Wald chi-square,15.854876670303698,4,0.003220209556190596
+Workload $\times$ size,"C(workload, Sum):C(network_size, Sum)",Wald chi-square,26.078565403425756,5,8.615898757727083e-05

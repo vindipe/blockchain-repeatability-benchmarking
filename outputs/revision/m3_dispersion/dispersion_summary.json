@@ -1,0 +1,406 @@
+{
+  "legacy_three_workload_subset": {
+    "energy_observed": {
+      "configuration_rows": 150,
+      "configurations_with_sample_std": 150,
+      "estimable_configurations": 150,
+      "maxima": {
+        "delta_max_pct": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 54.99094772741685,
+          "workload": "VISA"
+        },
+        "delta_min_pct": {
+          "blockchain": "Solana",
+          "n_metric": 13,
+          "network_size": "40 nodes",
+          "topology": "torus",
+          "value": -43.059120812904695,
+          "workload": "GAFAM"
+        },
+        "range_abs": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 18.99648270809758,
+          "workload": "VISA"
+        },
+        "wcd_abs": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 12.861999388187556,
+          "workload": "VISA"
+        },
+        "wcd_pct": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 54.99094772741685,
+          "workload": "VISA"
+        }
+      },
+      "metric_observations": 2053
+    },
+    "energy_positive_commit": {
+      "configuration_rows": 150,
+      "configurations_with_sample_std": 141,
+      "estimable_configurations": 144,
+      "maxima": {
+        "delta_max_pct": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 54.99094772741685,
+          "workload": "VISA"
+        },
+        "delta_min_pct": {
+          "blockchain": "Solana",
+          "n_metric": 13,
+          "network_size": "40 nodes",
+          "topology": "torus",
+          "value": -43.059120812904695,
+          "workload": "GAFAM"
+        },
+        "range_abs": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 18.99648270809758,
+          "workload": "VISA"
+        },
+        "wcd_abs": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 12.861999388187556,
+          "workload": "VISA"
+        },
+        "wcd_pct": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 54.99094772741685,
+          "workload": "VISA"
+        }
+      },
+      "metric_observations": 1770
+    },
+    "latency_positive_commit": {
+      "configuration_rows": 150,
+      "configurations_with_sample_std": 141,
+      "estimable_configurations": 144,
+      "maxima": {
+        "delta_max_pct": {
+          "blockchain": "Quorum",
+          "n_metric": 17,
+          "network_size": "10 nodes",
+          "topology": "hypercube",
+          "value": 572.9398420800069,
+          "workload": "PayPal"
+        },
+        "delta_min_pct": {
+          "blockchain": "Quorum",
+          "n_metric": 10,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": -96.46569977552417,
+          "workload": "VISA"
+        },
+        "range_abs": {
+          "blockchain": "Quorum",
+          "n_metric": 10,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 245.64000000000001,
+          "workload": "VISA"
+        },
+        "wcd_abs": {
+          "blockchain": "Quorum",
+          "n_metric": 10,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 185.047,
+          "workload": "VISA"
+        },
+        "wcd_pct": {
+          "blockchain": "Quorum",
+          "n_metric": 17,
+          "network_size": "10 nodes",
+          "topology": "hypercube",
+          "value": 572.9398420800069,
+          "workload": "PayPal"
+        }
+      },
+      "metric_observations": 1770
+    },
+    "tps_positive_commit": {
+      "configuration_rows": 150,
+      "configurations_with_sample_std": 141,
+      "estimable_configurations": 144,
+      "maxima": {
+        "delta_max_pct": {
+          "blockchain": "Quorum",
+          "n_metric": 8,
+          "network_size": "40 nodes",
+          "topology": "fat-tree",
+          "value": 497.2602739726027,
+          "workload": "GAFAM"
+        },
+        "delta_min_pct": {
+          "blockchain": "Quorum",
+          "n_metric": 5,
+          "network_size": "40 nodes",
+          "topology": "hypercube",
+          "value": -98.83720930232559,
+          "workload": "GAFAM"
+        },
+        "range_abs": {
+          "blockchain": "Solana",
+          "n_metric": 10,
+          "network_size": "10 nodes",
+          "topology": "fat-tree",
+          "value": 473.6,
+          "workload": "VISA"
+        },
+        "wcd_abs": {
+          "blockchain": "Solana",
+          "n_metric": 10,
+          "network_size": "10 nodes",
+          "topology": "fat-tree",
+          "value": 271.44000000000005,
+          "workload": "VISA"
+        },
+        "wcd_pct": {
+          "blockchain": "Quorum",
+          "n_metric": 8,
+          "network_size": "40 nodes",
+          "topology": "fat-tree",
+          "value": 497.2602739726027,
+          "workload": "GAFAM"
+        }
+      },
+      "metric_observations": 1764
+    },
+    "workloads": [
+      "GAFAM",
+      "PayPal",
+      "VISA"
+    ]
+  },
+  "method": {
+    "eligibility": "one metric-specific mask for every statistic",
+    "relative_deviation": "100 * (y - configuration_mean) / configuration_mean",
+    "sample_standard_deviation_ddof": 1,
+    "tps_rounding": {
+      "exact_last_event_time_available": false,
+      "handling": "retained as positive-commit outcomes; excluded from point-valued TPS statistics",
+      "positive_commit_left_censored_rows": 7,
+      "source_export_precision_decimal_places": 1
+    }
+  },
+  "selected_six_workload_corpus": {
+    "energy_observed": {
+      "configuration_rows": 300,
+      "configurations_with_sample_std": 300,
+      "estimable_configurations": 300,
+      "maxima": {
+        "delta_max_pct": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 54.99094772741685,
+          "workload": "VISA"
+        },
+        "delta_min_pct": {
+          "blockchain": "Diem",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "fat-tree",
+          "value": -54.32966919138779,
+          "workload": "Gaming"
+        },
+        "range_abs": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 18.99648270809758,
+          "workload": "VISA"
+        },
+        "wcd_abs": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 12.861999388187556,
+          "workload": "VISA"
+        },
+        "wcd_pct": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 54.99094772741685,
+          "workload": "VISA"
+        }
+      },
+      "metric_observations": 4080
+    },
+    "energy_positive_commit": {
+      "configuration_rows": 300,
+      "configurations_with_sample_std": 246,
+      "estimable_configurations": 251,
+      "maxima": {
+        "delta_max_pct": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 54.99094772741685,
+          "workload": "VISA"
+        },
+        "delta_min_pct": {
+          "blockchain": "Diem",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "fat-tree",
+          "value": -54.32966919138779,
+          "workload": "Gaming"
+        },
+        "range_abs": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 18.99648270809758,
+          "workload": "VISA"
+        },
+        "wcd_abs": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 12.861999388187556,
+          "workload": "VISA"
+        },
+        "wcd_pct": {
+          "blockchain": "Algorand",
+          "n_metric": 13,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 54.99094772741685,
+          "workload": "VISA"
+        }
+      },
+      "metric_observations": 3125
+    },
+    "latency_positive_commit": {
+      "configuration_rows": 300,
+      "configurations_with_sample_std": 246,
+      "estimable_configurations": 251,
+      "maxima": {
+        "delta_max_pct": {
+          "blockchain": "Quorum",
+          "n_metric": 17,
+          "network_size": "10 nodes",
+          "topology": "hypercube",
+          "value": 572.9398420800069,
+          "workload": "PayPal"
+        },
+        "delta_min_pct": {
+          "blockchain": "Quorum",
+          "n_metric": 10,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": -96.46569977552417,
+          "workload": "VISA"
+        },
+        "range_abs": {
+          "blockchain": "Quorum",
+          "n_metric": 10,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 245.64000000000001,
+          "workload": "VISA"
+        },
+        "wcd_abs": {
+          "blockchain": "Quorum",
+          "n_metric": 10,
+          "network_size": "10 nodes",
+          "topology": "full mesh",
+          "value": 185.047,
+          "workload": "VISA"
+        },
+        "wcd_pct": {
+          "blockchain": "Quorum",
+          "n_metric": 17,
+          "network_size": "10 nodes",
+          "topology": "hypercube",
+          "value": 572.9398420800069,
+          "workload": "PayPal"
+        }
+      },
+      "metric_observations": 3125
+    },
+    "tps_positive_commit": {
+      "configuration_rows": 300,
+      "configurations_with_sample_std": 246,
+      "estimable_configurations": 251,
+      "maxima": {
+        "delta_max_pct": {
+          "blockchain": "Quorum",
+          "n_metric": 8,
+          "network_size": "40 nodes",
+          "topology": "fat-tree",
+          "value": 497.2602739726027,
+          "workload": "GAFAM"
+        },
+        "delta_min_pct": {
+          "blockchain": "Algorand",
+          "n_metric": 16,
+          "network_size": "10 nodes",
+          "topology": "fat-tree",
+          "value": -99.48367109848975,
+          "workload": "FIFA"
+        },
+        "range_abs": {
+          "blockchain": "Solana",
+          "n_metric": 10,
+          "network_size": "10 nodes",
+          "topology": "fat-tree",
+          "value": 473.6,
+          "workload": "VISA"
+        },
+        "wcd_abs": {
+          "blockchain": "Solana",
+          "n_metric": 10,
+          "network_size": "10 nodes",
+          "topology": "fat-tree",
+          "value": 271.44000000000005,
+          "workload": "VISA"
+        },
+        "wcd_pct": {
+          "blockchain": "Quorum",
+          "n_metric": 8,
+          "network_size": "40 nodes",
+          "topology": "fat-tree",
+          "value": 497.2602739726027,
+          "workload": "GAFAM"
+        }
+      },
+      "metric_observations": 3118
+    }
+  }
+}

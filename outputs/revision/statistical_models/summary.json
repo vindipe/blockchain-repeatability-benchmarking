@@ -1,0 +1,150 @@
+{
+  "scopes": {
+    "legacy_three_workloads": {
+      "all_targeted_three_way_models_fully_estimable": true,
+      "all_two_way_models_full_rank": true,
+      "conditional_models": {
+        "Energy": {
+          "adjusted_r_squared": 0.6657864542434255,
+          "breusch_pagan_lm": 88.75893354344466,
+          "breusch_pagan_p_value": 0.0015119843105382302,
+          "columns": 54,
+          "condition_number": 5.740692900957614,
+          "full_rank": true,
+          "jarque_bera": 41.6147421428453,
+          "jarque_bera_p_value": 9.193345053192993e-10,
+          "observations": 1770,
+          "r_squared": 0.6757996356595355,
+          "rank": 54,
+          "rank_deficiency": 0,
+          "warnings": []
+        },
+        "Latency": {
+          "adjusted_r_squared": 0.8661727380883235,
+          "breusch_pagan_lm": 519.8264439795901,
+          "breusch_pagan_p_value": 7.044457493005336e-78,
+          "columns": 54,
+          "condition_number": 5.740692900957614,
+          "full_rank": true,
+          "jarque_bera": 7709.2023506263195,
+          "jarque_bera_p_value": 0.0,
+          "observations": 1770,
+          "r_squared": 0.8701822603502336,
+          "rank": 54,
+          "rank_deficiency": 0,
+          "warnings": []
+        },
+        "TPS": {
+          "adjusted_r_squared": 0.8957476342009564,
+          "breusch_pagan_lm": 292.5467141258647,
+          "breusch_pagan_p_value": 7.454305847155275e-35,
+          "columns": 54,
+          "condition_number": 5.760322887792442,
+          "full_rank": true,
+          "jarque_bera": 33784.379473314555,
+          "jarque_bera_p_value": 0.0,
+          "observations": 1764,
+          "r_squared": 0.8988817098602583,
+          "rank": 54,
+          "rank_deficiency": 0,
+          "warnings": []
+        }
+      },
+      "outcome_model": {
+        "auc": 0.9624233894312352,
+        "brier_score": 0.05241863832037353,
+        "columns": 54,
+        "condition_number": 5.832020714861743,
+        "configuration_cells_with_single_observed_outcome": 120,
+        "converged": true,
+        "deviance": 669.0451386894151,
+        "full_rank": true,
+        "iterations": 26,
+        "maximum_absolute_coefficient": 18.712653448450915,
+        "mcfadden_pseudo_r2": 0.5936940422296729,
+        "observations": 2053,
+        "pearson_chi2_per_residual_df": 0.4121183610997473,
+        "quasi_separation_warning": true,
+        "rank": 54,
+        "rank_deficiency": 0
+      },
+      "rows": 2053
+    },
+    "six_workloads": {
+      "all_targeted_three_way_models_fully_estimable": false,
+      "all_two_way_models_full_rank": false,
+      "conditional_models": {
+        "Energy": {
+          "adjusted_r_squared": 0.8524713361894993,
+          "breusch_pagan_lm": 128.5514496482433,
+          "breusch_pagan_p_value": 0.0010026146898863587,
+          "columns": 84,
+          "condition_number": 4859032267399316.0,
+          "full_rank": false,
+          "jarque_bera": 96.02609992520048,
+          "jarque_bera_p_value": 1.4066865723996786e-21,
+          "observations": 3125,
+          "r_squared": 0.8562965032089137,
+          "rank": 82,
+          "rank_deficiency": 2,
+          "warnings": [
+            "covariance of constraints does not have full rank. The number of constraints is 5, but rank is 4"
+          ]
+        },
+        "Latency": {
+          "adjusted_r_squared": 0.8376019255280657,
+          "breusch_pagan_lm": 746.7554057622345,
+          "breusch_pagan_p_value": 2.2342224316653108e-107,
+          "columns": 84,
+          "condition_number": 4859032267399316.0,
+          "full_rank": false,
+          "jarque_bera": 15191.945069176385,
+          "jarque_bera_p_value": 0.0,
+          "observations": 3125,
+          "r_squared": 0.8418126310441434,
+          "rank": 82,
+          "rank_deficiency": 2,
+          "warnings": [
+            "covariance of constraints does not have full rank. The number of constraints is 5, but rank is 4"
+          ]
+        },
+        "TPS": {
+          "adjusted_r_squared": 0.9112684159703454,
+          "breusch_pagan_lm": 461.2546981396132,
+          "breusch_pagan_p_value": 8.023717550789742e-54,
+          "columns": 84,
+          "condition_number": 8220930001441397.0,
+          "full_rank": false,
+          "jarque_bera": 31223.69425546474,
+          "jarque_bera_p_value": 0.0,
+          "observations": 3118,
+          "r_squared": 0.9135742415418571,
+          "rank": 82,
+          "rank_deficiency": 2,
+          "warnings": [
+            "covariance of constraints does not have full rank. The number of constraints is 5, but rank is 4"
+          ]
+        }
+      },
+      "outcome_model": {
+        "auc": 0.9893915811518325,
+        "brier_score": 0.03346702940324274,
+        "columns": 84,
+        "condition_number": 6.200295226007565,
+        "configuration_cells_with_single_observed_outcome": 254,
+        "converged": true,
+        "deviance": 882.7923731025011,
+        "full_rank": true,
+        "iterations": 28,
+        "maximum_absolute_coefficient": 35.788918165546164,
+        "mcfadden_pseudo_r2": 0.8011832362825747,
+        "observations": 4080,
+        "pearson_chi2_per_residual_df": 0.7193939902217966,
+        "quasi_separation_warning": true,
+        "rank": 84,
+        "rank_deficiency": 0
+      },
+      "rows": 4080
+    }
+  }
+}
