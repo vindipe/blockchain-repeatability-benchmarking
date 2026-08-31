@@ -90,8 +90,8 @@ The archival record is available through the stable Zenodo concept DOI:
   and medians across configuration cells, and writes standalone LaTeX tables.
 - `analysis/fit_two_part_models.py` fits the binomial outcome model and the
   log-linear conditional-performance models, audits rank and estimability,
-  computes HC3 Type-II tests and Type-III sensitivities, and writes residual
-  diagnostics and standalone LaTeX tables.
+computes HC3 Type-II tests and Type-III sensitivities, and writes residual
+diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
 - `analysis/icc_by_blockchain.py` replaces the pooled raw-scale ICC with REML
   random-intercept ICCs within each blockchain on the natural-log scale and
   attaches configuration-cluster bootstrap intervals.
@@ -238,6 +238,8 @@ inference. The legacy three-workload models are full rank. In the six-workload
 corpus, conditional models are rank-deficient by two because positive-service
 observations are structurally absent from some factor cells; the artifact
 reports this rather than treating aliased coefficients as estimable.
+Targeted three-way sensitivity tests are reported only when every added column
+increases model rank; otherwise the table marks the term as not estimable.
 
 ICC is estimated separately within each blockchain and metric using an
 intercept-only REML mixed model on the natural-log scale, with configuration as

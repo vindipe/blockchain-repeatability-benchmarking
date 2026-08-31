@@ -189,7 +189,10 @@ machine-readable term tables.
 
 The script verifies design-matrix rank before inference. All legacy
 three-workload two-way models and both targeted three-way additions are full
-rank. The six-workload outcome model remains full rank, but each conditional
+rank. For estimable targeted three-way additions, the artifact reports
+likelihood-ratio tests for the outcome component and HC3 Type-II tests for the
+conditional log-performance component. The six-workload outcome model remains
+full rank, but each conditional
 performance model is rank-deficient by two because some factor combinations
 have no positive-service observations. The corresponding three-way additions
 are also not fully estimable. These diagnostics prevent aliased terms from
@@ -277,8 +280,9 @@ python3 analysis/fit_two_part_models.py
 ```
 
 creates term-level outcome and conditional-performance tests, Type-III
-sensitivities, design-rank audits, residual diagnostics, and generated model
-tables below `outputs/revision/statistical_models/` and `paper_tables/`.
+sensitivities, targeted three-way sensitivity tests, design-rank audits,
+residual diagnostics, and generated model tables below
+`outputs/revision/statistical_models/` and `paper_tables/`.
 Running:
 
 ```bash

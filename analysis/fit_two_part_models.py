@@ -323,6 +323,102 @@ def three_way_estimability(data: pd.DataFrame, metric: str) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def targeted_three_way_sensitivity(data: pd.DataFrame) -> pd.DataFrame:
+    """Fit targeted three-way additions when the added columns are estimable."""
+
+    rows: list[dict[str, object]] = []
+    outcome_data = data.copy()
+    outcome_data["positive_commit_indicator"] = outcome_data[
+        "positive_commit_derived"
+    ].astype(int)
+    outcome_base_formula = f"positive_commit_indicator ~ {TWO_WAY_RHS}"
+    outcome_base_diag = design_diagnostics(outcome_base_formula, outcome_data)
+    outcome_base_model = smf.glm(
+        outcome_base_formula,
+        data=outcome_data,
+        family=sm.families.Binomial(),
+    ).fit(maxiter=200)
+
+    for display, term in TARGETED_THREE_WAY.items():
+        formula = f"{outcome_base_formula} + {term}"
+        diag = design_diagnostics(formula, outcome_data)
+        added_columns = int(diag["columns"]) - int(outcome_base_diag["columns"])
+        added_rank = int(diag["rank"]) - int(outcome_base_diag["rank"])
+        fully_estimable = added_columns == added_rank and bool(diag["full_rank"])
+        statistic = np.nan
+        p_value = np.nan
+        df = added_rank
+        status = "not estimable"
+        if fully_estimable:
+            augmented = smf.glm(
+                formula,
+                data=outcome_data,
+                family=sm.families.Binomial(),
+            ).fit(maxiter=200)
+            statistic = max(0.0, float(outcome_base_model.deviance - augmented.deviance))
+            df = int(outcome_base_model.df_resid - augmented.df_resid)
+            p_value = float(st.chi2.sf(statistic, df))
+            status = "reported"
+        rows.append(
+            {
+                "component": "Outcome",
+                "metric": "Positive commit",
+                "interaction": display,
+                "test": "likelihood-ratio chi-square",
+                "statistic": statistic,
+                "df": df,
+                "p_value": p_value,
+                "added_columns": added_columns,
+                "added_rank": added_rank,
+                "fully_estimable": fully_estimable,
+                "status": status,
+            }
+        )
+
+    for metric in METRIC_SPECS:
+        value_column, eligibility_column = METRIC_SPECS[metric]
+        eligible = data.loc[data[eligibility_column]].copy()
+        eligible["log_value"] = np.log(pd.to_numeric(eligible[value_column]))
+        base_formula = f"log_value ~ {TWO_WAY_RHS}"
+        base_diag = design_diagnostics(base_formula, eligible)
+        for display, term in TARGETED_THREE_WAY.items():
+            formula = f"{base_formula} + {term}"
+            diag = design_diagnostics(formula, eligible)
+            added_columns = int(diag["columns"]) - int(base_diag["columns"])
+            added_rank = int(diag["rank"]) - int(base_diag["rank"])
+            fully_estimable = added_columns == added_rank and bool(diag["full_rank"])
+            statistic = np.nan
+            p_value = np.nan
+            df = added_rank
+            residual_df = np.nan
+            status = "not estimable"
+            if fully_estimable:
+                augmented = smf.ols(formula, data=eligible).fit()
+                robust = anova_lm(augmented, typ=2, robust="hc3").loc[term]
+                statistic = float(robust["F"])
+                df = float(robust["df"])
+                residual_df = float(augmented.df_resid)
+                p_value = float(robust["PR(>F)"])
+                status = "reported"
+            rows.append(
+                {
+                    "component": "Conditional performance",
+                    "metric": metric,
+                    "interaction": display,
+                    "test": "HC3 Type-II F",
+                    "statistic": statistic,
+                    "df": df,
+                    "residual_df": residual_df,
+                    "p_value": p_value,
+                    "added_columns": added_columns,
+                    "added_rank": added_rank,
+                    "fully_estimable": fully_estimable,
+                    "status": status,
+                }
+            )
+    return pd.DataFrame(rows)
+
+
 def p_text(value: float) -> str:
     if not np.isfinite(value):
         return "--"
@@ -422,6 +518,47 @@ def render_estimability_table(table: pd.DataFrame) -> str:
     return "\n".join(lines)
 
 
+def render_three_way_sensitivity_table(table: pd.DataFrame) -> str:
+    lines = [
+        r"\begin{table*}[t]",
+        r"\centering",
+        r"\caption{Targeted three-way interaction sensitivity tests. Terms are reported only when the augmented design matrix is full rank and all added columns increase model rank.}",
+        r"\label{tab:three_way_sensitivity}",
+        r"\small",
+        r"\begin{tabular}{lllrrrc}",
+        r"\hline",
+        r"Component & Metric & Interaction & Test statistic & df & $p$ & Status \\",
+        r"\hline",
+    ]
+    for _, row in table.iterrows():
+        interaction = str(row["interaction"]).replace("Blockchain", "B").replace(
+            "topology", "T"
+        ).replace("workload", "W").replace("size", "S")
+        if bool(row["fully_estimable"]):
+            statistic = f"{row['statistic']:.2f}"
+            df = f"{row['df']:.0f}"
+            p_value = p_text(float(row["p_value"]))
+        else:
+            statistic = "--"
+            df = f"{int(row['added_rank'])}/{int(row['added_columns'])}"
+            p_value = "--"
+        lines.append(
+            f"{row['component']} & {row['metric']} & {interaction} & "
+            f"{statistic} & {df} & {p_value} & {row['status']} \\\\"
+        )
+    lines.extend(
+        [
+            r"\hline",
+            r"\end{tabular}",
+            r"\vspace{1mm}",
+            r"\parbox{\textwidth}{\footnotesize Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests on the augmented log-linear model. For non-estimable rows, df is shown as added rank over added columns.}",
+            r"\end{table*}",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def run_models(input_path: Path, output_dir: Path, table_dir: Path) -> dict[str, object]:
     derived = derive_outcomes(prepare_selected_runs(load_runs(input_path)))
     summary: dict[str, object] = {"scopes": {}}
@@ -458,14 +595,22 @@ def run_models(input_path: Path, output_dir: Path, table_dir: Path) -> dict[str,
         performance = pd.concat(primary_parts, ignore_index=True)
         sensitivity = pd.concat(sensitivity_parts, ignore_index=True)
         estimability = pd.concat(estimability_parts, ignore_index=True)
+        three_way_sensitivity = targeted_three_way_sensitivity(data)
         performance.to_csv(scope_output / "performance_type_ii_hc3.csv", index=False)
         sensitivity.to_csv(scope_output / "performance_type_iii_hc3_sensitivity.csv", index=False)
         estimability.to_csv(scope_output / "three_way_estimability.csv", index=False)
+        three_way_sensitivity.to_csv(
+            scope_output / "three_way_sensitivity.csv", index=False
+        )
         (scope_tables / "table_two_part_factorial_models.tex").write_text(
             render_term_table(outcome_tests, performance), encoding="utf-8"
         )
         (scope_tables / "table_three_way_estimability.tex").write_text(
             render_estimability_table(estimability), encoding="utf-8"
+        )
+        (scope_tables / "table_three_way_sensitivity.tex").write_text(
+            render_three_way_sensitivity_table(three_way_sensitivity),
+            encoding="utf-8",
         )
         scope_summary = {
             "rows": int(len(data)),

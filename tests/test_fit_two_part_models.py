@@ -8,7 +8,9 @@ from analysis.fit_two_part_models import (
     METRIC_SPECS,
     fit_binomial,
     fit_linear_metric,
+    render_three_way_sensitivity_table,
     render_term_table,
+    targeted_three_way_sensitivity,
     three_way_estimability,
 )
 
@@ -60,6 +62,15 @@ class TwoPartModelTests(unittest.TestCase):
         latex = render_term_table(outcome, pd.concat(parts, ignore_index=True))
         self.assertIn("-- & -- & --", latex)
         self.assertIn("rank-deficient", latex)
+
+    def test_legacy_targeted_three_way_sensitivity_is_reported(self):
+        table = targeted_three_way_sensitivity(self.legacy)
+        self.assertEqual(len(table), 8)
+        self.assertTrue(table["fully_estimable"].all())
+        latex = render_three_way_sensitivity_table(table)
+        self.assertIn(r"\label{tab:three_way_sensitivity}", latex)
+        self.assertIn("likelihood-ratio", latex)
+        self.assertIn("HC3 Type-II", latex)
 
 
 if __name__ == "__main__":
