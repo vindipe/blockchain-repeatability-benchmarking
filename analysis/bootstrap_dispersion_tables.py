@@ -339,7 +339,7 @@ def render_latex_table(
         r"\toprule",
         (
             rf"\textbf{{Blockchain}} & \textbf{{{factor_display}}} & "
-            r"\textbf{$C$} & \textbf{$N_k$} & \textbf{$n_{c,k}$} & "
+            r"$\mathbf{C}$ & $\mathbf{N_k}$ & $\mathbf{n_{c,k}}$ & "
             r"\textbf{Mean IQR\%} & \textbf{Median IQR\%} & "
             r"\textbf{Mean Std\%} & \textbf{Median Std\%} \\"
         ),
