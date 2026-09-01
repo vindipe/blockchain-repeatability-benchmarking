@@ -1,7 +1,7 @@
 workload,raw_label,transaction_profile,offered_load,demand_regime,source,configuration_cells,observed_executions,positive_commit,zero_commit,no_submission,minimum_observed_per_cell,maximum_observed_per_cell
 DDoS,10000,Simple transfer,"10,000 TPS (constant)",Very-high steady rate,Diablo-v2,50,671,454,217,0,10,22
 FIFA,football,FIFA smart contract,FIFA-derived trace,Contention-oriented,Diablo-v2,50,673,449,224,0,9,21
-GAFAM,gafam,Stock-trading smart contract,"20,000-TPS initial burst",Bursty,Diablo-v2; Nasdaq,50,668,601,67,0,10,19
+GAFAM,gafam,Stock-trading smart contract,"19,800 TPS at 0 s; 25--140 TPS after 1 s",Bursty,Diablo-v2; Nasdaq,50,668,601,67,0,10,19
 Gaming,dota,Dota 2 smart contract,Dota-2-derived trace,High sending rate,Diablo-v2,50,683,452,229,2,10,25
 PayPal,paypal,Simple transfer,200 TPS (constant),Moderate steady rate,paymentSystems,50,688,601,87,0,11,24
 VISA,visa,Simple transfer,"1,800 TPS (constant)",High steady rate,Diablo-v2,50,697,568,129,0,9,26

@@ -1,0 +1,32 @@
+{
+  "contract": "gafam:buy",
+  "control_point_at_second_1_tps": 115,
+  "corpus_link": {
+    "display_workload_label": "GAFAM",
+    "raw_workload_label": "gafam",
+    "recorded_average_load_tps": [
+      167.6,
+      167.7
+    ],
+    "selected_observations": 668,
+    "submitted_transactions_per_observation": 30320
+  },
+  "initial_control_point_tps": 19800,
+  "interpolation": "linear between control points (Diablo)",
+  "load_unit": "transactions per second (TPS)",
+  "mirror_normalization": "one terminating LF added; YAML content unchanged",
+  "post_burst_control_point_range_tps_through_second_180": [
+    25,
+    140
+  ],
+  "review_point": "m2",
+  "source_commit": "dd1d457c6079661b158f601cdf70817cbe2a5f2a",
+  "source_path": "kollaps/examples/diablo/primary/fixes/workload-gafam-long.yaml",
+  "source_repository": "https://github.com/vindipe/lilith",
+  "time_unit": "seconds",
+  "trace_duration_seconds": 300,
+  "trace_filename": "workload-gafam-long.yaml",
+  "trace_id": "smart-gafam",
+  "trace_sha256": "11d4fb66ef30608764bb91ee8fb62ecddc294c6d19fc2d8ba7cd9e71d7ce83b7",
+  "upstream_trace_sha256": "11fd627b4fba15884605b1fda1e11d701b10538b9f1ccf9e61fd458e2aff17ba"
+}

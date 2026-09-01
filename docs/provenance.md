@@ -44,6 +44,24 @@ otherwise preserved.
 | `requirements.txt` | 109 | `0b52c891589e19def8d4e039c0c5993f` | `406ac924eaf91ee26b670382c8361d9bf29bc8afd6fee33c47db20788271152d` |
 | `docs/README-ACM-DLT.md` | 413 | `39c635e0d697e5fc0da310e0368a765d` | `22d21b4d5d17f3035e2e1ba14ae5b0af0a66ffc0ed74f985e853a89d64ada3c6` |
 
+## GAFAM workload input (m2)
+
+The GAFAM workload definition is mirrored from
+`https://github.com/vindipe/lilith`, commit
+`dd1d457c6079661b158f601cdf70817cbe2a5f2a`, path
+`kollaps/examples/diablo/primary/fixes/workload-gafam-long.yaml`. Its upstream
+SHA-256 is
+`11fd627b4fba15884605b1fda1e11d701b10538b9f1ccf9e61fd458e2aff17ba`.
+The packaged mirror adds one terminating LF without changing the YAML content;
+its SHA-256 is
+`11d4fb66ef30608764bb91ee8fb62ecddc294c6d19fc2d8ba7cd9e71d7ce83b7`.
+
+Lilith's execution loop selects `workload-gafam-long.yaml` for the `gafam`
+workload. The released CSV retains the raw `gafam` label but does not contain a
+historical execution manifest with a trace checksum. The artifact therefore
+records both links explicitly and does not claim a cryptographic binding that
+the released run rows themselves cannot establish.
+
 ## Validation
 
 The artifact was validated on 29 July 2026 with Python 3.12 and the pinned

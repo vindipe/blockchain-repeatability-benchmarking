@@ -1,6 +1,6 @@
 \begin{table*}[t]
 \centering
-\caption{Six workload profiles and observed outcome accounting. Offered loads and trace characteristics follow the released Diablo workload definitions; counts refer to the selected repeated-execution corpus.}
+\caption{\vd{m1/m2: Six workload profiles and observed outcome accounting. Offered loads and trace characteristics follow the released Lilith/Diablo inputs; counts refer to the selected repeated-execution corpus.}}
 \label{tab:six_workload_catalog}
 \small
 \setlength{\tabcolsep}{3.2pt}
@@ -11,7 +11,7 @@ Workload & Raw label & Transaction profile & Offered-load pattern & Cells & Obse
 \hline
 DDoS & 10000 & Simple transfer & 10,000 TPS (constant) & 50 & 671 & 454 & 217 \\
 FIFA & football & FIFA smart contract & FIFA-derived trace & 50 & 673 & 449 & 224 \\
-GAFAM & gafam & Stock-trading smart contract & 20,000-TPS initial burst & 50 & 668 & 601 & 67 \\
+GAFAM & gafam & Stock-trading smart contract & 19,800 TPS at 0 s; 25--140 TPS after 1 s & 50 & 668 & 601 & 67 \\
 Gaming & dota & Dota 2 smart contract & Dota-2-derived trace & 50 & 683 & 452 & 229 \\
 PayPal & paypal & Simple transfer & 200 TPS (constant) & 50 & 688 & 601 & 87 \\
 VISA & visa & Simple transfer & 1,800 TPS (constant) & 50 & 697 & 568 & 129 \\
@@ -19,5 +19,5 @@ VISA & visa & Simple transfer & 1,800 TPS (constant) & 50 & 697 & 568 & 129 \\
 \end{tabular}
 }
 \vspace{1mm}
-\parbox{\textwidth}{\footnotesize The raw labels \texttt{10000}, \texttt{football}, and \texttt{dota} are reported as DDoS, FIFA, and Gaming, respectively, to retain the terminology of the released aggregate corpus. Gaming also contains the corpus's two no-submission observations. DDoS denotes the artifact's 10,000-TPS workload label; the present study does not infer that an observed zero-commit execution was caused by a network attack.}
+\parbox{\textwidth}{\footnotesize \vd{m1/m2: The raw labels \texttt{10000}, \texttt{football}, \texttt{gafam}, and \texttt{dota} are reported as DDoS, FIFA, GAFAM, and Gaming, respectively. The GAFAM trace contains a 19,800-TPS control point at 0~s, falls to 115~TPS at 1~s, uses 25--140-TPS control points through 180~s, and reaches zero at 300~s; Diablo linearly interpolates between control points. Gaming also contains the corpus's two no-submission observations. DDoS denotes the artifact's 10,000-TPS workload label; the present study does not infer that an observed zero-commit execution was caused by a network attack.}}
 \end{table*}

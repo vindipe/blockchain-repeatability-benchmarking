@@ -42,6 +42,7 @@ The archival record is available through the stable Zenodo concept DOI:
 │   ├── derive_run_outcomes.py
 │   ├── fit_two_part_models.py
 │   ├── icc_by_blockchain.py
+│   ├── audit_gafam_trace.py
 │   ├── workload_catalog.py
 │   ├── plot_run_level_deviations.py
 │   └── plot_reproducibility.py
@@ -49,6 +50,9 @@ The archival record is available through the stable Zenodo concept DOI:
 │   ├── README.md
 │   ├── reproducibility-dataset.csv
 │   └── reproducibility-runs.csv
+├── inputs/
+│   └── workloads/
+│       └── workload-gafam-long.yaml
 ├── docs/
 │   ├── README-ACM-DLT.md
 │   ├── data_dictionary.md
@@ -98,7 +102,11 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
   random-intercept ICCs within each blockchain on the natural-log scale and
   attaches configuration-cluster bootstrap intervals.
 - `analysis/workload_catalog.py` generates the six-workload definition and
-  outcome-accounting table used for M1.
+  outcome-accounting table used for M1/m2; its generated caption and note
+  already carry the manuscript's `\vd{...}` revision marking.
+- `analysis/audit_gafam_trace.py` verifies the mirrored GAFAM input checksum,
+  schedule, units, source revision, raw-to-display label mapping, and its link
+  to the 668 selected GAFAM observations.
 - `analysis/plot_run_level_deviations.py` generates corrected run-level PDF
   absolute and relative deviation figures for all six workloads, using the
   same metric-specific eligibility masks as the numerical analysis.
@@ -122,6 +130,13 @@ The complete six-workload corpus is the primary manuscript scope. The earlier
 GAFAM, PayPal, and VISA subset is retained only as a labelled compatibility
 and sensitivity scope so that previously reported values remain auditable.
 
+The raw `gafam` label selects `workload-gafam-long.yaml`. Its 300-second offered
+load is specified as TPS control points: 19,800 at second 0, 115 at second 1,
+25--140 at subsequent control points through second 180, 37 at second 180, and
+zero at second 300. Diablo linearly interpolates between control points. The
+mirrored input, source commit/path, and both source and packaged checksums are
+tracked under `inputs/workloads/` and `outputs/revision/m2_gafam_trace/`.
+
 ## Reproduce the analysis
 
 Python 3.12 was used for the validation recorded in this release.
@@ -136,6 +151,7 @@ python3 analysis/balanced_sensitivity.py
 python3 analysis/bootstrap_dispersion_tables.py
 python3 analysis/fit_two_part_models.py
 python3 analysis/icc_by_blockchain.py
+python3 analysis/audit_gafam_trace.py
 python3 analysis/workload_catalog.py
 python3 analysis/plot_run_level_deviations.py
 ```
@@ -153,6 +169,7 @@ python3 analysis/balanced_sensitivity.py
 python3 analysis/bootstrap_dispersion_tables.py
 python3 analysis/fit_two_part_models.py
 python3 analysis/icc_by_blockchain.py
+python3 analysis/audit_gafam_trace.py
 python3 analysis/workload_catalog.py
 python3 analysis/plot_run_level_deviations.py
 python3 -m unittest discover -s tests -v

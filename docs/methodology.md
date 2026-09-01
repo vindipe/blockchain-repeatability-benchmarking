@@ -49,6 +49,24 @@ configuration-level statistics in the original plotting script. The revised
 pipeline retains that script for provenance and implements outcome-state
 reconstruction in a separate preprocessing stage.
 
+## GAFAM workload trace audit (m2)
+
+The raw workload label `gafam` maps to the manuscript label `GAFAM` and selects
+`inputs/workloads/workload-gafam-long.yaml`. The YAML trace uses seconds as
+keys and offered TPS as values. It defines control points of 19,800 TPS at
+second 0 and 115 TPS at second 1, then control points spanning 25--140 TPS
+through second 180, followed by 37 TPS at second 180 and zero at second 300.
+Diablo linearly interpolates between successive control points; the 19,800-TPS
+value is therefore not a three-minute constant plateau.
+
+`analysis/audit_gafam_trace.py` checks the filename, packaged and upstream
+SHA-256 values, 300-second duration, units, trace identifier, contract selector,
+and schedule. It also verifies the corpus-side link: all 668 selected GAFAM
+observations originate from raw label `gafam`, report 30,320 submitted
+transactions, and retain recorded average-load values of 167.6 or 167.7 TPS.
+The machine-readable audit and control-point schedule are written to
+`outputs/revision/m2_gafam_trace/`.
+
 ## Observed-design audit (M1)
 
 `analysis/audit_observed_runs.py` treats each selected CSV row as an observed
@@ -310,12 +328,14 @@ intervals, and generated LaTeX tables below
 `outputs/revision/icc_by_blockchain/` and `paper_tables/`. Running:
 
 ```bash
+python3 analysis/audit_gafam_trace.py
 python3 analysis/workload_catalog.py
 python3 analysis/plot_run_level_deviations.py
 ```
 
-creates the six-workload catalog under `outputs/revision/m1_workloads/`, its
-generated LaTeX table under `paper_tables/six_workloads/`, and twelve corrected
+creates the m2 GAFAM trace audit, the six-workload catalog under
+`outputs/revision/m1_workloads/`, its generated LaTeX table under
+`paper_tables/six_workloads/`, and twelve corrected
 PDF run-level deviation figures under `outputs/revision/m1_figures/`.
 Running the legacy provenance script separately:
 
