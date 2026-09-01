@@ -346,9 +346,13 @@ python3 analysis/plot_reproducibility.py
 creates `outputs/reproducibility-dataset.csv`, six LaTeX tables, and twelve
 figure variants in both PNG and PDF.
 
-The plots show, for each configuration, the lower and upper signed deviations
-derived from the minimum and maximum values in the configuration-level
-aggregate. They do not render every observation as an individual point.
+The plots render every metric-eligible execution as an individual circular
+marker at its signed absolute and relative deviation from the corresponding
+configuration mean. A deterministic horizontal offset in the interval
+`[-0.18, 0.18]` separates executions that belong to the same configuration;
+it has no statistical meaning and does not change factor assignment. The
+generated `plotted_execution_manifest.csv` provides a row-by-row audit from
+the source execution identifiers to every plotted coordinate.
 
 ## Scope
 

@@ -1,4 +1,4 @@
-"""Plot corrected run-level deviations for all six workloads."""
+"""Plot one point per metric-eligible execution for all six workloads (M5)."""
 
 from __future__ import annotations
 
@@ -69,6 +69,8 @@ METRICS = {
     },
 }
 CONFIG = ["blockchain", "mode", "workload", "network_size"]
+RUN_ID = ["dataset", "run", "hash"]
+JITTER_HALF_WIDTH = 0.18
 
 
 def deviation_frame(derived: pd.DataFrame, metric_key: str) -> pd.DataFrame:
@@ -84,7 +86,23 @@ def deviation_frame(derived: pd.DataFrame, metric_key: str) -> pd.DataFrame:
     eligible["relative_deviation"] = (
         100.0 * eligible["absolute_deviation"] / eligible["configuration_mean"]
     )
-    return eligible
+    eligible = eligible.sort_values(CONFIG + RUN_ID, kind="stable")
+    groups = eligible.groupby(CONFIG, observed=True, sort=False)
+    rank = groups.cumcount().astype(float)
+    size = groups["metric_value"].transform("size").astype(float)
+    eligible["plot_offset"] = np.where(
+        size > 1,
+        -JITTER_HALF_WIDTH + (2 * JITTER_HALF_WIDTH * rank / (size - 1)),
+        0.0,
+    )
+    eligible["plot_x"] = [
+        configuration_position(blockchain, topology)
+        for blockchain, topology in zip(
+            eligible["blockchain"], eligible["mode"], strict=True
+        )
+    ]
+    eligible["plot_x"] += eligible["plot_offset"]
+    return eligible.sort_index()
 
 
 def configuration_position(blockchain: str, topology: str) -> float:
@@ -118,13 +136,7 @@ def plot_group(
             axis = axes[row, column]
             for topology in TOPOLOGIES:
                 points = eligible.loc[eligible["mode"] == topology]
-                x = np.array(
-                    [
-                        configuration_position(blockchain, topology)
-                        for blockchain in points["blockchain"]
-                    ],
-                    dtype=float,
-                )
+                x = points["plot_x"].to_numpy(float)
                 y = points[measure].to_numpy(float)
                 if measure == "relative_deviation":
                     overflow = np.abs(y) > 100.0
@@ -215,13 +227,19 @@ def plot_group(
             plt.Line2D([0], [0], marker="x", linestyle="", color="black", label="no metric-eligible run"),
         ]
     )
-    fig.legend(handles=handles, loc="upper center", ncol=7, frameon=False)
+    fig.legend(
+        handles=handles,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.995),
+        ncol=4,
+        frameon=False,
+    )
     fig.suptitle(
         f"{spec['title']} deviations, {network_size}: {', '.join(workloads)}",
-        y=0.975,
+        y=0.915,
         fontsize=13,
     )
-    fig.tight_layout(rect=(0, 0, 1, 0.93))
+    fig.tight_layout(rect=(0, 0, 1, 0.86))
     output_dir.mkdir(parents=True, exist_ok=True)
     stem = f"{metric_key}_{network_size.replace(' ', '_')}_{group_name}"
     pdf = output_dir / f"{stem}.pdf"
@@ -241,9 +259,12 @@ def plot_group(
 
 def run(input_path: Path, output_dir: Path) -> dict[str, object]:
     derived = derive_outcomes(prepare_selected_runs(load_runs(input_path)))
+    deviations_by_metric = {
+        metric_key: deviation_frame(derived, metric_key) for metric_key in METRICS
+    }
     figures: list[dict[str, object]] = []
     for metric_key in METRICS:
-        deviations = deviation_frame(derived, metric_key)
+        deviations = deviations_by_metric[metric_key]
         for network_size in ["10 nodes", "40 nodes"]:
             for group_name, workloads in WORKLOAD_GROUPS.items():
                 figures.append(
@@ -257,20 +278,72 @@ def run(input_path: Path, output_dir: Path) -> dict[str, object]:
                         output_dir,
                     )
                 )
+    manifest = pd.concat(
+        [
+            frame.assign(metric=metric_key)[
+                [
+                    "metric",
+                    *RUN_ID,
+                    *CONFIG,
+                    "metric_value",
+                    "configuration_mean",
+                    "absolute_deviation",
+                    "relative_deviation",
+                    "plot_x",
+                    "plot_offset",
+                ]
+            ]
+            for metric_key, frame in deviations_by_metric.items()
+        ],
+        ignore_index=True,
+    )
+    output_dir.mkdir(parents=True, exist_ok=True)
+    manifest_path = output_dir / "plotted_execution_manifest.csv"
+    manifest.to_csv(manifest_path, index=False)
+    caption_path = output_dir / "m5_figure_caption_replacements.tex"
+    caption_path.write_text(render_caption_replacements(), encoding="utf-8")
     summary = {
         "figures": figures,
         "figure_count": len(figures),
         "pdf_count": len(figures),
         "png_count": 0,
+        "plot_semantics": "one circular marker per metric-eligible execution",
+        "horizontal_offset": (
+            "deterministic within-configuration offset in [-0.18, 0.18]; "
+            "visual separation only"
+        ),
+        "plotted_execution_manifest": str(manifest_path.relative_to(REPOSITORY_ROOT)),
+        "manuscript_caption_replacements": str(caption_path.relative_to(REPOSITORY_ROOT)),
+        "manifest_rows": int(len(manifest)),
         "metric_eligible_rows": {
-            key: int(len(deviation_frame(derived, key))) for key in METRICS
+            key: int(len(frame)) for key, frame in deviations_by_metric.items()
         },
     }
-    output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / "summary.json").write_text(
         json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
     return summary
+
+
+def render_caption_replacements() -> str:
+    return "\n".join(
+        [
+            r"% Exact M5 caption replacements for IEEE Access/4_Measurement_Results.tex",
+            r"% fig:tps-added",
+            r"\caption{\vd{M1/M3/M5: Run-level throughput deviations for DDoS, FIFA, and Gaming at 10 and 40 validators. Each colored circular marker represents one metric-eligible positive-service execution; the deterministic horizontal offsets separate executions visually without changing their blockchain--topology configuration. Triangles denote relative deviations beyond $\pm100\%$, and $\times$ denotes an observed configuration with no point-valued TPS execution.}}",
+            r"% fig:tps-main",
+            r"\caption{\vd{M1/M3/M5: Run-level throughput deviations for GAFAM, PayPal, and VISA at 10 and 40 validators. Each colored circular marker represents one metric-eligible positive-service execution; plotting conventions are otherwise as in Figure~\ref{fig:tps-added}.}}",
+            r"% fig:lat-added",
+            r"\caption{\vd{M1/M3/M5: Run-level block-latency deviations for DDoS, FIFA, and Gaming at 10 and 40 validators. Each colored circular marker represents one metric-eligible positive-service execution; the deterministic horizontal offsets separate executions visually without changing their blockchain--topology configuration. Triangles denote relative deviations beyond $\pm100\%$, and $\times$ denotes an observed configuration with no eligible latency execution.}}",
+            r"% fig:lat-main",
+            r"\caption{\vd{M1/M3/M5: Run-level block-latency deviations for GAFAM, PayPal, and VISA at 10 and 40 validators. Each colored circular marker represents one metric-eligible positive-service execution; plotting conventions are otherwise as in Figure~\ref{fig:lat-added}.}}",
+            r"% fig:energy-added",
+            r"\caption{\vd{M1/M3/M5: Run-level positive-service energy deviations for DDoS, FIFA, and Gaming at 10 and 40 validators. Each colored circular marker represents one positive-service energy execution; the deterministic horizontal offsets separate executions visually without changing their blockchain--topology configuration. $\times$ denotes an observed configuration with no positive-service energy execution.}}",
+            r"% fig:energy-main",
+            r"\caption{\vd{M1/M3/M5: Run-level positive-service energy deviations for GAFAM, PayPal, and VISA at 10 and 40 validators. Each colored circular marker represents one positive-service energy execution; plotting conventions are otherwise as in Figure~\ref{fig:energy-added}.}}",
+            "",
+        ]
+    )
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:

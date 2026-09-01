@@ -170,11 +170,16 @@
       ]
     }
   ],
+  "horizontal_offset": "deterministic within-configuration offset in [-0.18, 0.18]; visual separation only",
+  "manifest_rows": 9368,
+  "manuscript_caption_replacements": "outputs/revision/m1_figures/m5_figure_caption_replacements.tex",
   "metric_eligible_rows": {
     "energy": 3125,
     "latency": 3125,
     "tps": 3118
   },
   "pdf_count": 12,
+  "plot_semantics": "one circular marker per metric-eligible execution",
+  "plotted_execution_manifest": "outputs/revision/m1_figures/plotted_execution_manifest.csv",
   "png_count": 0
 }

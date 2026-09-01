@@ -102,14 +102,18 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
   random-intercept ICCs within each blockchain on the natural-log scale and
   attaches configuration-cluster bootstrap intervals.
 - `analysis/workload_catalog.py` generates the six-workload definition and
-  outcome-accounting table used for M1/m2; its generated caption and note
+  outcome-accounting table used for M1/M2; its generated caption and note
   already carry the manuscript's `\vd{...}` revision marking.
 - `analysis/audit_gafam_trace.py` verifies the mirrored GAFAM input checksum,
   schedule, units, source revision, raw-to-display label mapping, and its link
   to the 668 selected GAFAM observations.
 - `analysis/plot_run_level_deviations.py` generates corrected run-level PDF
   absolute and relative deviation figures for all six workloads, using the
-  same metric-specific eligibility masks as the numerical analysis.
+  same metric-specific eligibility masks as the numerical analysis. Each
+  colored circular marker is one eligible execution; a deterministic small
+  horizontal offset separates executions within a configuration without
+  changing their factor assignment. The script also writes a point-level CSV
+  manifest and the exact M5 LaTeX caption replacements with `\vd{...}` tags.
 - `outputs/revision/` contains the definitive versioned CSV, JSON, diagnostic
   PDF, and generated-table outputs from the completed revision analyses. A
   GitHub source ZIP therefore includes the executed results and does not
