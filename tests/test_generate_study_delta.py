@@ -24,7 +24,8 @@ class StudyDeltaTests(unittest.TestCase):
 
     def test_table_marks_caption_only(self):
         latex = render_table()
-        self.assertIn(r"\caption{\vd{M8/R2.5:", latex)
+        self.assertIn(r"\caption{\vd{R1.8/R2.5:", latex)
+        self.assertIn(r"\footnotesize", latex)
         self.assertEqual(latex.count(r"\vd{"), 1)
         self.assertNotIn(r"\color{olive}", latex)
         self.assertIn("Published in ACM DLT", latex)

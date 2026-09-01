@@ -19,7 +19,7 @@
     25,
     140
   ],
-  "review_point": "m2",
+  "review_point": "R1.13",
   "source_commit": "dd1d457c6079661b158f601cdf70817cbe2a5f2a",
   "source_path": "kollaps/examples/diablo/primary/fixes/workload-gafam-long.yaml",
   "source_repository": "https://github.com/vindipe/lilith",

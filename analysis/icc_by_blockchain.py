@@ -1,4 +1,4 @@
-"""Estimate log-scale ICCs within each blockchain (S1/R2.4).
+"""Estimate log-scale ICCs within each blockchain (R1.9/R2.4).
 
 For every blockchain and positive-service metric, an intercept-only mixed model
 uses configuration as a random intercept.  ICC is the between-configuration
@@ -152,7 +152,7 @@ def render_icc_table(table: pd.DataFrame, repetitions: int, seed: int) -> str:
         r"\centering",
         r"\caption{\vd{R2.4: Within-blockchain log-scale random-intercept ICC estimates. Brackets give 95\% configuration-cluster bootstrap intervals.}}",
         r"\label{tab:icc_by_blockchain}",
-        r"\small",
+        r"\footnotesize",
         r"\resizebox{\textwidth}{!}{%",
         r"\begin{tabular}{lccc}",
         r"\hline",

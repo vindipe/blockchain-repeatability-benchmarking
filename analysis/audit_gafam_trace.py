@@ -1,4 +1,4 @@
-"""Audit the GAFAM trace definition and its link to the released corpus (m2)."""
+"""Audit the GAFAM trace definition and its link to the released corpus (R1.13)."""
 
 from __future__ import annotations
 
@@ -119,7 +119,7 @@ def run(input_path: Path, trace_path: Path, output_dir: Path) -> dict[str, objec
         [{"second": second, "offered_tps_control_point": rate} for second, rate in sorted(schedule.items())]
     ).to_csv(output_dir / "gafam_trace_schedule.csv", index=False)
     summary: dict[str, object] = {
-        "review_point": "m2",
+        "review_point": "R1.13",
         "trace_filename": trace_path.name,
         "trace_sha256": digest,
         "upstream_trace_sha256": UPSTREAM_TRACE_SHA256,

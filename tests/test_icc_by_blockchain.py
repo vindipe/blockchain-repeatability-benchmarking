@@ -56,6 +56,7 @@ class ICCModelTests(unittest.TestCase):
         self.assertNotIn(r"\color{olive}", latex)
         self.assertEqual(latex.count(r"\vd{"), 1)
         self.assertIn(r"\caption{\vd{R2.4:", latex)
+        self.assertIn(r"\footnotesize", latex)
 
     def test_tables_can_be_rebuilt_from_completed_results(self):
         rows = []

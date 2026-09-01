@@ -41,7 +41,8 @@ class CampaignStructureAuditTests(unittest.TestCase):
         summary = summarize_decomposition(variance_decomposition(self.derived))
         latex = render_table(summary)
         self.assertNotIn(r"\color{olive}", latex)
-        self.assertIn(r"\caption{\vd{M6:", latex)
+        self.assertIn(r"\caption{\vd{R1.6:", latex)
+        self.assertIn(r"\footnotesize", latex)
         self.assertEqual(latex.count(r"\vd{"), 1)
         self.assertIn(r"\label{tab:campaign_hash_sensitivity}", latex)
 
@@ -49,7 +50,7 @@ class CampaignStructureAuditTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             result = run(DEFAULT_INPUT, root / "outputs", root / "table.tex")
-            self.assertEqual(result["review_point"], "M6")
+            self.assertEqual(result["review_point"], "R1.6")
             for filename in (
                 "campaign_identifier_audit.json",
                 "configuration_hash_structure.csv",

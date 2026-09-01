@@ -1,4 +1,4 @@
-"""Fit the S2/S3 two-part outcome and conditional-performance models.
+"""Fit the R1.10/R1.11 two-part outcome and conditional-performance models.
 
 The first component is a binomial GLM for an observed positive commit.  The
 second component fits OLS models to log-transformed, metric-eligible TPS,
@@ -615,9 +615,9 @@ def render_term_table(
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
-        r"\caption{\vd{S1/S2: Two-part factorial models. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance models report Type-II $F$ tests with HC3 covariance and partial $\eta^2$.}}",
+        r"\caption{\vd{R1.9/R1.10: Two-part factorial models. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance models report Type-II $F$ tests with HC3 covariance and partial $\eta^2$.}}",
         r"\label{tab:two_part_factorial_models}",
-        r"\small",
+        r"\footnotesize",
         r"\setlength{\tabcolsep}{3.4pt}",
         r"\resizebox{\textwidth}{!}{%",
         r"\begin{tabular}{lrr|rrr|rrr|rrr}",
@@ -668,11 +668,11 @@ def render_term_table(
 
 def render_estimability_table(table: pd.DataFrame) -> str:
     lines = [
-        r"\begin{table}[t]",
+        r"\begin{table*}[t]",
         r"\centering",
-        r"\caption{\vd{S3: Design-matrix audit for targeted three-way interaction sensitivities. Added rank gives the supported degrees of freedom; a term can be tested on observed support even when empty positive-service cells reduce its nominal rank.}}",
+        r"\caption{\vd{R1.11: Design-matrix audit for targeted three-way interaction sensitivities. Added rank gives the supported degrees of freedom; a term can be tested on observed support even when empty positive-service cells reduce its nominal rank.}}",
         r"\label{tab:three_way_estimability}",
-        r"\small",
+        r"\footnotesize",
         r"\begin{tabular}{llrrc}",
         r"\hline",
         r"Metric & Interaction & Added columns & Added rank & Full nominal rank \\",
@@ -686,7 +686,7 @@ def render_estimability_table(table: pd.DataFrame) -> str:
             f"{row['metric']} & {interaction} & {int(row['added_columns'])} & "
             f"{int(row['added_rank'])} & {'yes' if row['fully_estimable'] else 'no'} \\\\"
         )
-    lines.extend([r"\hline", r"\end{tabular}", r"\end{table}", ""])
+    lines.extend([r"\hline", r"\end{tabular}", r"\end{table*}", ""])
     return "\n".join(lines)
 
 
@@ -703,9 +703,9 @@ def render_three_way_sensitivity_table(
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
-        r"\caption{\vd{S3: Targeted three-way interaction sensitivity tests. Conditional-performance terms are tested on their estimable observed-support basis; added rank over nominal columns is shown when empty positive-service cells reduce rank.}}",
+        r"\caption{\vd{R1.11: Targeted three-way interaction sensitivity tests. Conditional-performance terms are tested on their estimable observed-support basis; added rank over nominal columns is shown when empty positive-service cells reduce rank.}}",
         r"\label{tab:three_way_sensitivity}",
-        r"\small",
+        r"\footnotesize",
         r"\resizebox{\textwidth}{!}{%",
         r"\begin{tabular}{lllrrrc}",
         r"\hline",

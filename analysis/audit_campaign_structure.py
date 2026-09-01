@@ -1,4 +1,4 @@
-"""Audit hash-batch structure and descriptive within/between-hash variation (M6)."""
+"""Audit hash-batch structure and descriptive within/between-hash variation (R1.6)."""
 
 from __future__ import annotations
 
@@ -66,7 +66,7 @@ def identifier_audit(derived: pd.DataFrame) -> tuple[dict[str, object], pd.DataF
     structure = structure.merge(repeated, on=CONFIG, how="left", validate="one_to_one")
 
     audit = {
-        "review_point": "M6",
+        "review_point": "R1.6",
         "observed_executions": int(len(derived)),
         "configuration_cells": int(len(structure)),
         "dataset_values": sorted(str(value) for value in derived["dataset"].unique()),
@@ -195,9 +195,9 @@ def render_table(summary: pd.DataFrame) -> str:
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
-        r"\caption{\vd{M6: Descriptive sensitivity to hash-batch boundaries within configurations. The strict subset requires at least two hash batches that each contain at least two metric-eligible executions. Between-hash shares partition observed sums of squares and are not estimates of a crossed campaign effect because each hash is nested within one configuration.}}",
+        r"\caption{\vd{R1.6: Descriptive sensitivity to hash-batch boundaries within configurations. The strict subset requires at least two hash batches that each contain at least two metric-eligible executions. Between-hash shares partition observed sums of squares and are not estimates of a crossed campaign effect because each hash is nested within one configuration.}}",
         r"\label{tab:campaign_hash_sensitivity}",
-        r"\small",
+        r"\footnotesize",
         r"\resizebox{\textwidth}{!}{%",
         r"\begin{tabular}{lrrrrrrr}",
         r"\hline",
@@ -251,7 +251,7 @@ def run(input_path: Path, output_dir: Path, table_path: Path) -> dict[str, objec
     except ValueError:
         generated_table = str(table_path)
     result = {
-        "review_point": "M6",
+        "review_point": "R1.6",
         "identifier_audit": audit,
         "strict_configurations_by_metric": {
             str(row["metric"]): int(row["strict_configurations"])

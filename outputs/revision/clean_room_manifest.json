@@ -10,29 +10,29 @@
     "outputs/revision/icc_by_blockchain/legacy_three_workloads/icc_by_blockchain.csv": "f3cf9bdf74e1126f18f82232b455304c239306f319ffde427f4f3645a9e8cf84",
     "outputs/revision/icc_by_blockchain/six_workloads/icc_by_blockchain.csv": "1e8ffe9f598ac2d955eab1120cc4df64ddd0a1ea50a8da2766578449993f244a",
     "outputs/revision/icc_by_blockchain/summary.json": "a3e3cc630107d639677a0d0ed1b06f34c6323c94904528d70e5675c4f85f319b",
-    "outputs/revision/m1_figures/configuration_outcome_counts.pdf": "dc611d9af2a288486d6627167ad386da824ef9c3408e758f73bf3abfed7fe119",
+    "outputs/revision/m1_figures/configuration_outcome_counts.pdf": "bf0a158c019369952b823aa96f8bd21db1b0ad371473fa6d619d1680a72a86f8",
     "outputs/revision/m1_figures/configuration_outcome_figure_manifest.csv": "a3e729e9f4d60405626d32a3a110377e147c13035f44987f7918ea8b5b083673",
-    "outputs/revision/m1_figures/energy_10_nodes_DDoS_FIFA_Gaming.pdf": "0a5312c8275b9c2eb25e452eaa2ea8c165b1ffb8f8459560d3e0c9837317ab66",
-    "outputs/revision/m1_figures/energy_10_nodes_GAFAM_PayPal_VISA.pdf": "6d82b6f6990d8a64dd805543e89f04b785279a5525b6b4fd9a2951eb8a1358ec",
-    "outputs/revision/m1_figures/energy_40_nodes_DDoS_FIFA_Gaming.pdf": "1cd09c17c5c343f1385412f995cfaf6e3509d96c93d19a2b802beafced26217c",
-    "outputs/revision/m1_figures/energy_40_nodes_GAFAM_PayPal_VISA.pdf": "69aab1260c98eb86263b8eb9eeef01ee4acd7a0609dc5401a9109cb216f29cf5",
-    "outputs/revision/m1_figures/latency_10_nodes_DDoS_FIFA_Gaming.pdf": "b30b7dc9e0c5bc6991e7838cec7d79eafb9122d3150279dd6b9904cfa2a4d8a4",
-    "outputs/revision/m1_figures/latency_10_nodes_GAFAM_PayPal_VISA.pdf": "b34f05dd48a526a4a7123c09781eb06dc4853eafed089687fb084b1d24e95f7c",
-    "outputs/revision/m1_figures/latency_40_nodes_DDoS_FIFA_Gaming.pdf": "52baae68597c29a33a32fd2a7d1f5afd52749ca79dc6e2d4335cba1a492b7ea2",
-    "outputs/revision/m1_figures/latency_40_nodes_GAFAM_PayPal_VISA.pdf": "d8d646401f1c248251576f4914765f2af59b9f1bd3968c16bc4f480945d16ad8",
-    "outputs/revision/m1_figures/m5_figure_caption_replacements.tex": "01d6b14a74b323cb82cab969c3601d1d773292cddd6529aa364801cb95dea2f2",
+    "outputs/revision/m1_figures/energy_10_nodes_DDoS_FIFA_Gaming.pdf": "e598c387a05eb7290d7a4ddaea98326824811beea01fad26797e88b518723932",
+    "outputs/revision/m1_figures/energy_10_nodes_GAFAM_PayPal_VISA.pdf": "da32ab592be5c32f586ec6fb88d203b4eeebeada9234a22f9aa465082de039dc",
+    "outputs/revision/m1_figures/energy_40_nodes_DDoS_FIFA_Gaming.pdf": "d8bf24a1fab5ccf75de5686d093221ee6a9bd16549868c58c35312f30d483ab0",
+    "outputs/revision/m1_figures/energy_40_nodes_GAFAM_PayPal_VISA.pdf": "c1594708700be4ed40c9118d8e2e1c6dd43acb7444ce9711b5f25d34162605f0",
+    "outputs/revision/m1_figures/latency_10_nodes_DDoS_FIFA_Gaming.pdf": "f1b596e1d76ea5fc5773adb701af35e54a29f7539439dfa94db4dc1ed8b26b6b",
+    "outputs/revision/m1_figures/latency_10_nodes_GAFAM_PayPal_VISA.pdf": "3a7d4ec7cc6d79584cf6c3311c6eac364bd58a6192665bc84e14469f1195bf76",
+    "outputs/revision/m1_figures/latency_40_nodes_DDoS_FIFA_Gaming.pdf": "d7ed2f468c6573c5c8ccbfd9f2094e013d89229a3ffcf2afd4707937e1c5a8d0",
+    "outputs/revision/m1_figures/latency_40_nodes_GAFAM_PayPal_VISA.pdf": "f26ab88b7750929c36ae05e0ab201b273cbd6b1512ead35af0077a891b82c650",
+    "outputs/revision/m1_figures/m5_figure_caption_replacements.tex": "844c7d02cbdd50032999c9a87c9b0a8cafbff5d80352a78c967205b1b7f98ad9",
     "outputs/revision/m1_figures/plotted_execution_manifest.csv": "3d5d011e4d6a73f3bd234dd8561d8c1339c359ab0f2ac365e359be5325c17bf4",
     "outputs/revision/m1_figures/summary.json": "28497443582e37ec8fce3c2a80c26fce469dfd465a1ccec3ba251ca8effbefc0",
-    "outputs/revision/m1_figures/tps_10_nodes_DDoS_FIFA_Gaming.pdf": "d8fca75f9dd2ac7e8a9d780c45a4a3a7436cce758ec4c9984e64c1ef1b0cf9e3",
-    "outputs/revision/m1_figures/tps_10_nodes_GAFAM_PayPal_VISA.pdf": "7292fe50a6cbb3162205ae7681793741412f1b75ba933c5eb4b4f02fa214bafc",
-    "outputs/revision/m1_figures/tps_40_nodes_DDoS_FIFA_Gaming.pdf": "46881f0d479e468b9c02c56d0ca646a4a012542744aa70236bea4a973bb92b86",
-    "outputs/revision/m1_figures/tps_40_nodes_GAFAM_PayPal_VISA.pdf": "7a220f05e503dfc22b0f81c6dff0c1a5601431cd3c4929a34774a11506161685",
+    "outputs/revision/m1_figures/tps_10_nodes_DDoS_FIFA_Gaming.pdf": "511a9b570571fe2868d09153584831374308489ff883f299eeb3042b6a9436b5",
+    "outputs/revision/m1_figures/tps_10_nodes_GAFAM_PayPal_VISA.pdf": "d3d73857c486d33fd324aa13e07c70cd5ffa2d07bd48ada7d90ed6e9d043351b",
+    "outputs/revision/m1_figures/tps_40_nodes_DDoS_FIFA_Gaming.pdf": "3f72a68f6d2de7d5a9996db7251f8bd92caf7e9c4df9c1c63b8659a7f9d7a658",
+    "outputs/revision/m1_figures/tps_40_nodes_GAFAM_PayPal_VISA.pdf": "56bfc84fe18cecfedb9afdf228b9916386c25ed0349897ae59a94978fc0f22c7",
     "outputs/revision/m1_observed_design/audit_summary.json": "c10274bd974814a8005245bf708b90b4929dac2c338ed6ffbb46e79aac379a3f",
     "outputs/revision/m1_observed_design/campaign_inventory.csv": "1d4e7ee22f5815394e2f9b8d80e1a11af21659d493e56b9d65f08dc3066e1d58",
     "outputs/revision/m1_observed_design/configuration_inventory.csv": "0d150aae8c01092eb3d780e18900681d11647b6aae03e26235609749231ea478",
     "outputs/revision/m1_workloads/summary.json": "9c7b7fac90abbf5735f2514206c162e02dac90bdf94f4075fb6d020292767426",
     "outputs/revision/m1_workloads/workload_catalog.csv": "e8e0d0502ab24c848a797b8f6f126a5140a92405b53a56d9fc25042ba3c4cb00",
-    "outputs/revision/m2_gafam_trace/gafam_trace_audit.json": "0b35f6b1c278047993a7d75e88e82ed09853fbdfbe4686ddc7a57b63922a0e4d",
+    "outputs/revision/m2_gafam_trace/gafam_trace_audit.json": "63b0334670453b416fe56fc5026eae2b2af507e15cfc527480a86875e0d207a5",
     "outputs/revision/m2_gafam_trace/gafam_trace_schedule.csv": "18af2594a9b4c4951d3a9e2adfe623cd36093d4041d6fe43ed90e9a907c028b8",
     "outputs/revision/m2_outcomes/configuration_outcome_counts.csv": "3023c1bc68e8081d27f3637425c6d303b571172f3c44a5a92206088ce2dd08fe",
     "outputs/revision/m2_outcomes/outcome_summary.json": "e14729ae7145856e78275c523e5d9db2ed9f6fd1f2d2267f47144c03e50c44d5",
@@ -60,25 +60,25 @@
     "outputs/revision/m4_bootstrap/six_workloads/tables/table_workload_energy.tex": "71ca66240783fd44bdbdd0e3a0bd978f065360d91c8fa4a43db2325078e6afd4",
     "outputs/revision/m4_bootstrap/six_workloads/tables/table_workload_latency.tex": "8f8f787c9e662f0d56c9fb988c115798ac55eaa0e13ae76da2673570f20b66f5",
     "outputs/revision/m4_bootstrap/six_workloads/tables/table_workload_tps.tex": "59694241127ba5a903ff96606ddab98c1798c677ec996d951e4249c0474e6cc5",
-    "outputs/revision/m6_campaign_structure/campaign_identifier_audit.json": "a3b654027b1ba63698df0a0fbaa71ffadd39a11f4f82d500006568a16646a1b6",
+    "outputs/revision/m6_campaign_structure/campaign_identifier_audit.json": "0bf36db5c7a1a3139af07d309eaf45c40ba6c84c910f34a6c28fb08bd670781f",
     "outputs/revision/m6_campaign_structure/campaign_variance_decomposition.csv": "fa0f888792092503c831ffefae3afdc65ff77cfb74899bb423d430c3c10c6d1b",
     "outputs/revision/m6_campaign_structure/campaign_variance_summary.csv": "7452337dc319e4bcd4811dda59cdb7cd1b6a8ee52769e129b4b7c25be10b98ef",
     "outputs/revision/m6_campaign_structure/configuration_hash_structure.csv": "df9865ecb7d0558f9f2b32bb1ff4b052a058c33f4c467021b01fdaf0654337de",
-    "outputs/revision/m6_campaign_structure/summary.json": "4c409e784253a72b1dcabf7b32a99077f7ef6386f395e70360cf3b14b1497b4a",
+    "outputs/revision/m6_campaign_structure/summary.json": "0abb7258001bd64e23b97ce23793f067dc98e3fdeb6db2f5f4fc5e8ae58ee840",
     "outputs/revision/m8_study_delta/acm_ieee_delta.csv": "c647766b0b626813a44a76aaa4739c8910efaff93a6ff3124ec41d931b1c7b4a",
-    "outputs/revision/m8_study_delta/study_delta.json": "b01214a38405f985c4fda47c79855c7a6f12a7ccbac9bd3a4d5a291375982289",
-    "outputs/revision/statistical_models/legacy_three_workloads/diagnostics_energy.pdf": "5b01648e1bdf188d705eef0d2f12e25aed88fd9d1e0aae562dc3c82eaf4a7cf2",
-    "outputs/revision/statistical_models/legacy_three_workloads/diagnostics_latency.pdf": "e57afdd064fed4e08cd9c82edf95ff0da464062eb995c2c41b6b995710864874",
-    "outputs/revision/statistical_models/legacy_three_workloads/diagnostics_tps.pdf": "75e6e94c4121585d51474cd1f25e245b76548dd26601890f8aefa51c908d9267",
+    "outputs/revision/m8_study_delta/study_delta.json": "f49054a6d92b307fa984e57ea0995fddbfb138b3fa763d838cf1db6cb2f5ca70",
+    "outputs/revision/statistical_models/legacy_three_workloads/diagnostics_energy.pdf": "26cfe53ff49467392f0c577a7fdca277a9399168c4d4af109e2ab065932d6cf7",
+    "outputs/revision/statistical_models/legacy_three_workloads/diagnostics_latency.pdf": "2a21a20bd2182875698440dffef8e2ea07b80cd8dd67a19edefa23644861673f",
+    "outputs/revision/statistical_models/legacy_three_workloads/diagnostics_tps.pdf": "02d454b928b367968ce8f1f2c81a7a0d4389b8b947fd2bcbd7e076929cf1ba56",
     "outputs/revision/statistical_models/legacy_three_workloads/model_diagnostics.json": "5a4fdf4b2f209431b4d935367c743d7a2c28f166525792937c3d836f66369226",
     "outputs/revision/statistical_models/legacy_three_workloads/outcome_likelihood_ratio_tests.csv": "2e2120a2cfe6febf63f0022c83347a3add4eaac64e76a7b135d98ace6e274b76",
     "outputs/revision/statistical_models/legacy_three_workloads/performance_type_ii_hc3.csv": "8d120f868dd89698dea770791fccfce82842468f0ca072c9ef7ab083669af03c",
     "outputs/revision/statistical_models/legacy_three_workloads/performance_type_iii_hc3_sensitivity.csv": "3b5a091c835fe624793faf110a8814bfebe43e90ea9310cff4b6c2f46fbab1db",
     "outputs/revision/statistical_models/legacy_three_workloads/three_way_estimability.csv": "aaa06d6c8481abb722d84624dbbb0aff93778c5344a5233fd8eda71617fcd57d",
     "outputs/revision/statistical_models/legacy_three_workloads/three_way_sensitivity.csv": "e8c04f433a5369a92824cdc538b7427236537a65f635fb78f584af56500bee9f",
-    "outputs/revision/statistical_models/six_workloads/diagnostics_energy.pdf": "6dd0ba37407c400200b4b2a4095faa09232a7ae414733db92a8a1a4c554ce428",
-    "outputs/revision/statistical_models/six_workloads/diagnostics_latency.pdf": "36baba61d9e34d9d7a4d7ec77aaa3daeabb79a4996e91990c7d9b6e3f34f799c",
-    "outputs/revision/statistical_models/six_workloads/diagnostics_tps.pdf": "d9abad10b6043a3aa4cea49d8a395b6468db368a1387529264d1fec7013d61aa",
+    "outputs/revision/statistical_models/six_workloads/diagnostics_energy.pdf": "e453337d3d6467597cd4d4ac3fe9c0b8c21cc5738c773e06a98d49f5f4050591",
+    "outputs/revision/statistical_models/six_workloads/diagnostics_latency.pdf": "4903e535c9cbc09e37279c9017c616cb9233d9d8f2e514aa46eb81d4e31e3ddf",
+    "outputs/revision/statistical_models/six_workloads/diagnostics_tps.pdf": "6233bfbb4e61926a6096515d7d1250ac5153e3f084691699a307cf171f09670b",
     "outputs/revision/statistical_models/six_workloads/model_diagnostics.json": "a728f23c4b06c9a44fd8fe1045bcabd93c0622908a5f82b086299ad61f4fc19c",
     "outputs/revision/statistical_models/six_workloads/outcome_likelihood_ratio_tests.csv": "fbfa876b717dfeb83e5bf68af5d6429ac62bb0c5f4f3907a66c7b0046493dd02",
     "outputs/revision/statistical_models/six_workloads/performance_type_ii_hc3.csv": "18bc116b556110bc203cec429decc7a761885c225bc7ebd4374518e0b69c4880",
@@ -86,38 +86,47 @@
     "outputs/revision/statistical_models/six_workloads/three_way_estimability.csv": "bba2d8a2a955aa68cc9c1437f14c598a515df1b8c34517fe45292f8c9eca6f65",
     "outputs/revision/statistical_models/six_workloads/three_way_sensitivity.csv": "7b05fdd141e0ef9199192f9fc557101627dcce9ca9a4311998fb0379fbb06b7c",
     "outputs/revision/statistical_models/summary.json": "3f1efffeeca94032d1d3e8df68edd76dde8328ec5fb0f7547da8d93b89290daa",
-    "paper_tables/legacy_three_workloads/table_icc_by_blockchain.tex": "af5edf3494317a4b70da85b6c86e2c73dcfa90049144bc039145a1e502a21c86",
-    "paper_tables/legacy_three_workloads/table_scaling_energy.tex": "ec4c6343cc5bc2f591bb901e74e8f72f0666481efd66619a1d6bc1a8326d1192",
-    "paper_tables/legacy_three_workloads/table_scaling_latency.tex": "d5f7993faa067c5115dfb273e80699fe707f6bb676dc757ffe72598794855e83",
-    "paper_tables/legacy_three_workloads/table_scaling_tps.tex": "522223ce329d58773353680178bb070378677a0175b8a34f54753f8bae79214c",
-    "paper_tables/legacy_three_workloads/table_three_way_estimability.tex": "d6079dc193168d465ecdf6ba2b50374f34d7e7d659104091e111dbd167bb1ccb",
-    "paper_tables/legacy_three_workloads/table_three_way_sensitivity.tex": "a16f7cf4d9b01684c320a44a15476cab094a1334ba1a036aca41417e8ecebaf1",
-    "paper_tables/legacy_three_workloads/table_topology_energy.tex": "dcb51149f82127fad44817df12c291b1a7b82f691ef4ac85d11cff131c2563a9",
-    "paper_tables/legacy_three_workloads/table_topology_latency.tex": "a695fa476a5f61259903b913469d733306edbfde82e99266f2b54b925e2334a3",
-    "paper_tables/legacy_three_workloads/table_topology_tps.tex": "d94aed4a7fabf7eee6e742b1aa0226695b5cb22611f704f66eb6f9881dec06ab",
-    "paper_tables/legacy_three_workloads/table_two_part_factorial_models.tex": "8ed5eb1745ab2cc3911a50f93a6ffbf27233d6fa7e59b96985e886329162e3cf",
-    "paper_tables/legacy_three_workloads/table_workload_energy.tex": "5ab2bdd709b180735fa1f03981271b28390e273a56bfdddb9bc1ff7b1b1b2762",
-    "paper_tables/legacy_three_workloads/table_workload_latency.tex": "195098bcaf597230028301e73f70469df13c9cfe5062f17535d961de96f72584",
-    "paper_tables/legacy_three_workloads/table_workload_tps.tex": "dce1fa5d7d994ba6646a73f83eec9471ab26c335318d38cf702bff47a358df87",
-    "paper_tables/r2_6/table_outcome_accounting.tex": "b7452e4c6aeff5f0f3a6f45d1cfdbce092a2f4d2da5d445e5e391edd4604bfd2",
-    "paper_tables/six_workloads/table_acm_ieee_delta.tex": "c2158a5ae0f1ef48747fc9fb33225145752eea429fe9352cda8b9fc1aeee87bb",
-    "paper_tables/six_workloads/table_campaign_structure.tex": "96a1355bb71953ce816c399a9a0e171ca931d06fb18ce3a0d04d85b453b74294",
-    "paper_tables/six_workloads/table_icc_by_blockchain.tex": "79f2c40d359cbe60ef92c8d53bca386ebd4b1261367569ceeb7423a1ea23ffe1",
-    "paper_tables/six_workloads/table_scaling_energy.tex": "057d3a14e7730c1deeb41faf501fc8dfafad3ed893ae81c985cbaf9b9262685c",
-    "paper_tables/six_workloads/table_scaling_latency.tex": "61e1620a7f25b9382ccac7c6223325c86ac5e1953e4246391a25e1edb864695f",
-    "paper_tables/six_workloads/table_scaling_tps.tex": "82a29bffd9a7fad434a06b522d25535125af02cadc89323e4c7bb765b0065cfb",
-    "paper_tables/six_workloads/table_three_way_estimability.tex": "34a2f866d216714b4ba1de5cb6ba0f67e3cb5601d6f3f5535c45e7ea5a7198b3",
-    "paper_tables/six_workloads/table_three_way_sensitivity.tex": "db170d3d165f19062d7654fe25592fdf3d4f00af9f0440a9b8174160c88b639e",
-    "paper_tables/six_workloads/table_topology_energy.tex": "eb56c9a03df240610f7cc844c31bd2a4d001a043087a57e860c200c3a37f38e1",
-    "paper_tables/six_workloads/table_topology_latency.tex": "0681e41756796f26e460d59078829dbe26d0a2a65fe712943ae5869442670962",
-    "paper_tables/six_workloads/table_topology_tps.tex": "391de690aff062310151a1a08117c026d3cd00a6160cad9aa3b351ed817a0127",
-    "paper_tables/six_workloads/table_two_part_factorial_models.tex": "24e6614e5e8dc60b954e4b462b2aca9a1559a3b3a668b6718913e9aae3585c68",
-    "paper_tables/six_workloads/table_workload_catalog.tex": "c5aff3251ba3bbd16c0a687e14375c2428a400a75033d2959f5102eca5c004f3",
-    "paper_tables/six_workloads/table_workload_energy.tex": "2b1db3c21df69be0400bb801fe5bd5ab655fe2e42f05eb6b1b76699907a8de48",
-    "paper_tables/six_workloads/table_workload_latency.tex": "18515be3f866a43fa9138e5382e8104edc0408283d66a2f98528a6540122647a",
-    "paper_tables/six_workloads/table_workload_tps.tex": "9ef9ecf862c9288ac0e5da61a4e18196b8d1cad04cf17feda68a58204ee59fd1"
+    "paper_tables/legacy_three_workloads/table_icc_by_blockchain.tex": "0851d7e356efdb3e2ad22a4de4afdbc41251aaf8f7ae966db46b1bffe8f97de1",
+    "paper_tables/legacy_three_workloads/table_scaling_energy.tex": "eda134231222e682e83a90b163f9427564ce563a20eddccb29cb060e6e7ff5cc",
+    "paper_tables/legacy_three_workloads/table_scaling_latency.tex": "045dae343ef53214691486c6d43478d0a50ff2ae5fb27965e80399e5a8bb5caa",
+    "paper_tables/legacy_three_workloads/table_scaling_tps.tex": "db4d4fc55b718f6ecb2cd128b1cf968350e7573a5b7208c4793daeb1913050a0",
+    "paper_tables/legacy_three_workloads/table_three_way_estimability.tex": "43e0d3b912d8e4949bf1185a4b9184484a389edbe0682cc47b13a509ed100573",
+    "paper_tables/legacy_three_workloads/table_three_way_sensitivity.tex": "4d95e4754187ad4c89807e33eb8023aed7617737f2f7bccf08229f9071c06faa",
+    "paper_tables/legacy_three_workloads/table_topology_energy.tex": "eaf429e405398e18c2223d8fcaa9b4fe9c4f9e80eee5b8895d0eb1a10521e574",
+    "paper_tables/legacy_three_workloads/table_topology_latency.tex": "865be6cfebdc9449dd8d23e7213802f116f5164b06e8d171fabcd6db60863a68",
+    "paper_tables/legacy_three_workloads/table_topology_tps.tex": "42139a11aff0aaca9a39707d29132eb9e8bc0b3e5f0e081b70065fff2b084193",
+    "paper_tables/legacy_three_workloads/table_two_part_factorial_models.tex": "27066368c695aca98c2452fb2df79a79577bcb05b020712b6c43db8755da09c0",
+    "paper_tables/legacy_three_workloads/table_workload_energy.tex": "34dd5f9c1500f3a1d1b250e0ac808aa11a28408ec26149a1201b19758392c00b",
+    "paper_tables/legacy_three_workloads/table_workload_latency.tex": "5d906dcbba7cc2b986563dd87705c8ce1b935720cf21a4cbc460c03f73c44000",
+    "paper_tables/legacy_three_workloads/table_workload_tps.tex": "072d5996c1718d7a8cb6e24d81251d09ee6b92f28390f29ff72809dffaadcf71",
+    "paper_tables/r2_6/table_outcome_accounting.tex": "e6e5c41ce1edca05db9b39d8e42ed9dda9dcea5bb59bb1a7ea2d3be81700c9f7",
+    "paper_tables/six_workloads/table_acm_ieee_delta.tex": "524031c52823d589deb9847ca376e898c27b64e0f0551d8992023b362f6a8fb9",
+    "paper_tables/six_workloads/table_campaign_structure.tex": "4b4e100b9091ae0f0c73497cc0959f0e0918f78ba41b39ce5d1ac01e34596f41",
+    "paper_tables/six_workloads/table_icc_by_blockchain.tex": "d969814be237bcd6166d5c6d4b26983d954e2f5dc469cda42e8a391f578a7ad9",
+    "paper_tables/six_workloads/table_scaling_energy.tex": "4561038ecf9c5079a5c92e8b056e1f8525950b0459cb549e1a6a65e48f0725ba",
+    "paper_tables/six_workloads/table_scaling_latency.tex": "5aee8e757389d7205e5cf72ceb8227d46a86cbc74cefcab83330d620dfd80b39",
+    "paper_tables/six_workloads/table_scaling_tps.tex": "7be266df840eb99ef58b55622c952eb51a117758339316cca085a4d020d1b914",
+    "paper_tables/six_workloads/table_three_way_estimability.tex": "823ba0f0cbf3c21ebc79b2b9af70f57cd12f071199924e0166d8a8983db5ea14",
+    "paper_tables/six_workloads/table_three_way_sensitivity.tex": "5c7abbdee53ff55b35bbbf59faa79723bb5233c48ee76bd9f8b54b75efb424f6",
+    "paper_tables/six_workloads/table_topology_energy.tex": "ca7d3fdb4ddac4c2775565c532e8fce8033045dba34359286c60e0424e13c662",
+    "paper_tables/six_workloads/table_topology_latency.tex": "417a9427ce90ac3115ac71d5614add12b4cb471afb2050f3e0ff43806c3ddcb7",
+    "paper_tables/six_workloads/table_topology_tps.tex": "cd06f56d1d1eb505c928223e7b234d3d1824f960a6aa4f43f94b6adc0c0be8e7",
+    "paper_tables/six_workloads/table_two_part_factorial_models.tex": "ac4fe93237a27aaf361e61b1a4444e7d1fd0fb751ac95106e76e09278a01f674",
+    "paper_tables/six_workloads/table_workload_catalog.tex": "53844104d4b78ae3207c7d03a62e7e970638aeee24694be10d1e00ca4a2819b3",
+    "paper_tables/six_workloads/table_workload_energy.tex": "bae11aa39d8219c868af05c7bef534d3b7bb3041abb8a636332ef88a29e691a8",
+    "paper_tables/six_workloads/table_workload_latency.tex": "f9a46a0bee34a08947050b5e07c0aeab83aa3ce50603737f54e3edc6d866a7f3",
+    "paper_tables/six_workloads/table_workload_tps.tex": "9749283568bc9ca570a43241fcea79d6ed22a601ede92c6a6ca9c351c71d5df0"
   },
   "platform": "Linux-6.18.35-x86_64-with-glibc2.39",
+  "post_workflow_verification": {
+    "generator_rerun": "analysis/fit_two_part_models.py",
+    "latex_overfull_hboxes": 0,
+    "latex_tables_compiled": 17,
+    "reason": "full-width estimability table layout verification",
+    "tests": "python3 -m unittest discover -s tests -v",
+    "tests_passed": 62,
+    "tests_run": 62
+  },
   "python": "3.12.13 (main, Aug  7 2026, 02:25:39) [Clang 22.1.3 ]",
   "requirements_sha256": "406ac924eaf91ee26b670382c8361d9bf29bc8afd6fee33c47db20788271152d",
   "result_checks": {
@@ -142,105 +151,105 @@
   "steps": [
     {
       "command": [
-        "/tmp/r26-venv/bin/python",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
         "analysis/audit_observed_runs.py"
       ],
-      "elapsed_seconds": 0.844,
+      "elapsed_seconds": 0.913,
       "return_code": 0
     },
     {
       "command": [
-        "/tmp/r26-venv/bin/python",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
         "analysis/derive_run_outcomes.py"
       ],
-      "elapsed_seconds": 0.798,
+      "elapsed_seconds": 0.815,
       "return_code": 0
     },
     {
       "command": [
-        "/tmp/r26-venv/bin/python",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
         "analysis/compute_corrected_dispersion.py"
       ],
-      "elapsed_seconds": 2.157,
+      "elapsed_seconds": 2.194,
       "return_code": 0
     },
     {
       "command": [
-        "/tmp/r26-venv/bin/python",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
         "analysis/balanced_sensitivity.py"
       ],
-      "elapsed_seconds": 165.565,
+      "elapsed_seconds": 162.822,
       "return_code": 0
     },
     {
       "command": [
-        "/tmp/r26-venv/bin/python",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
         "analysis/bootstrap_dispersion_tables.py"
       ],
-      "elapsed_seconds": 6.929,
+      "elapsed_seconds": 7.884,
       "return_code": 0
     },
     {
       "command": [
-        "/tmp/r26-venv/bin/python",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
         "analysis/fit_two_part_models.py"
       ],
-      "elapsed_seconds": 46.249,
+      "elapsed_seconds": 46.528,
       "return_code": 0
     },
     {
       "command": [
-        "/tmp/r26-venv/bin/python",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
         "analysis/icc_by_blockchain.py",
         "--workers",
         "4"
       ],
-      "elapsed_seconds": 915.096,
+      "elapsed_seconds": 911.697,
       "return_code": 0
     },
     {
       "command": [
-        "/tmp/r26-venv/bin/python",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
         "analysis/audit_gafam_trace.py"
       ],
-      "elapsed_seconds": 0.278,
+      "elapsed_seconds": 0.263,
       "return_code": 0
     },
     {
       "command": [
-        "/tmp/r26-venv/bin/python",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
         "analysis/workload_catalog.py"
       ],
-      "elapsed_seconds": 0.751,
+      "elapsed_seconds": 0.736,
       "return_code": 0
     },
     {
       "command": [
-        "/tmp/r26-venv/bin/python",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
         "analysis/plot_run_level_deviations.py"
       ],
-      "elapsed_seconds": 9.991,
+      "elapsed_seconds": 9.497,
       "return_code": 0
     },
     {
       "command": [
-        "/tmp/r26-venv/bin/python",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
         "analysis/audit_campaign_structure.py"
       ],
-      "elapsed_seconds": 1.147,
+      "elapsed_seconds": 1.195,
       "return_code": 0
     },
     {
       "command": [
-        "/tmp/r26-venv/bin/python",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
         "analysis/generate_study_delta.py"
       ],
-      "elapsed_seconds": 0.025,
+      "elapsed_seconds": 0.034,
       "return_code": 0
     },
     {
       "command": [
-        "/tmp/r26-venv/bin/python",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
         "-m",
         "unittest",
         "discover",
@@ -248,10 +257,10 @@
         "tests",
         "-v"
       ],
-      "elapsed_seconds": 61.382,
+      "elapsed_seconds": 62.904,
       "return_code": 0
     }
   ],
-  "total_elapsed_seconds": 1211.22,
+  "total_elapsed_seconds": 1207.486,
   "workflow": "complete IEEE Access revision analysis"
 }

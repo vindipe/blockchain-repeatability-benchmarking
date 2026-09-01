@@ -1,4 +1,4 @@
-"""Generate the six-workload catalog and observed outcome counts for M1/m2."""
+"""Generate the six-workload catalog and observed outcome counts for R1.1/R1.13."""
 
 from __future__ import annotations
 
@@ -102,9 +102,9 @@ def render_table(catalog: pd.DataFrame) -> str:
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
-        r"\caption{\vd{M1/M2: Six workload profiles and observed outcome accounting. Offered loads and trace characteristics follow the released Lilith/Diablo inputs; counts refer to the selected repeated-execution corpus.}}",
+        r"\caption{\vd{R1.1/R1.2: Six workload profiles and observed outcome accounting. Offered loads and trace characteristics follow the released Lilith/Diablo inputs; counts refer to the selected repeated-execution corpus.}}",
         r"\label{tab:six_workload_catalog}",
-        r"\small",
+        r"\footnotesize",
         r"\setlength{\tabcolsep}{3.2pt}",
         r"\resizebox{\textwidth}{!}{%",
         r"\begin{tabular}{llllrrrr}",

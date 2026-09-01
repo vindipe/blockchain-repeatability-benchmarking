@@ -59,10 +59,10 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
             ).any()
         )
 
-    def test_generated_m5_captions_are_revision_marked(self):
+    def test_generated_r1_5_captions_are_revision_marked(self):
         captions = render_caption_replacements()
         self.assertEqual(captions.count(r"\caption{"), 7)
-        self.assertEqual(captions.count(r"\vd{M5, R2.6:"), 7)
+        self.assertEqual(captions.count(r"\vd{R1.5/R2.6:"), 7)
         self.assertIn("one point-valued positive-service TPS execution", captions)
         self.assertIn("positive-commit/zero-commit/no-submission", captions)
 
@@ -94,7 +94,8 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
 
     def test_outcome_table_reconciles_outcomes_and_metric_validity(self):
         table = render_outcome_table(outcome_figure_frame(self.derived))
-        self.assertIn(r"\caption{\vd{M5, R2.6:", table)
+        self.assertIn(r"\caption{\vd{R1.5/R2.6:", table)
+        self.assertIn(r"\footnotesize", table)
         self.assertIn(
             "Total & -- & 300 & 4080 & 4078 & 3125 & 953 & 2 & 3118 & 3125 & 3125",
             table,
