@@ -160,23 +160,23 @@ tracked under `inputs/workloads/` and `outputs/revision/m2_gafam_trace/`.
 
 Python 3.12 was used for the validation recorded in this release.
 
+The complete revision workflow, including all audits, full bootstrap fits,
+figures, manuscript tables, regression tests, and the frozen output manifest,
+is executed with one command:
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install -r requirements.txt
-python3 analysis/derive_run_outcomes.py
-python3 analysis/compute_corrected_dispersion.py
-python3 analysis/balanced_sensitivity.py
-python3 analysis/bootstrap_dispersion_tables.py
-python3 analysis/fit_two_part_models.py
-python3 analysis/icc_by_blockchain.py
-python3 analysis/audit_gafam_trace.py
-python3 analysis/workload_catalog.py
-python3 analysis/plot_run_level_deviations.py
+python3 analysis/run_revision_workflow.py
 ```
 
-The script can be launched from any working directory because input and output
-paths are resolved relative to the repository.
+The orchestrator can be launched from any working directory because input and
+output paths are resolved relative to the repository. It always performs the
+full 1,000-repetition ICC bootstrap; `--icc-workers N` controls only parallel
+execution and never reduces the statistical workload. It fails at the first
+unsuccessful stage and writes `outputs/revision/clean_room_manifest.json` only
+after all analyses and all tests have passed.
 
 Audit the observed design and run its regression tests with:
 
@@ -191,6 +191,8 @@ python3 analysis/icc_by_blockchain.py
 python3 analysis/audit_gafam_trace.py
 python3 analysis/workload_catalog.py
 python3 analysis/plot_run_level_deviations.py
+python3 analysis/audit_campaign_structure.py
+python3 analysis/generate_study_delta.py
 python3 -m unittest discover -s tests -v
 ```
 
