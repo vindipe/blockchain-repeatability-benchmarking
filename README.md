@@ -107,6 +107,11 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
 - `analysis/audit_gafam_trace.py` verifies the mirrored GAFAM input checksum,
   schedule, units, source revision, raw-to-display label mapping, and its link
   to the 668 selected GAFAM observations.
+- `analysis/audit_campaign_structure.py` audits the M6 hash/run/dataset
+  provenance structure and performs a descriptive within-hash/between-hash
+  sums-of-squares sensitivity. It writes configuration-level and summary CSVs
+  plus an olive, revision-marked manuscript table; it does not reinterpret the
+  nested hash batches as a crossed experimental factor.
 - `analysis/plot_run_level_deviations.py` generates corrected run-level PDF
   absolute and relative deviation figures for all six workloads, using the
   same metric-specific eligibility masks as the numerical analysis. Each

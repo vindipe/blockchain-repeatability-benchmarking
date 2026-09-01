@@ -1,0 +1,52 @@
+{
+  "generated_table": "paper_tables/six_workloads/table_campaign_structure.tex",
+  "identifier_audit": {
+    "configuration_cells": 300,
+    "configurations_per_run_index": {
+      "maximum": 300,
+      "median": 294.5,
+      "minimum": 292
+    },
+    "dataset_is_constant": true,
+    "dataset_values": [
+      "2023"
+    ],
+    "distinct_start_timestamps": 4078,
+    "each_hash_maps_to_one_configuration": true,
+    "hash_batch_size": {
+      "maximum": 10,
+      "median": 2.0,
+      "minimum": 1
+    },
+    "hash_batches": 1006,
+    "hash_batches_per_configuration": {
+      "maximum": 6,
+      "median": 3.0,
+      "minimum": 2
+    },
+    "hash_run_pair_is_unique": true,
+    "interpretation": "hash is a batch identifier nested within one configuration; run is an index reused across configurations and reset within hash batches; dataset is constant and cannot identify campaigns",
+    "observed_executions": 4080,
+    "repeated_hash_batches": 620,
+    "review_point": "M6",
+    "run_index_values": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "singleton_hash_batches": 386
+  },
+  "review_point": "M6",
+  "strict_configurations_by_metric": {
+    "Energy": 221,
+    "Latency": 221,
+    "TPS": 221
+  }
+}

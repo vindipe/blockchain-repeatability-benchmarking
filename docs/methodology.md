@@ -354,6 +354,20 @@ it has no statistical meaning and does not change factor assignment. The
 generated `plotted_execution_manifest.csv` provides a row-by-row audit from
 the source execution identifiers to every plotted coordinate.
 
+## M6 hash-batch audit
+
+The `hash` field identifies an execution batch nested within exactly one
+blockchain--topology--workload--size configuration. The `run` index is reused
+across configurations and restarts within hash batches, while `dataset` is
+constant in the selected corpus. These columns therefore do not define a
+campaign factor crossed with configuration. The M6 audit preserves the pooled
+configuration-level analysis and adds a descriptive sums-of-squares
+partitioning into within-hash and between-hash components. Its strict
+sensitivity subset requires at least two hash batches that each contain at
+least two metric-eligible executions. This partition is reported as a
+sensitivity to collection-batch boundaries, not as an independently identified
+campaign variance component.
+
 ## Scope
 
 This artifact reproduces the data-analysis stage from released measurements. It
