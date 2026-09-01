@@ -48,7 +48,7 @@ class TwoPartModelTests(unittest.TestCase):
         latex = render_term_table(outcome, pd.concat(parts, ignore_index=True))
         self.assertIn(r"\label{tab:two_part_factorial_models}", latex)
         self.assertIn(r"\resizebox{\textwidth}{!}", latex)
-        self.assertIn(r"\color{olive}", latex)
+        self.assertNotIn(r"\color{olive}", latex)
         self.assertIn(r"\caption{\vd{S1/S2:", latex)
         self.assertIn("hierarchical omnibus", latex)
         self.assertNotIn("rank-deficient", latex)
@@ -76,7 +76,7 @@ class TwoPartModelTests(unittest.TestCase):
         )
         self.assertIn(r"\label{tab:three_way_sensitivity}", latex)
         self.assertIn(r"\resizebox{\textwidth}{!}", latex)
-        self.assertIn(r"\color{olive}", latex)
+        self.assertNotIn(r"\color{olive}", latex)
         self.assertIn(r"\caption{\vd{S3:", latex)
         self.assertIn("likelihood-ratio", latex)
         self.assertIn("HC3 Type-II", latex)
@@ -85,7 +85,7 @@ class TwoPartModelTests(unittest.TestCase):
         estimability_latex = render_estimability_table(
             three_way_estimability(self.legacy, "TPS")
         )
-        self.assertIn(r"\color{olive}", estimability_latex)
+        self.assertNotIn(r"\color{olive}", estimability_latex)
         self.assertIn(r"\caption{\vd{S3:", estimability_latex)
 
     def test_quasi_separation_is_disclosed_in_the_primary_table(self):

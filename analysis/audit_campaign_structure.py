@@ -195,7 +195,6 @@ def render_table(summary: pd.DataFrame) -> str:
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
-        r"\color{olive}",
         r"\caption{\vd{M6: Descriptive sensitivity to hash-batch boundaries within configurations. The strict subset requires at least two hash batches that each contain at least two metric-eligible executions. Between-hash shares partition observed sums of squares and are not estimates of a crossed campaign effect because each hash is nested within one configuration.}}",
         r"\label{tab:campaign_hash_sensitivity}",
         r"\small",

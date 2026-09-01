@@ -110,7 +110,7 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
 - `analysis/audit_campaign_structure.py` audits the M6 hash/run/dataset
   provenance structure and performs a descriptive within-hash/between-hash
   sums-of-squares sensitivity. It writes configuration-level and summary CSVs
-  plus an olive, revision-marked manuscript table; it does not reinterpret the
+  plus a manuscript table with a revision-marked caption; it does not reinterpret the
   nested hash batches as a crossed experimental factor.
 - `analysis/plot_run_level_deviations.py` generates corrected run-level PDF
   absolute and relative deviation figures for all six workloads, using the
@@ -125,11 +125,11 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
   require rerunning the analysis to recover the manuscript tables or audit
   files.
 
-All generated manuscript tables carry their revision marking internally. The
-table environment applies `\color{olive}` to the complete caption, body, and
-notes, while each caption also uses `\vd{review point: ...}` with the relevant
-review identifiers. Copying a generated `.tex` file into the manuscript is
-therefore sufficient; no manual highlighting edit is required.
+All generated manuscript tables carry their revision marking internally in the
+caption through `\vd{review point: ...}` with the relevant review identifiers.
+Table headings, values, and notes remain uncoloured. Copying a generated `.tex`
+file into the manuscript is therefore sufficient; no manual highlighting edit
+is required.
 
 ## Experimental matrix
 

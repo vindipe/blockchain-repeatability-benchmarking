@@ -56,7 +56,8 @@ class BootstrapDispersionTableTests(unittest.TestCase):
             latex = table_path.read_text(encoding="utf-8")
             self.assertIn("Auto-generated", latex)
             self.assertIn(r"\begin{table*}[t]", latex)
-            self.assertIn(r"\color{olive}", latex)
+            self.assertNotIn(r"\color{olive}", latex)
+            self.assertEqual(latex.count(r"\vd{"), 1)
             self.assertIn(r"\caption{\vd{M1/M3/M4/M7:", latex)
             self.assertIn(r"\label{tab:repeatability_topology_tps}", latex)
             legacy_latex = (

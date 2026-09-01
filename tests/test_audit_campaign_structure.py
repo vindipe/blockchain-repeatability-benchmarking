@@ -37,11 +37,12 @@ class CampaignStructureAuditTests(unittest.TestCase):
         self.assertEqual(set(summary["strict_configurations"]), {221})
         self.assertEqual(set(summary["decomposable_configurations"]), {245})
 
-    def test_generated_table_is_fully_revision_marked(self):
+    def test_generated_table_marks_caption_only(self):
         summary = summarize_decomposition(variance_decomposition(self.derived))
         latex = render_table(summary)
-        self.assertIn(r"\color{olive}", latex)
+        self.assertNotIn(r"\color{olive}", latex)
         self.assertIn(r"\caption{\vd{M6:", latex)
+        self.assertEqual(latex.count(r"\vd{"), 1)
         self.assertIn(r"\label{tab:campaign_hash_sensitivity}", latex)
 
     def test_run_writes_machine_readable_outputs_and_table(self):

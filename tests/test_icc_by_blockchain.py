@@ -53,7 +53,8 @@ class ICCModelTests(unittest.TestCase):
         )
         latex = render_icc_table(table, repetitions=10, seed=1)
         self.assertIn(r"\resizebox{\textwidth}{!}", latex)
-        self.assertIn(r"\color{olive}", latex)
+        self.assertNotIn(r"\color{olive}", latex)
+        self.assertEqual(latex.count(r"\vd{"), 1)
         self.assertIn(r"\caption{\vd{R2.4:", latex)
 
     def test_tables_can_be_rebuilt_from_completed_results(self):
