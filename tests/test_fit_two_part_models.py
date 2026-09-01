@@ -19,6 +19,7 @@ class TwoPartModelTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         derived = derive_outcomes(prepare_selected_runs(load_runs(DEFAULT_INPUT)))
+        cls.six = derived.copy()
         cls.legacy = derived.loc[
             derived["workload"].isin(PRIMARY_WORKLOADS_LEGACY)
         ].copy()
@@ -90,6 +91,46 @@ class TwoPartModelTests(unittest.TestCase):
             outcome_quasi_separation=True,
         )
         self.assertIn("quasi-separation", latex)
+
+    def test_six_workload_models_use_full_rank_observed_support(self):
+        for metric in METRIC_SPECS:
+            _, primary, _, diagnostics = fit_linear_metric(self.six, metric)
+            self.assertTrue(diagnostics["full_rank"])
+            self.assertTrue(diagnostics["support_adjusted"])
+            self.assertEqual(diagnostics["candidate_rank_deficiency"], 2)
+            self.assertEqual(
+                diagnostics["empty_positive_service_blockchain_workload_cells"],
+                ["Quorum / FIFA", "Quorum / Gaming"],
+            )
+            interaction = primary.loc[
+                primary["term_formula"].str.contains(
+                    "C\\(blockchain, Sum\\):C\\(workload, Sum\\)", regex=True
+                )
+            ].iloc[0]
+            self.assertEqual(interaction["df"], 18)
+            self.assertEqual(interaction["nominal_df"], 20)
+
+    def test_six_workload_table_reports_supported_inference(self):
+        _, outcome, _ = fit_binomial(self.six)
+        parts = []
+        for metric in METRIC_SPECS:
+            _, primary, _, diagnostics = fit_linear_metric(self.six, metric)
+            primary.insert(0, "metric", metric)
+            primary["design_full_rank"] = diagnostics["full_rank"]
+            primary["support_adjusted"] = diagnostics["support_adjusted"]
+            parts.append(primary)
+        latex = render_term_table(outcome, pd.concat(parts, ignore_index=True))
+        self.assertNotIn("-- & -- & --", latex)
+        self.assertIn("18 estimable df rather than 20", latex)
+        self.assertIn("Quorum--FIFA", latex)
+
+    def test_six_workload_three_way_terms_are_reported_on_support(self):
+        table = targeted_three_way_sensitivity(self.six)
+        conditional = table.loc[table["component"] == "Conditional performance"]
+        self.assertTrue(conditional["reported"].all())
+        self.assertTrue((conditional["added_rank"] > 0).all())
+        self.assertTrue((~conditional["fully_estimable"]).any())
+        self.assertIn("reported on observed support", set(conditional["status"]))
 
 
 if __name__ == "__main__":

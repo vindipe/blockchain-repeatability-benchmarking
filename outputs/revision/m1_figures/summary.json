@@ -1,0 +1,180 @@
+{
+  "figure_count": 12,
+  "figures": [
+    {
+      "eligible_points": 750,
+      "empty_metric_cells": 15,
+      "metric": "tps",
+      "network_size": "10 nodes",
+      "pdf": "outputs/revision/m1_figures/tps_10_nodes_DDoS_FIFA_Gaming.pdf",
+      "relative_overflow_points": 21,
+      "workload_group": "DDoS_FIFA_Gaming",
+      "workloads": [
+        "DDoS",
+        "FIFA",
+        "Gaming"
+      ]
+    },
+    {
+      "eligible_points": 908,
+      "empty_metric_cells": 0,
+      "metric": "tps",
+      "network_size": "10 nodes",
+      "pdf": "outputs/revision/m1_figures/tps_10_nodes_GAFAM_PayPal_VISA.pdf",
+      "relative_overflow_points": 7,
+      "workload_group": "GAFAM_PayPal_VISA",
+      "workloads": [
+        "GAFAM",
+        "PayPal",
+        "VISA"
+      ]
+    },
+    {
+      "eligible_points": 604,
+      "empty_metric_cells": 28,
+      "metric": "tps",
+      "network_size": "40 nodes",
+      "pdf": "outputs/revision/m1_figures/tps_40_nodes_DDoS_FIFA_Gaming.pdf",
+      "relative_overflow_points": 9,
+      "workload_group": "DDoS_FIFA_Gaming",
+      "workloads": [
+        "DDoS",
+        "FIFA",
+        "Gaming"
+      ]
+    },
+    {
+      "eligible_points": 856,
+      "empty_metric_cells": 6,
+      "metric": "tps",
+      "network_size": "40 nodes",
+      "pdf": "outputs/revision/m1_figures/tps_40_nodes_GAFAM_PayPal_VISA.pdf",
+      "relative_overflow_points": 9,
+      "workload_group": "GAFAM_PayPal_VISA",
+      "workloads": [
+        "GAFAM",
+        "PayPal",
+        "VISA"
+      ]
+    },
+    {
+      "eligible_points": 751,
+      "empty_metric_cells": 15,
+      "metric": "latency",
+      "network_size": "10 nodes",
+      "pdf": "outputs/revision/m1_figures/latency_10_nodes_DDoS_FIFA_Gaming.pdf",
+      "relative_overflow_points": 5,
+      "workload_group": "DDoS_FIFA_Gaming",
+      "workloads": [
+        "DDoS",
+        "FIFA",
+        "Gaming"
+      ]
+    },
+    {
+      "eligible_points": 911,
+      "empty_metric_cells": 0,
+      "metric": "latency",
+      "network_size": "10 nodes",
+      "pdf": "outputs/revision/m1_figures/latency_10_nodes_GAFAM_PayPal_VISA.pdf",
+      "relative_overflow_points": 12,
+      "workload_group": "GAFAM_PayPal_VISA",
+      "workloads": [
+        "GAFAM",
+        "PayPal",
+        "VISA"
+      ]
+    },
+    {
+      "eligible_points": 604,
+      "empty_metric_cells": 28,
+      "metric": "latency",
+      "network_size": "40 nodes",
+      "pdf": "outputs/revision/m1_figures/latency_40_nodes_DDoS_FIFA_Gaming.pdf",
+      "relative_overflow_points": 1,
+      "workload_group": "DDoS_FIFA_Gaming",
+      "workloads": [
+        "DDoS",
+        "FIFA",
+        "Gaming"
+      ]
+    },
+    {
+      "eligible_points": 859,
+      "empty_metric_cells": 6,
+      "metric": "latency",
+      "network_size": "40 nodes",
+      "pdf": "outputs/revision/m1_figures/latency_40_nodes_GAFAM_PayPal_VISA.pdf",
+      "relative_overflow_points": 10,
+      "workload_group": "GAFAM_PayPal_VISA",
+      "workloads": [
+        "GAFAM",
+        "PayPal",
+        "VISA"
+      ]
+    },
+    {
+      "eligible_points": 751,
+      "empty_metric_cells": 15,
+      "metric": "energy",
+      "network_size": "10 nodes",
+      "pdf": "outputs/revision/m1_figures/energy_10_nodes_DDoS_FIFA_Gaming.pdf",
+      "relative_overflow_points": 0,
+      "workload_group": "DDoS_FIFA_Gaming",
+      "workloads": [
+        "DDoS",
+        "FIFA",
+        "Gaming"
+      ]
+    },
+    {
+      "eligible_points": 911,
+      "empty_metric_cells": 0,
+      "metric": "energy",
+      "network_size": "10 nodes",
+      "pdf": "outputs/revision/m1_figures/energy_10_nodes_GAFAM_PayPal_VISA.pdf",
+      "relative_overflow_points": 0,
+      "workload_group": "GAFAM_PayPal_VISA",
+      "workloads": [
+        "GAFAM",
+        "PayPal",
+        "VISA"
+      ]
+    },
+    {
+      "eligible_points": 604,
+      "empty_metric_cells": 28,
+      "metric": "energy",
+      "network_size": "40 nodes",
+      "pdf": "outputs/revision/m1_figures/energy_40_nodes_DDoS_FIFA_Gaming.pdf",
+      "relative_overflow_points": 0,
+      "workload_group": "DDoS_FIFA_Gaming",
+      "workloads": [
+        "DDoS",
+        "FIFA",
+        "Gaming"
+      ]
+    },
+    {
+      "eligible_points": 859,
+      "empty_metric_cells": 6,
+      "metric": "energy",
+      "network_size": "40 nodes",
+      "pdf": "outputs/revision/m1_figures/energy_40_nodes_GAFAM_PayPal_VISA.pdf",
+      "relative_overflow_points": 0,
+      "workload_group": "GAFAM_PayPal_VISA",
+      "workloads": [
+        "GAFAM",
+        "PayPal",
+        "VISA"
+      ]
+    }
+  ],
+  "metric_eligible_rows": {
+    "energy": 3125,
+    "latency": 3125,
+    "tps": 3118
+  },
+  "pdf_count": 12,
+  "png_count": 0
+}

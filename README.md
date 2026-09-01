@@ -42,6 +42,8 @@ The archival record is available through the stable Zenodo concept DOI:
 │   ├── derive_run_outcomes.py
 │   ├── fit_two_part_models.py
 │   ├── icc_by_blockchain.py
+│   ├── workload_catalog.py
+│   ├── plot_run_level_deviations.py
 │   └── plot_reproducibility.py
 ├── dataset/
 │   ├── README.md
@@ -95,6 +97,11 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
 - `analysis/icc_by_blockchain.py` replaces the pooled raw-scale ICC with REML
   random-intercept ICCs within each blockchain on the natural-log scale and
   attaches configuration-cluster bootstrap intervals.
+- `analysis/workload_catalog.py` generates the six-workload definition and
+  outcome-accounting table used for M1.
+- `analysis/plot_run_level_deviations.py` generates corrected run-level PDF
+  absolute and relative deviation figures for all six workloads, using the
+  same metric-specific eligibility masks as the numerical analysis.
 - `outputs/revision/` contains the definitive versioned CSV, JSON, diagnostic
   PDF, and generated-table outputs from the completed revision analyses. A
   GitHub source ZIP therefore includes the executed results and does not
@@ -111,11 +118,9 @@ The released measurements cover:
 - two validator-set sizes: 10 and 40 nodes;
 - throughput, latency, energy, and committed-transaction measurements.
 
-The released corpus contains all six workloads. The current plotting script
-retains the earlier GAFAM, PayPal, and VISA summaries and generates separate
-figures for the other three workloads. The M1 audit reports both the complete
-six-workload corpus and that legacy three-workload subset so that their scopes
-cannot be confused.
+The complete six-workload corpus is the primary manuscript scope. The earlier
+GAFAM, PayPal, and VISA subset is retained only as a labelled compatibility
+and sensitivity scope so that previously reported values remain auditable.
 
 ## Reproduce the analysis
 
@@ -131,6 +136,8 @@ python3 analysis/balanced_sensitivity.py
 python3 analysis/bootstrap_dispersion_tables.py
 python3 analysis/fit_two_part_models.py
 python3 analysis/icc_by_blockchain.py
+python3 analysis/workload_catalog.py
+python3 analysis/plot_run_level_deviations.py
 ```
 
 The script can be launched from any working directory because input and output
@@ -146,6 +153,8 @@ python3 analysis/balanced_sensitivity.py
 python3 analysis/bootstrap_dispersion_tables.py
 python3 analysis/fit_two_part_models.py
 python3 analysis/icc_by_blockchain.py
+python3 analysis/workload_catalog.py
+python3 analysis/plot_run_level_deviations.py
 python3 -m unittest discover -s tests -v
 ```
 
@@ -170,7 +179,8 @@ preserved. It:
 5. computes counts, means, extrema, quartiles, sample standard deviations,
    IQR-based measures, directional deviations, WCD summaries, factorial ANOVA,
    and ICC;
-6. uses GAFAM, PayPal, and VISA for the primary IEEE Access summaries.
+6. uses all six observed workloads for the primary IEEE Access summaries and
+   retains GAFAM, PayPal, and VISA only as an explicitly labelled legacy scope.
 
 The separate M1 audit applies the same fixed filters and verifies the design
 before any outcome or metric processing. It finds 4,080 observed executions in
@@ -239,11 +249,13 @@ uses Type-II tests with HC3 covariance; Type-III tests under sum-to-zero
 contrasts are retained as a sensitivity. All two-way interactions are fitted,
 and both targeted three-way additions are checked for design-matrix rank before
 inference. The legacy three-workload models are full rank. In the six-workload
-corpus, conditional models are rank-deficient by two because positive-service
-observations are structurally absent from some factor cells; the artifact
-reports this rather than treating aliased coefficients as estimable.
-Targeted three-way sensitivity tests are reported only when every added column
-increases model rank; otherwise the table marks the term as not estimable.
+corpus, Quorum--FIFA and Quorum--Gaming contain no positive-service
+observations. The nominal conditional design is therefore deficient by two
+columns. The script fits the complete estimable column space on a deterministic
+full-rank basis, so the blockchain--workload test uses 18 supported degrees of
+freedom rather than 20 and no empty cell is imputed. Targeted three-way
+sensitivities are likewise tested on their observed-support rank, with
+supported and nominal degrees of freedom both reported.
 When the binomial outcome component flags quasi-separation, its likelihood-ratio
 rows are explicitly labelled in the generated tables as model-screening
 evidence for service incidence rather than finite-sample causal inference.

@@ -1,9 +1,9 @@
-component,metric,interaction,test,statistic,df,p_value,added_columns,added_rank,fully_estimable,status,residual_df
-Outcome,Positive commit,Blockchain $\times$ topology $\times$ workload,likelihood-ratio chi-square,47.03994102301351,80,0.9987812653224907,80,80,True,reported,
-Outcome,Positive commit,Blockchain $\times$ workload $\times$ size,likelihood-ratio chi-square,186.70644139377475,20,4.700072898075705e-29,20,20,True,reported,
-Conditional performance,TPS,Blockchain $\times$ topology $\times$ workload,HC3 Type-II F,,68,,80,68,False,not estimable,
-Conditional performance,TPS,Blockchain $\times$ workload $\times$ size,HC3 Type-II F,,15,,20,15,False,not estimable,
-Conditional performance,Latency,Blockchain $\times$ topology $\times$ workload,HC3 Type-II F,,68,,80,68,False,not estimable,
-Conditional performance,Latency,Blockchain $\times$ workload $\times$ size,HC3 Type-II F,,15,,20,15,False,not estimable,
-Conditional performance,Energy,Blockchain $\times$ topology $\times$ workload,HC3 Type-II F,,68,,80,68,False,not estimable,
-Conditional performance,Energy,Blockchain $\times$ workload $\times$ size,HC3 Type-II F,,15,,20,15,False,not estimable,
+component,metric,interaction,test,statistic,df,p_value,added_columns,added_rank,fully_estimable,reported,status,residual_df
+Outcome,Positive commit,Blockchain $\times$ topology $\times$ workload,likelihood-ratio chi-square,47.03994102301351,80.0,0.9987812653224907,80,80,True,True,reported,
+Outcome,Positive commit,Blockchain $\times$ workload $\times$ size,likelihood-ratio chi-square,186.70644139377475,20.0,4.700072898075705e-29,20,20,True,True,reported,
+Conditional performance,TPS,Blockchain $\times$ topology $\times$ workload,HC3 Type-II F,2.408035497043878,68.0,1.5689343064586825e-09,80,68,False,True,reported on observed support,2968.0
+Conditional performance,TPS,Blockchain $\times$ workload $\times$ size,HC3 Type-II F,29.96918665692217,15.0,4.370826845512254e-80,20,15,False,True,reported on observed support,3021.0
+Conditional performance,Latency,Blockchain $\times$ topology $\times$ workload,HC3 Type-II F,5.2195314277971585,68.0,1.2819219620641619e-37,80,68,False,True,reported on observed support,2975.0
+Conditional performance,Latency,Blockchain $\times$ workload $\times$ size,HC3 Type-II F,55.00290936769599,15.0,4.214620588967002e-146,20,15,False,True,reported on observed support,3028.0
+Conditional performance,Energy,Blockchain $\times$ topology $\times$ workload,HC3 Type-II F,0.6994624202750217,68.0,0.9707862482956899,80,68,False,True,reported on observed support,2975.0
+Conditional performance,Energy,Blockchain $\times$ workload $\times$ size,HC3 Type-II F,1.3739041056792625,15.0,0.15069715629999642,20,15,False,True,reported on observed support,3028.0

@@ -1,7 +1,7 @@
-metric,interaction,observations,design_columns,design_rank,rank_deficiency,added_columns,added_rank,fully_estimable
-TPS,Blockchain $\times$ topology $\times$ workload,1764,86,86,0,32,32,True
-TPS,Blockchain $\times$ workload $\times$ size,1764,62,62,0,8,8,True
-Latency,Blockchain $\times$ topology $\times$ workload,1770,86,86,0,32,32,True
-Latency,Blockchain $\times$ workload $\times$ size,1770,62,62,0,8,8,True
-Energy,Blockchain $\times$ topology $\times$ workload,1770,86,86,0,32,32,True
-Energy,Blockchain $\times$ workload $\times$ size,1770,62,62,0,8,8,True
+metric,interaction,observations,design_columns,design_rank,rank_deficiency,added_columns,added_rank,fully_estimable,estimable_on_observed_support
+TPS,Blockchain $\times$ topology $\times$ workload,1764,86,86,0,32,32,True,True
+TPS,Blockchain $\times$ workload $\times$ size,1764,62,62,0,8,8,True,True
+Latency,Blockchain $\times$ topology $\times$ workload,1770,86,86,0,32,32,True,True
+Latency,Blockchain $\times$ workload $\times$ size,1770,62,62,0,8,8,True,True
+Energy,Blockchain $\times$ topology $\times$ workload,1770,86,86,0,32,32,True,True
+Energy,Blockchain $\times$ workload $\times$ size,1770,62,62,0,8,8,True,True

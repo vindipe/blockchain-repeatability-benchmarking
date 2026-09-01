@@ -10,19 +10,19 @@
 & \multicolumn{2}{c|}{Outcome} & \multicolumn{3}{c|}{TPS} & \multicolumn{3}{c|}{Latency} & \multicolumn{3}{c}{Energy} \\
 Term & $\chi^2$ & $p$ & $F_{\mathrm{HC3}}$ & $p$ & $\eta_p^2$ & $F_{\mathrm{HC3}}$ & $p$ & $\eta_p^2$ & $F_{\mathrm{HC3}}$ & $p$ & $\eta_p^2$ \\
 \hline
-Blockchain (omnibus) & 3166.75 & $<0.001$ & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-Topology (omnibus) & 190.12 & $<0.001$ & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-Workload (omnibus) & 1030.92 & $<0.001$ & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-Size (omnibus) & 470.66 & $<0.001$ & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-Blockchain $\times$ topology & 24.29 & 0.083 & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-Blockchain $\times$ workload & 345.64 & $<0.001$ & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-Blockchain $\times$ size & 66.63 & $<0.001$ & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-Topology $\times$ workload & 25.71 & 0.176 & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-Topology $\times$ size & 16.43 & 0.002 & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
-Workload $\times$ size & 40.81 & $<0.001$ & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+Blockchain (omnibus) & 3166.75 & $<0.001$ & 19174.62 & $<0.001$ & 0.799 & 2792.40 & $<0.001$ & 0.604 & 0.46 & 0.767 & 0.001 \\
+Topology (omnibus) & 190.12 & $<0.001$ & 24.49 & $<0.001$ & 0.010 & 71.95 & $<0.001$ & 0.035 & 0.40 & 0.810 & 0.000 \\
+Workload (omnibus) & 1030.92 & $<0.001$ & 2122.44 & $<0.001$ & 0.545 & 1013.93 & $<0.001$ & 0.350 & 3470.42 & $<0.001$ & 0.844 \\
+Size (omnibus) & 470.66 & $<0.001$ & 262.23 & $<0.001$ & 0.025 & 821.85 & $<0.001$ & 0.099 & 0.28 & 0.600 & 0.000 \\
+Blockchain $\times$ topology & 24.29 & 0.083 & 10.86 & $<0.001$ & 0.048 & 14.53 & $<0.001$ & 0.055 & 0.34 & 0.993 & 0.002 \\
+Blockchain $\times$ workload & 345.64 & $<0.001$ & 309.42 & $<0.001$ & 0.589 & 493.30 & $<0.001$ & 0.700 & 0.43 & 0.982 & 0.003 \\
+Blockchain $\times$ size & 66.63 & $<0.001$ & 44.78 & $<0.001$ & 0.087 & 41.45 & $<0.001$ & 0.173 & 0.41 & 0.801 & 0.001 \\
+Topology $\times$ workload & 25.71 & 0.176 & 2.27 & 0.001 & 0.018 & 4.96 & $<0.001$ & 0.027 & 1.04 & 0.411 & 0.006 \\
+Topology $\times$ size & 16.43 & 0.002 & 3.19 & 0.013 & 0.004 & 3.14 & 0.014 & 0.005 & 0.27 & 0.897 & 0.000 \\
+Workload $\times$ size & 40.81 & $<0.001$ & 34.82 & $<0.001$ & 0.040 & 7.83 & $<0.001$ & 0.014 & 0.43 & 0.826 & 0.001 \\
 \hline
 \end{tabular}
 }
 \vspace{1mm}
-\parbox{\textwidth}{\footnotesize Outcome interactions are likelihood-ratio deletion tests; each outcome main-factor row is a hierarchical omnibus test of that factor and all interactions containing it. Performance tests are Type-II tests on log-transformed, positive-service observations with HC3 covariance; $\eta_p^2$ is partial eta squared. Degrees of freedom are provided in the machine-readable output. Performance inferential entries marked ``--'' are not reported because the corresponding conditional log-performance design matrix is rank-deficient; the estimability audit gives the exact rank deficiency. The binomial outcome component exhibits quasi-separation in this scope; its likelihood-ratio rows are retained as model-screening evidence for service incidence, not as finite-sample causal inference.}
+\parbox{\textwidth}{\footnotesize Outcome interactions are likelihood-ratio deletion tests; each outcome main-factor row is a hierarchical omnibus test of that factor and all interactions containing it. Performance tests are Type-II tests on log-transformed, positive-service observations with HC3 covariance; $\eta_p^2$ is partial eta squared. Degrees of freedom are provided in the machine-readable output. The conditional models are fitted on a full-rank basis for the observed positive-service support. For the six-workload scope, Quorum--FIFA and Quorum--Gaming contain no positive-service observations; the blockchain--workload test consequently uses 18 estimable df rather than 20, without imputing either cell. The binomial outcome component exhibits quasi-separation in this scope; its likelihood-ratio rows are retained as model-screening evidence for service incidence, not as finite-sample causal inference.}
 \end{table*}

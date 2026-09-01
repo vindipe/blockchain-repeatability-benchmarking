@@ -1,57 +1,97 @@
 {
+  "all_nominal_two_way_designs_full_rank": false,
   "all_targeted_three_way_models_fully_estimable": false,
-  "all_two_way_models_full_rank": false,
+  "all_two_way_models_full_rank": true,
   "conditional_models": {
     "Energy": {
       "adjusted_r_squared": 0.8524713361894993,
-      "breusch_pagan_lm": 128.5514496482433,
-      "breusch_pagan_p_value": 0.0010026146898863587,
-      "columns": 84,
-      "condition_number": 4859032267399316.0,
-      "full_rank": false,
-      "jarque_bera": 96.02609992520048,
-      "jarque_bera_p_value": 1.4066865723996786e-21,
+      "aliased_columns": [
+        "C(blockchain, Sum)[S.Quorum]:C(workload, Sum)[S.FIFA]",
+        "C(blockchain, Sum)[S.Quorum]:C(workload, Sum)[S.Gaming]"
+      ],
+      "breusch_pagan_lm": 128.551449648244,
+      "breusch_pagan_p_value": 0.0006094294276163895,
+      "candidate_design_columns": 84,
+      "candidate_design_rank": 82,
+      "candidate_rank_deficiency": 2,
+      "columns": 82,
+      "condition_number": 50.546544137633475,
+      "empty_positive_service_blockchain_workload_cells": [
+        "Quorum / FIFA",
+        "Quorum / Gaming"
+      ],
+      "full_rank": true,
+      "jarque_bera": 96.02609992519757,
+      "jarque_bera_p_value": 1.406686572401731e-21,
       "observations": 3125,
       "r_squared": 0.8562965032089137,
       "rank": 82,
-      "rank_deficiency": 2,
-      "warnings": [
-        "covariance of constraints does not have full rank. The number of constraints is 5, but rank is 4"
-      ]
+      "rank_deficiency": 0,
+      "sparse_positive_service_blockchain_workload_cells": [
+        "Quorum / DDoS: n=1"
+      ],
+      "support_adjusted": true,
+      "warnings": []
     },
     "Latency": {
       "adjusted_r_squared": 0.8376019255280657,
-      "breusch_pagan_lm": 746.7554057622345,
-      "breusch_pagan_p_value": 2.2342224316653108e-107,
-      "columns": 84,
-      "condition_number": 4859032267399316.0,
-      "full_rank": false,
-      "jarque_bera": 15191.945069176385,
+      "aliased_columns": [
+        "C(blockchain, Sum)[S.Quorum]:C(workload, Sum)[S.FIFA]",
+        "C(blockchain, Sum)[S.Quorum]:C(workload, Sum)[S.Gaming]"
+      ],
+      "breusch_pagan_lm": 746.7554057622359,
+      "breusch_pagan_p_value": 2.4162126059109365e-108,
+      "candidate_design_columns": 84,
+      "candidate_design_rank": 82,
+      "candidate_rank_deficiency": 2,
+      "columns": 82,
+      "condition_number": 50.546544137633475,
+      "empty_positive_service_blockchain_workload_cells": [
+        "Quorum / FIFA",
+        "Quorum / Gaming"
+      ],
+      "full_rank": true,
+      "jarque_bera": 15191.945069176243,
       "jarque_bera_p_value": 0.0,
       "observations": 3125,
       "r_squared": 0.8418126310441434,
       "rank": 82,
-      "rank_deficiency": 2,
-      "warnings": [
-        "covariance of constraints does not have full rank. The number of constraints is 5, but rank is 4"
-      ]
+      "rank_deficiency": 0,
+      "sparse_positive_service_blockchain_workload_cells": [
+        "Quorum / DDoS: n=1"
+      ],
+      "support_adjusted": true,
+      "warnings": []
     },
     "TPS": {
       "adjusted_r_squared": 0.9112684159703454,
-      "breusch_pagan_lm": 461.2546981396132,
-      "breusch_pagan_p_value": 8.023717550789742e-54,
-      "columns": 84,
-      "condition_number": 8220930001441397.0,
-      "full_rank": false,
-      "jarque_bera": 31223.69425546474,
+      "aliased_columns": [
+        "C(blockchain, Sum)[S.Quorum]:C(workload, Sum)[S.FIFA]",
+        "C(blockchain, Sum)[S.Quorum]:C(workload, Sum)[S.Gaming]"
+      ],
+      "breusch_pagan_lm": 461.2546981396139,
+      "breusch_pagan_p_value": 1.4017103577509907e-54,
+      "candidate_design_columns": 84,
+      "candidate_design_rank": 82,
+      "candidate_rank_deficiency": 2,
+      "columns": 82,
+      "condition_number": 50.503332863461395,
+      "empty_positive_service_blockchain_workload_cells": [
+        "Quorum / FIFA",
+        "Quorum / Gaming"
+      ],
+      "full_rank": true,
+      "jarque_bera": 31223.694255465547,
       "jarque_bera_p_value": 0.0,
       "observations": 3118,
       "r_squared": 0.9135742415418571,
       "rank": 82,
-      "rank_deficiency": 2,
-      "warnings": [
-        "covariance of constraints does not have full rank. The number of constraints is 5, but rank is 4"
-      ]
+      "rank_deficiency": 0,
+      "sparse_positive_service_blockchain_workload_cells": [
+        "Quorum / DDoS: n=1"
+      ],
+      "support_adjusted": true,
+      "warnings": []
     }
   },
   "outcome_model": {

@@ -31,7 +31,9 @@ blockchain-topology-workload-size configurations. Configuration-level counts
 range from 9 to 26, and only four configurations contain exactly 10
 observations. The legacy GAFAM, PayPal, and VISA subset contains 2,053 observed
 executions across 150 configurations; only two of those configurations contain
-exactly 10 observations.
+exactly 10 observations. The complete six-workload corpus is the primary
+manuscript scope; the three-workload subset is retained only for compatibility
+and sensitivity checks.
 
 The raw `hash` column identifies benchmark campaigns. The supplied analysis
 groups all selected observations by:
@@ -192,15 +194,23 @@ machine-readable term tables.
 
 The script verifies design-matrix rank before inference. All legacy
 three-workload two-way models and both targeted three-way additions are full
-rank. For estimable targeted three-way additions, the artifact reports
-likelihood-ratio tests for the outcome component and HC3 Type-II tests for the
-conditional log-performance component. The six-workload outcome model remains
-full rank, but each conditional
-performance model is rank-deficient by two because some factor combinations
-have no positive-service observations. The corresponding three-way additions
-are also not fully estimable. These diagnostics prevent aliased terms from
-being interpreted as ordinary coefficients when the paper is extended to all
-six workloads.
+rank. The six-workload outcome model is also full rank. Conditional on positive
+service, however, Quorum has no FIFA or Gaming observations and only one DDoS
+observation. The nominal two-way design is consequently rank-deficient by two.
+Rather than suppressing every conditional test or fitting a pseudoinverse as if
+all coefficients were estimable, the implementation constructs a deterministic
+full-rank basis spanning the complete observed-support column space. Primary
+HC3 Type-II and Type-III sensitivity tests are then computed as joint
+restrictions under the fixed sum-contrast specification. The
+blockchain--workload interaction has 18 supported degrees of freedom rather
+than 20; both values and the empty cells are written to the audit output, and
+no observation is imputed.
+
+Targeted three-way additions use the same rule. The artifact reports
+likelihood-ratio tests for the full-rank outcome component and HC3 tests over
+the rank added by each conditional interaction. Where empty positive-service
+cells reduce nominal rank, the generated table states ``reported on observed
+support'' and prints supported rank over nominal columns.
 
 `analysis/icc_by_blockchain.py` fits a separate intercept-only REML mixed model
 for each blockchain and metric on the natural-log scale, with configuration as
@@ -298,6 +308,16 @@ python3 analysis/icc_by_blockchain.py
 creates the within-blockchain variance-component and ICC table, bootstrap
 intervals, and generated LaTeX tables below
 `outputs/revision/icc_by_blockchain/` and `paper_tables/`. Running:
+
+```bash
+python3 analysis/workload_catalog.py
+python3 analysis/plot_run_level_deviations.py
+```
+
+creates the six-workload catalog under `outputs/revision/m1_workloads/`, its
+generated LaTeX table under `paper_tables/six_workloads/`, and twelve corrected
+PDF run-level deviation figures under `outputs/revision/m1_figures/`.
+Running the legacy provenance script separately:
 
 ```bash
 python3 analysis/plot_reproducibility.py

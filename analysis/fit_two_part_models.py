@@ -25,6 +25,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import scipy.stats as st
+from scipy import linalg
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from patsy import dmatrices
@@ -124,6 +125,79 @@ def model_terms(model) -> list[str]:
     ]
 
 
+def estimable_design(
+    formula: str, data: pd.DataFrame
+) -> tuple[pd.DataFrame, pd.DataFrame, list[dict[str, object]], dict[str, object]]:
+    """Return a deterministic full-rank basis for the observed design support.
+
+    Patsy's nominal sum-contrast design can be rank-deficient when a conditional
+    positive-service cell is empty. Columns are considered in hierarchical
+    formula order and retained only when they increase rank. This preserves the
+    complete estimable column space without inventing observations for empty
+    cells. Term membership is retained for explicit joint tests on the
+    supported degrees of freedom under the fixed sum-contrast specification.
+    """
+
+    response, candidate = dmatrices(formula, data, return_type="dataframe")
+    design_info = candidate.design_info
+    kept: list[int] = []
+    aliased: list[int] = []
+    orthogonal_basis = np.empty((candidate.shape[0], 0), dtype=float)
+    for term in design_info.terms:
+        term_slice = design_info.slice(term)
+        term_columns = list(range(term_slice.start, term_slice.stop))
+        block = candidate.iloc[:, term_columns].to_numpy(float)
+        if orthogonal_basis.shape[1]:
+            block = block - orthogonal_basis @ (orthogonal_basis.T @ block)
+        block_rank = int(np.linalg.matrix_rank(block))
+        if block_rank:
+            _, _, pivot = linalg.qr(block, mode="economic", pivoting=True)
+            selected = sorted(term_columns[index] for index in pivot[:block_rank])
+        else:
+            selected = []
+        kept.extend(selected)
+        aliased.extend(column for column in term_columns if column not in selected)
+        orthogonal_basis, _ = linalg.qr(
+            candidate.iloc[:, kept].to_numpy(float), mode="economic"
+        )
+
+    design = candidate.iloc[:, kept].copy()
+    original_to_reduced = {original: reduced for reduced, original in enumerate(kept)}
+    terms: list[dict[str, object]] = []
+    for term in design_info.terms:
+        nominal_slice = design_info.slice(term)
+        original_columns = list(range(nominal_slice.start, nominal_slice.stop))
+        reduced_columns = [
+            original_to_reduced[column]
+            for column in original_columns
+            if column in original_to_reduced
+        ]
+        terms.append(
+            {
+                "name": term.name(),
+                "factors": frozenset(factor.name() for factor in term.factors),
+                "columns": reduced_columns,
+                "nominal_columns": len(original_columns),
+            }
+        )
+
+    singular = np.linalg.svd(design.to_numpy(float), compute_uv=False)
+    diagnostics = {
+        "observations": int(design.shape[0]),
+        "columns": int(design.shape[1]),
+        "rank": int(np.linalg.matrix_rank(design.to_numpy(float))),
+        "rank_deficiency": 0,
+        "condition_number": float(singular[0] / singular[-1]),
+        "full_rank": True,
+        "candidate_design_columns": int(candidate.shape[1]),
+        "candidate_design_rank": int(np.linalg.matrix_rank(candidate.to_numpy(float))),
+        "candidate_rank_deficiency": int(candidate.shape[1] - len(kept)),
+        "support_adjusted": bool(aliased),
+        "aliased_columns": [str(candidate.columns[column]) for column in aliased],
+    }
+    return response, design, terms, diagnostics
+
+
 def fit_binomial(data: pd.DataFrame) -> tuple[object, pd.DataFrame, dict[str, object]]:
     model_data = data.copy()
     # Patsy treats a Boolean response as a two-level categorical response and
@@ -210,41 +284,80 @@ def fit_binomial(data: pd.DataFrame) -> tuple[object, pd.DataFrame, dict[str, ob
     return model, pd.DataFrame(rows), diagnostics
 
 
-def linear_term_tables(model) -> tuple[pd.DataFrame, pd.DataFrame]:
-    classical_type_ii = anova_lm(model, typ=2)
-    robust_type_ii = anova_lm(model, typ=2, robust="hc3")
-    robust_type_iii = anova_lm(model, typ=3, robust="hc3")
-    residual_ss = float(classical_type_ii.loc["Residual", "sum_sq"])
+def linear_term_tables(
+    model, terms: list[dict[str, object]] | None = None
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Compute HC3 Type-II and Type-III tests on an estimable basis."""
 
+    if terms is None:
+        design_info = model.model.data.design_info
+        terms = []
+        for term in design_info.terms:
+            column_slice = design_info.slice(term)
+            terms.append(
+                {
+                    "name": term.name(),
+                    "factors": frozenset(factor.name() for factor in term.factors),
+                    "columns": list(range(column_slice.start, column_slice.stop)),
+                    "nominal_columns": column_slice.stop - column_slice.start,
+                }
+            )
+
+    terms = [term for term in terms if term["name"] != "Intercept"]
+    identity = np.eye(model.model.exog.shape[1])
+    robust_cov = np.asarray(model.cov_HC3)
+    classical_cov = np.asarray(model.cov_params())
+    residual_ss = float(model.ssr)
     primary_rows: list[dict[str, object]] = []
-    for term in model_terms(model):
-        classical_ss = float(classical_type_ii.loc[term, "sum_sq"])
-        robust = robust_type_ii.loc[term]
+    sensitivity_rows: list[dict[str, object]] = []
+    for term in terms:
+        name = str(term["name"])
+        term_factors = set(term["factors"])
+        own_columns = list(term["columns"])
+        higher_columns: list[int] = []
+        for other in terms:
+            other_factors = set(other["factors"])
+            if term_factors < other_factors:
+                higher_columns.extend(other["columns"])
+
+        l1_columns = own_columns + higher_columns
+        L1 = identity[l1_columns]
+        L2 = identity[higher_columns]
+        if L2.size:
+            lvl = L1 @ robust_cov @ L2.T
+            orthogonal, _ = linalg.qr(lvl, mode="full")
+            df = len(own_columns)
+            L12 = orthogonal[:, -df:].T @ L1
+        else:
+            L12 = L1
+            df = len(own_columns)
+        robust_test = model.f_test(L12, cov_p=robust_cov)
+        classical_test = model.f_test(L12, cov_p=classical_cov)
+        classical_ss = float(classical_test.fvalue) * df * residual_ss / model.df_resid
         primary_rows.append(
             {
-                "term": TERM_DISPLAY.get(term, term),
-                "term_formula": term,
+                "term": TERM_DISPLAY.get(name, name),
+                "term_formula": name,
                 "test": "HC3 Type-II F",
-                "statistic": float(robust["F"]),
-                "df": float(robust["df"]),
+                "statistic": float(robust_test.fvalue),
+                "df": float(df),
+                "nominal_df": float(term["nominal_columns"]),
                 "residual_df": float(model.df_resid),
-                "p_value": float(robust["PR(>F)"]),
+                "p_value": float(robust_test.pvalue),
                 "partial_eta_squared": classical_ss / (classical_ss + residual_ss),
             }
         )
-
-    sensitivity_rows: list[dict[str, object]] = []
-    for term in model_terms(model):
-        robust = robust_type_iii.loc[term]
+        type_iii = model.f_test(identity[own_columns], cov_p=robust_cov)
         sensitivity_rows.append(
             {
-                "term": TERM_DISPLAY.get(term, term),
-                "term_formula": term,
+                "term": TERM_DISPLAY.get(name, name),
+                "term_formula": name,
                 "test": "HC3 Type-III F",
-                "statistic": float(robust["F"]),
-                "df": float(robust["df"]),
+                "statistic": float(type_iii.fvalue),
+                "df": float(df),
+                "nominal_df": float(term["nominal_columns"]),
                 "residual_df": float(model.df_resid),
-                "p_value": float(robust["PR(>F)"]),
+                "p_value": float(type_iii.pvalue),
             }
         )
     return pd.DataFrame(primary_rows), pd.DataFrame(sensitivity_rows)
@@ -257,11 +370,35 @@ def fit_linear_metric(
     eligible = data.loc[data[eligibility_column]].copy()
     eligible["log_value"] = np.log(pd.to_numeric(eligible[value_column]))
     formula = f"log_value ~ {TWO_WAY_RHS}"
-    diagnostics = design_diagnostics(formula, eligible)
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")
-        model = smf.ols(formula, data=eligible).fit()
-        primary, sensitivity = linear_term_tables(model)
+        response, design, terms, diagnostics = estimable_design(formula, eligible)
+        model = sm.OLS(response.iloc[:, 0], design).fit()
+        primary, sensitivity = linear_term_tables(model, terms)
+    empty_bw = (
+        eligible.groupby(["blockchain", "workload"], observed=False)
+        .size()
+        .reindex(
+            pd.MultiIndex.from_product(
+                [
+                    sorted(data["blockchain"].unique()),
+                    sorted(data["workload"].unique()),
+                ],
+                names=["blockchain", "workload"],
+            ),
+            fill_value=0,
+        )
+    )
+    diagnostics["empty_positive_service_blockchain_workload_cells"] = [
+        f"{blockchain} / {workload}"
+        for (blockchain, workload), count in empty_bw.items()
+        if count == 0
+    ]
+    diagnostics["sparse_positive_service_blockchain_workload_cells"] = [
+        f"{blockchain} / {workload}: n={int(count)}"
+        for (blockchain, workload), count in empty_bw.items()
+        if 0 < count < 5
+    ]
     residuals = np.asarray(model.resid, dtype=float)
     bp = het_breuschpagan(residuals, model.model.exog)
     jb = jarque_bera(residuals)
@@ -300,13 +437,14 @@ def three_way_estimability(data: pd.DataFrame, metric: str) -> pd.DataFrame:
     eligible = data.loc[data[eligibility_column]].copy()
     eligible["log_value"] = np.log(pd.to_numeric(eligible[value_column]))
     base_formula = f"log_value ~ {TWO_WAY_RHS}"
-    base = design_diagnostics(base_formula, eligible)
+    _, _, _, base = estimable_design(base_formula, eligible)
     rows = []
     for display, term in TARGETED_THREE_WAY.items():
         formula = f"{base_formula} + {term}"
-        diag = design_diagnostics(formula, eligible)
-        added_columns = int(diag["columns"]) - int(base["columns"])
-        added_rank = int(diag["rank"]) - int(base["rank"])
+        _, _, terms, diag = estimable_design(formula, eligible)
+        added_term = next(item for item in terms if item["name"] == term)
+        added_columns = int(added_term["nominal_columns"])
+        added_rank = len(added_term["columns"])
         rows.append(
             {
                 "metric": metric,
@@ -318,6 +456,7 @@ def three_way_estimability(data: pd.DataFrame, metric: str) -> pd.DataFrame:
                 "added_columns": added_columns,
                 "added_rank": added_rank,
                 "fully_estimable": added_columns == added_rank and bool(diag["full_rank"]),
+                "estimable_on_observed_support": added_rank > 0,
             }
         )
     return pd.DataFrame(rows)
@@ -371,6 +510,7 @@ def targeted_three_way_sensitivity(data: pd.DataFrame) -> pd.DataFrame:
                 "added_columns": added_columns,
                 "added_rank": added_rank,
                 "fully_estimable": fully_estimable,
+                "reported": fully_estimable,
                 "status": status,
             }
         )
@@ -380,26 +520,28 @@ def targeted_three_way_sensitivity(data: pd.DataFrame) -> pd.DataFrame:
         eligible = data.loc[data[eligibility_column]].copy()
         eligible["log_value"] = np.log(pd.to_numeric(eligible[value_column]))
         base_formula = f"log_value ~ {TWO_WAY_RHS}"
-        base_diag = design_diagnostics(base_formula, eligible)
         for display, term in TARGETED_THREE_WAY.items():
             formula = f"{base_formula} + {term}"
-            diag = design_diagnostics(formula, eligible)
-            added_columns = int(diag["columns"]) - int(base_diag["columns"])
-            added_rank = int(diag["rank"]) - int(base_diag["rank"])
-            fully_estimable = added_columns == added_rank and bool(diag["full_rank"])
+            response, design, terms, _ = estimable_design(formula, eligible)
+            added_term = next(item for item in terms if item["name"] == term)
+            added_columns = int(added_term["nominal_columns"])
+            added_rank = len(added_term["columns"])
+            fully_estimable = added_columns == added_rank
             statistic = np.nan
             p_value = np.nan
             df = added_rank
             residual_df = np.nan
             status = "not estimable"
-            if fully_estimable:
-                augmented = smf.ols(formula, data=eligible).fit()
-                robust = anova_lm(augmented, typ=2, robust="hc3").loc[term]
-                statistic = float(robust["F"])
-                df = float(robust["df"])
+            reported = added_rank > 0
+            if reported:
+                augmented = sm.OLS(response.iloc[:, 0], design).fit()
+                restriction = np.eye(design.shape[1])[added_term["columns"]]
+                robust = augmented.f_test(restriction, cov_p=augmented.cov_HC3)
+                statistic = float(robust.fvalue)
+                df = float(added_rank)
                 residual_df = float(augmented.df_resid)
-                p_value = float(robust["PR(>F)"])
-                status = "reported"
+                p_value = float(robust.pvalue)
+                status = "reported" if fully_estimable else "reported on observed support"
             rows.append(
                 {
                     "component": "Conditional performance",
@@ -413,6 +555,7 @@ def targeted_three_way_sensitivity(data: pd.DataFrame) -> pd.DataFrame:
                     "added_columns": added_columns,
                     "added_rank": added_rank,
                     "fully_estimable": fully_estimable,
+                    "reported": reported,
                     "status": status,
                 }
             )
@@ -444,6 +587,22 @@ def render_term_table(
         "the corresponding conditional log-performance design matrix is "
         "rank-deficient; the estimability audit gives the exact rank deficiency."
         if suppressed_metrics
+        else ""
+    )
+    support_adjusted_metrics = sorted(
+        {
+            str(row["metric"])
+            for _, row in performance.iterrows()
+            if bool(row.get("support_adjusted", False))
+        }
+    )
+    support_note = (
+        " The conditional models are fitted on a full-rank basis for the "
+        "observed positive-service support. For the six-workload scope, "
+        "Quorum--FIFA and Quorum--Gaming contain no positive-service "
+        "observations; the blockchain--workload test consequently uses 18 "
+        "estimable df rather than 20, without imputing either cell."
+        if support_adjusted_metrics
         else ""
     )
     outcome_caution_note = (
@@ -497,6 +656,7 @@ def render_term_table(
             r"\vspace{1mm}",
             r"\parbox{\textwidth}{\footnotesize Outcome interactions are likelihood-ratio deletion tests; each outcome main-factor row is a hierarchical omnibus test of that factor and all interactions containing it. Performance tests are Type-II tests on log-transformed, positive-service observations with HC3 covariance; $\eta_p^2$ is partial eta squared. Degrees of freedom are provided in the machine-readable output."
             + suppression_note
+            + support_note
             + outcome_caution_note
             + "}",
             r"\end{table*}",
@@ -510,12 +670,12 @@ def render_estimability_table(table: pd.DataFrame) -> str:
     lines = [
         r"\begin{table}[t]",
         r"\centering",
-        r"\caption{Design-matrix audit for targeted three-way interaction sensitivities. A term is retained for inference only when all added columns are estimable.}",
+        r"\caption{Design-matrix audit for targeted three-way interaction sensitivities. Added rank gives the supported degrees of freedom; a term can be tested on observed support even when empty positive-service cells reduce its nominal rank.}",
         r"\label{tab:three_way_estimability}",
         r"\small",
         r"\begin{tabular}{llrrc}",
         r"\hline",
-        r"Metric & Interaction & Added columns & Added rank & Estimable \\",
+        r"Metric & Interaction & Added columns & Added rank & Full nominal rank \\",
         r"\hline",
     ]
     for _, row in table.iterrows():
@@ -543,7 +703,7 @@ def render_three_way_sensitivity_table(
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
-        r"\caption{Targeted three-way interaction sensitivity tests. Terms are reported only when the augmented design matrix is full rank and all added columns increase model rank.}",
+        r"\caption{Targeted three-way interaction sensitivity tests. Conditional-performance terms are tested on their estimable observed-support basis; added rank over nominal columns is shown when empty positive-service cells reduce rank.}",
         r"\label{tab:three_way_sensitivity}",
         r"\small",
         r"\resizebox{\textwidth}{!}{%",
@@ -556,9 +716,13 @@ def render_three_way_sensitivity_table(
         interaction = str(row["interaction"]).replace("Blockchain", "B").replace(
             "topology", "T"
         ).replace("workload", "W").replace("size", "S")
-        if bool(row["fully_estimable"]):
+        if bool(row.get("reported", row["fully_estimable"])):
             statistic = f"{row['statistic']:.2f}"
-            df = f"{row['df']:.0f}"
+            df = (
+                f"{row['df']:.0f}"
+                if bool(row["fully_estimable"])
+                else f"{int(row['added_rank'])}/{int(row['added_columns'])}"
+            )
             p_value = p_text(float(row["p_value"]))
         else:
             statistic = "--"
@@ -574,7 +738,7 @@ def render_three_way_sensitivity_table(
             r"\end{tabular}",
             r"}",
             r"\vspace{1mm}",
-            r"\parbox{\textwidth}{\footnotesize Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests on the augmented log-linear model. For non-estimable rows, df is shown as added rank over added columns."
+            r"\parbox{\textwidth}{\footnotesize Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests for the added highest-order term. When empty positive-service cells reduce nominal rank, df is shown as supported rank over nominal columns; no empty cell is imputed."
             + outcome_caution_note
             + "}",
             r"\end{table*}",
@@ -591,6 +755,9 @@ def run_models(input_path: Path, output_dir: Path, table_dir: Path) -> dict[str,
         data = scope_frame(derived, scope)
         scope_output = output_dir / scope
         scope_output.mkdir(parents=True, exist_ok=True)
+        stale_wald_output = scope_output / "outcome_wald_tests.csv"
+        if stale_wald_output.exists():
+            stale_wald_output.unlink()
         scope_tables = table_dir / scope
         scope_tables.mkdir(parents=True, exist_ok=True)
 
@@ -607,6 +774,8 @@ def run_models(input_path: Path, output_dir: Path, table_dir: Path) -> dict[str,
             sensitivity.insert(0, "metric", metric)
             primary["design_full_rank"] = bool(diagnostics["full_rank"])
             sensitivity["design_full_rank"] = bool(diagnostics["full_rank"])
+            primary["support_adjusted"] = bool(diagnostics["support_adjusted"])
+            sensitivity["support_adjusted"] = bool(diagnostics["support_adjusted"])
             primary_parts.append(primary)
             sensitivity_parts.append(sensitivity)
             estimability_parts.append(three_way_estimability(data, metric))
@@ -656,6 +825,13 @@ def run_models(input_path: Path, output_dir: Path, table_dir: Path) -> dict[str,
             "all_two_way_models_full_rank": bool(
                 outcome_diag["full_rank"]
                 and all(item["full_rank"] for item in linear_diagnostics.values())
+            ),
+            "all_nominal_two_way_designs_full_rank": bool(
+                outcome_diag["full_rank"]
+                and all(
+                    not item["support_adjusted"]
+                    for item in linear_diagnostics.values()
+                )
             ),
             "all_targeted_three_way_models_fully_estimable": bool(
                 estimability["fully_estimable"].all()
