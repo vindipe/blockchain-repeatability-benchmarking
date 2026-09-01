@@ -116,13 +116,17 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
   ACM-DLT-versus-IEEE comparison from an explicit novelty manifest and validates
   every quantitative IEEE claim against the completed revision outputs. The
   generated table marks only its caption and leaves its body uncoloured.
-- `analysis/plot_run_level_deviations.py` generates corrected run-level PDF
+- `analysis/plot_run_level_deviations.py` generates corrected vector-PDF
   absolute and relative deviation figures for all six workloads, using the
   same metric-specific eligibility masks as the numerical analysis. Each
-  colored circular marker is one eligible execution; a deterministic small
-  horizontal offset separates executions within a configuration without
-  changing their factor assignment. The script also writes a point-level CSV
-  manifest and the exact M5 LaTeX caption replacements with `\vd{...}` tags.
+  colored circular marker is one eligible positive-service execution; a
+  deterministic small horizontal offset separates executions within a
+  configuration without changing their factor assignment. R2.6 additionally
+  generates an annotated outcome-count figure with one cell for each of the
+  300 configurations, a compact outcome/metric-validity LaTeX table, separate
+  execution- and configuration-level manifests, and exact figure captions
+  marked `\vd{M5, R2.6: ...}`. The PDFs use embedded TrueType fonts and record
+  the final panel/placement decision in the figure summary.
 - `outputs/revision/` contains the definitive versioned CSV, JSON, diagnostic
   PDF, and generated-table outputs from the completed revision analyses. A
   GitHub source ZIP therefore includes the executed results and does not

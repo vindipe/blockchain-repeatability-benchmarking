@@ -1,4 +1,4 @@
-"""Plot one point per metric-eligible execution for all six workloads (M5)."""
+"""Generate readable run-level and outcome-count figures (M5/R2.6)."""
 
 from __future__ import annotations
 
@@ -11,15 +11,21 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.patches import Patch, Rectangle
 import numpy as np
 import pandas as pd
 
 try:
     from .audit_observed_runs import DEFAULT_INPUT, load_runs
-    from .derive_run_outcomes import derive_outcomes, prepare_selected_runs
+    from .derive_run_outcomes import (
+        configuration_outcome_counts,
+        derive_outcomes,
+        prepare_selected_runs,
+    )
 except ImportError:  # Direct execution
     from audit_observed_runs import DEFAULT_INPUT, load_runs  # type: ignore[no-redef]
     from derive_run_outcomes import (  # type: ignore[no-redef]
+        configuration_outcome_counts,
         derive_outcomes,
         prepare_selected_runs,
     )
@@ -71,6 +77,27 @@ METRICS = {
 CONFIG = ["blockchain", "mode", "workload", "network_size"]
 RUN_ID = ["dataset", "run", "hash"]
 JITTER_HALF_WIDTH = 0.18
+DEVIATION_FIGURE_SIZE = (10.2, 5.6)
+OUTCOME_FIGURE_SIZE = (7.2, 8.0)
+FINAL_PLACEMENT_FRACTION = 1.0
+SOURCE_MINIMUM_TEXT_PT = 11.5
+OUTCOME_REGIME_COLORS = {
+    "all_positive_commit": "#D9EAD3",
+    "mixed_outcomes": "#FCE5CD",
+    "no_positive_commit": "#F4CCCC",
+}
+
+matplotlib.rcParams.update(
+    {
+        "pdf.fonttype": 42,
+        "font.size": 11.5,
+        "axes.titlesize": 11.5,
+        "axes.labelsize": 11.5,
+        "xtick.labelsize": 11.5,
+        "ytick.labelsize": 11.5,
+        "legend.fontsize": 11.5,
+    }
+)
 
 
 def deviation_frame(derived: pd.DataFrame, metric_key: str) -> pd.DataFrame:
@@ -119,7 +146,9 @@ def plot_group(
     output_dir: Path,
 ) -> dict[str, object]:
     spec = METRICS[metric_key]
-    fig, axes = plt.subplots(len(workloads), 2, figsize=(13.2, 8.4), squeeze=False)
+    fig, axes = plt.subplots(
+        len(workloads), 2, figsize=DEVIATION_FIGURE_SIZE, squeeze=False
+    )
     empty_cells = 0
     plotted_points = 0
     overflow_points = 0
@@ -145,16 +174,16 @@ def plot_group(
                     axis.scatter(
                         x[normal],
                         y[normal],
-                        s=9,
-                        alpha=0.45,
+                        s=13,
+                        alpha=0.55,
                         color=TOPOLOGY_COLORS[topology],
                         linewidths=0,
                     )
                     axis.scatter(
                         x[overflow],
                         np.clip(y[overflow], -100.0, 100.0),
-                        s=20,
-                        alpha=0.8,
+                        s=28,
+                        alpha=0.85,
                         color=TOPOLOGY_COLORS[topology],
                         marker="^",
                         linewidths=0,
@@ -163,8 +192,8 @@ def plot_group(
                     axis.scatter(
                         x,
                         y,
-                        s=9,
-                        alpha=0.45,
+                        s=13,
+                        alpha=0.55,
                         color=TOPOLOGY_COLORS[topology],
                         linewidths=0,
                     )
@@ -184,9 +213,9 @@ def plot_group(
                             configuration_position(blockchain, topology),
                             0,
                             marker="x",
-                            s=30,
+                            s=36,
                             color="black",
-                            linewidths=1.0,
+                            linewidths=1.2,
                         )
                         if column == 0:
                             empty_cells += 1
@@ -197,15 +226,12 @@ def plot_group(
             axis.set_xlim(-0.8, 28.8)
             if measure == "relative_deviation":
                 axis.set_ylim(-105, 105)
-                axis.set_ylabel("Signed deviation (%)")
-            else:
-                axis.set_ylabel(str(spec["absolute_label"]))
             axis.set_title(f"{workload}: {'absolute' if column == 0 else 'relative'}")
             centers = [2, 8, 14, 20, 26]
             axis.set_xticks(centers)
             axis.set_xticklabels(
                 [BLOCKCHAIN_LABELS[item] for item in BLOCKCHAINS],
-                rotation=18,
+                rotation=15,
                 ha="right",
             )
 
@@ -217,7 +243,7 @@ def plot_group(
             linestyle="",
             color=TOPOLOGY_COLORS[topology],
             label=topology,
-            markersize=5,
+            markersize=6,
         )
         for topology in TOPOLOGIES
     ]
@@ -236,14 +262,32 @@ def plot_group(
     )
     fig.suptitle(
         f"{spec['title']} deviations, {network_size}: {', '.join(workloads)}",
-        y=0.915,
-        fontsize=13,
+        y=0.895,
+        fontsize=13.0,
     )
-    fig.tight_layout(rect=(0, 0, 1, 0.86))
+    fig.text(
+        0.012,
+        0.43,
+        str(spec["absolute_label"]),
+        rotation=90,
+        ha="center",
+        va="center",
+        fontsize=11.5,
+    )
+    fig.text(
+        0.502,
+        0.43,
+        "Signed deviation (%)",
+        rotation=90,
+        ha="center",
+        va="center",
+        fontsize=11.5,
+    )
+    fig.tight_layout(rect=(0.025, 0, 1, 0.825), h_pad=1.0, w_pad=1.0)
     output_dir.mkdir(parents=True, exist_ok=True)
     stem = f"{metric_key}_{network_size.replace(' ', '_')}_{group_name}"
     pdf = output_dir / f"{stem}.pdf"
-    fig.savefig(pdf, bbox_inches="tight")
+    fig.savefig(pdf)
     plt.close(fig)
     return {
         "metric": metric_key,
@@ -254,11 +298,216 @@ def plot_group(
         "empty_metric_cells": empty_cells,
         "relative_overflow_points": overflow_points,
         "pdf": str(pdf.relative_to(REPOSITORY_ROOT)),
+        "source_figure_inches": list(DEVIATION_FIGURE_SIZE),
     }
+
+
+def outcome_figure_frame(derived: pd.DataFrame) -> pd.DataFrame:
+    """Return the exact 300 configuration rows represented in the count figure."""
+    counts = configuration_outcome_counts(derived).copy()
+    counts["panel_row"] = counts["blockchain"].map(
+        {blockchain: index for index, blockchain in enumerate(BLOCKCHAINS)}
+    )
+    counts["panel_column"] = counts["network_size"].map(
+        {"10 nodes": 0, "40 nodes": 1}
+    )
+    counts["matrix_row"] = counts["mode"].map(
+        {topology: index for index, topology in enumerate(TOPOLOGIES)}
+    )
+    workload_order = [item for group in WORKLOAD_GROUPS.values() for item in group]
+    counts["matrix_column"] = counts["workload"].map(
+        {workload: index for index, workload in enumerate(workload_order)}
+    )
+    counts["display_count"] = counts.apply(
+        lambda row: (
+            f"{int(row['n_positive_commit'])}/"
+            f"{int(row['n_zero_commit'])}/"
+            f"{int(row['n_no_submission'])}"
+        ),
+        axis=1,
+    )
+    if counts[["panel_row", "panel_column", "matrix_row", "matrix_column"]].isna().any().any():
+        raise ValueError("Outcome-count figure contains an unmapped configuration level")
+    return counts
+
+
+def plot_configuration_outcomes(
+    counts: pd.DataFrame, output_dir: Path
+) -> dict[str, object]:
+    """Plot exact positive/zero/no-submission counts for every configuration."""
+    workloads = [item for group in WORKLOAD_GROUPS.values() for item in group]
+    regime_order = ["all_positive_commit", "mixed_outcomes", "no_positive_commit"]
+    regime_codes = {regime: index for index, regime in enumerate(regime_order)}
+    fig, axes = plt.subplots(
+        len(BLOCKCHAINS),
+        2,
+        figsize=OUTCOME_FIGURE_SIZE,
+        squeeze=False,
+        sharex=True,
+    )
+    for row_index, blockchain in enumerate(BLOCKCHAINS):
+        for column_index, network_size in enumerate(["10 nodes", "40 nodes"]):
+            axis = axes[row_index, column_index]
+            subset = counts.loc[
+                (counts["blockchain"] == blockchain)
+                & (counts["network_size"] == network_size)
+            ]
+            matrix = np.full((len(TOPOLOGIES), len(workloads)), np.nan)
+            labels = np.full(matrix.shape, "", dtype=object)
+            no_submission = np.zeros(matrix.shape, dtype=bool)
+            for _, item in subset.iterrows():
+                matrix_row = int(item["matrix_row"])
+                matrix_column = int(item["matrix_column"])
+                matrix[matrix_row, matrix_column] = regime_codes[
+                    str(item["service_regime_derived"])
+                ]
+                labels[matrix_row, matrix_column] = str(item["display_count"])
+                no_submission[matrix_row, matrix_column] = (
+                    int(item["n_no_submission"]) > 0
+                )
+            if np.isnan(matrix).any():
+                raise ValueError(
+                    f"Incomplete outcome matrix for {blockchain}, {network_size}"
+                )
+            for matrix_row in range(len(TOPOLOGIES)):
+                for matrix_column in range(len(workloads)):
+                    regime = regime_order[int(matrix[matrix_row, matrix_column])]
+                    axis.add_patch(
+                        Rectangle(
+                            (matrix_column - 0.5, matrix_row - 0.5),
+                            1.0,
+                            1.0,
+                            facecolor=OUTCOME_REGIME_COLORS[regime],
+                            edgecolor="white",
+                            linewidth=1.0,
+                        )
+                    )
+                    axis.text(
+                        matrix_column,
+                        matrix_row,
+                        labels[matrix_row, matrix_column],
+                        ha="center",
+                        va="center",
+                        fontsize=7.5,
+                        fontweight="bold" if no_submission[matrix_row, matrix_column] else "normal",
+                        color="#54278F" if no_submission[matrix_row, matrix_column] else "black",
+                    )
+            axis.set_xlim(-0.5, len(workloads) - 0.5)
+            axis.set_ylim(len(TOPOLOGIES) - 0.5, -0.5)
+            axis.set_aspect("auto")
+            axis.set_xticks(range(len(workloads)))
+            axis.set_xticklabels(workloads, rotation=25, ha="right")
+            axis.set_yticks(range(len(TOPOLOGIES)))
+            if column_index == 0:
+                axis.set_yticklabels(TOPOLOGIES)
+                axis.text(
+                    -0.31,
+                    1.03,
+                    BLOCKCHAIN_LABELS[blockchain],
+                    transform=axis.transAxes,
+                    ha="left",
+                    va="bottom",
+                    fontsize=8.5,
+                    fontweight="bold",
+                )
+            else:
+                axis.set_yticklabels([])
+            if row_index == 0:
+                axis.set_title(network_size.replace("nodes", "validators"))
+            axis.tick_params(axis="both", length=0)
+    handles = [
+        Patch(facecolor=OUTCOME_REGIME_COLORS[regime], edgecolor="#777777", label=label)
+        for regime, label in [
+            ("all_positive_commit", "all positive commit"),
+            ("mixed_outcomes", "mixed outcomes"),
+            ("no_positive_commit", "no positive commit"),
+        ]
+    ]
+    handles.append(
+        plt.Line2D(
+            [0], [0], marker="$N$", linestyle="", color="#54278F", label="contains no submission"
+        )
+    )
+    fig.legend(
+        handles=handles,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.955),
+        ncol=2,
+        frameon=False,
+    )
+    fig.suptitle(
+        "Per-configuration outcome counts (cell text: positive/zero/no submission)",
+        y=0.992,
+        fontsize=11.5,
+    )
+    fig.tight_layout(rect=(0, 0, 1, 0.875), h_pad=0.85, w_pad=0.65)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    pdf = output_dir / "configuration_outcome_counts.pdf"
+    fig.savefig(pdf)
+    plt.close(fig)
+    return {
+        "pdf": str(pdf.relative_to(REPOSITORY_ROOT)),
+        "configuration_cells": int(len(counts)),
+        "cell_text": "positive_commit/zero_commit/no_submission",
+        "source_figure_inches": list(OUTCOME_FIGURE_SIZE),
+    }
+
+
+def render_outcome_table(counts: pd.DataFrame) -> str:
+    grouped = (
+        counts.groupby(["blockchain", "network_size"], observed=True)
+        .agg(
+            configurations=("n_observed", "size"),
+            observed=("n_observed", "sum"),
+            submitted=("n_submitted", "sum"),
+            positive=("n_positive_commit", "sum"),
+            zero=("n_zero_commit", "sum"),
+            no_submission=("n_no_submission", "sum"),
+            tps_point=("n_tps_point_valid", "sum"),
+            latency=("n_latency_valid", "sum"),
+            energy_positive=("n_energy_valid_positive_commit", "sum"),
+        )
+        .reset_index()
+    )
+    lines = [
+        r"% Auto-generated by analysis/plot_run_level_deviations.py; do not edit.",
+        r"\begin{table*}[t]",
+        r"\centering",
+        r"\caption{\vd{M5, R2.6: Readable outcome and metric-validity summary by blockchain and validator-set size. $C$ is the number of configurations; Obs., Sub., Pos., Zero, and No-sub. count observed, submitted, positive-commit, zero-commit, and no-submission executions. TPS is the point-valued positive-service count; Lat. and $E^+$ are positive-service latency and energy counts. Exact counts for all 300 configurations are shown in Figure~\ref{fig:configuration-outcomes} and released in \texttt{configuration\_outcome\_counts.csv}.}}",
+        r"\label{tab:r26_outcome_accounting}",
+        r"\small",
+        r"\setlength{\tabcolsep}{4pt}",
+        r"\begin{tabular}{llrrrrrrrrr}",
+        r"\hline",
+        r"Blockchain & Validators & $C$ & Obs. & Sub. & Pos. & Zero & No-sub. & TPS & Lat. & $E^+$ \\",
+        r"\hline",
+    ]
+    for _, item in grouped.iterrows():
+        lines.append(
+            f"{BLOCKCHAIN_LABELS[str(item['blockchain'])]} & "
+            f"{str(item['network_size']).split()[0]} & "
+            f"{int(item['configurations'])} & {int(item['observed'])} & "
+            f"{int(item['submitted'])} & {int(item['positive'])} & "
+            f"{int(item['zero'])} & {int(item['no_submission'])} & "
+            f"{int(item['tps_point'])} & {int(item['latency'])} & "
+            f"{int(item['energy_positive'])} \\\\"
+        )
+    lines.extend(
+        [
+            r"\hline",
+            r"Total & -- & 300 & 4080 & 4078 & 3125 & 953 & 2 & 3118 & 3125 & 3125 \\",
+            r"\hline",
+            r"\end{tabular}",
+            r"\end{table*}",
+            "",
+        ]
+    )
+    return "\n".join(lines)
 
 
 def run(input_path: Path, output_dir: Path) -> dict[str, object]:
     derived = derive_outcomes(prepare_selected_runs(load_runs(input_path)))
+    outcome_counts = outcome_figure_frame(derived)
     deviations_by_metric = {
         metric_key: deviation_frame(derived, metric_key) for metric_key in METRICS
     }
@@ -278,6 +527,7 @@ def run(input_path: Path, output_dir: Path) -> dict[str, object]:
                         output_dir,
                     )
                 )
+    outcome_figure = plot_configuration_outcomes(outcome_counts, output_dir)
     manifest = pd.concat(
         [
             frame.assign(metric=metric_key)[
@@ -300,21 +550,52 @@ def run(input_path: Path, output_dir: Path) -> dict[str, object]:
     output_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = output_dir / "plotted_execution_manifest.csv"
     manifest.to_csv(manifest_path, index=False)
+    outcome_manifest_path = output_dir / "configuration_outcome_figure_manifest.csv"
+    outcome_counts.to_csv(outcome_manifest_path, index=False)
     caption_path = output_dir / "m5_figure_caption_replacements.tex"
     caption_path.write_text(render_caption_replacements(), encoding="utf-8")
+    outcome_table_path = (
+        REPOSITORY_ROOT / "paper_tables" / "r2_6" / "table_outcome_accounting.tex"
+    )
+    outcome_table_path.parent.mkdir(parents=True, exist_ok=True)
+    outcome_table_path.write_text(render_outcome_table(outcome_counts), encoding="utf-8")
     summary = {
         "figures": figures,
-        "figure_count": len(figures),
-        "pdf_count": len(figures),
+        "outcome_figure": outcome_figure,
+        "figure_count": len(figures) + 1,
+        "pdf_count": len(figures) + 1,
         "png_count": 0,
-        "plot_semantics": "one circular marker per metric-eligible execution",
+        "plot_semantics": {
+            "deviation_figures": "one circular marker per metric-eligible positive-service execution",
+            "outcome_figure": "one annotated cell per configuration; cell text is positive_commit/zero_commit/no_submission",
+        },
         "horizontal_offset": (
             "deterministic within-configuration offset in [-0.18, 0.18]; "
             "visual separation only"
         ),
+        "layout_verification": {
+            "deviation_source_inches": list(DEVIATION_FIGURE_SIZE),
+            "outcome_source_inches": list(OUTCOME_FIGURE_SIZE),
+            "recommended_manuscript_width_fraction": FINAL_PLACEMENT_FRACTION,
+            "source_minimum_text_pt": SOURCE_MINIMUM_TEXT_PT,
+            "pdf_fonttype": int(matplotlib.rcParams["pdf.fonttype"]),
+            "panel_decision": (
+                "retain one 3x2 deviation PDF per metric, validator size, and "
+                "three-workload group; stack the two validator-size PDFs in "
+                "each manuscript figure at full text width; report all 300 "
+                "configuration outcome counts in one separate 5x2 panel PDF"
+            ),
+        },
         "plotted_execution_manifest": str(manifest_path.relative_to(REPOSITORY_ROOT)),
+        "configuration_outcome_figure_manifest": str(
+            outcome_manifest_path.relative_to(REPOSITORY_ROOT)
+        ),
         "manuscript_caption_replacements": str(caption_path.relative_to(REPOSITORY_ROOT)),
+        "manuscript_outcome_table": str(
+            outcome_table_path.relative_to(REPOSITORY_ROOT)
+        ),
         "manifest_rows": int(len(manifest)),
+        "configuration_outcome_rows": int(len(outcome_counts)),
         "metric_eligible_rows": {
             key: int(len(frame)) for key, frame in deviations_by_metric.items()
         },
@@ -328,19 +609,21 @@ def run(input_path: Path, output_dir: Path) -> dict[str, object]:
 def render_caption_replacements() -> str:
     return "\n".join(
         [
-            r"% Exact M5 caption replacements for IEEE Access/4_Measurement_Results.tex",
+            r"% Exact M5/R2.6 caption replacements for IEEE Access/4_Measurement_Results.tex",
+            r"% fig:configuration-outcomes",
+            r"\caption{\vd{M5, R2.6: Per-configuration execution outcomes for all 300 blockchain--topology--workload--size cells. Each annotated cell reports positive-commit/zero-commit/no-submission counts; background color distinguishes all-positive, mixed, and no-positive-commit regimes. Purple text identifies a cell containing at least one no-submission outcome. These outcome counts use all observed executions and are separate from metric-specific eligibility.}}",
             r"% fig:tps-added",
-            r"\caption{\vd{M1/M3/M5: Run-level throughput deviations for DDoS, FIFA, and Gaming at 10 and 40 validators. Each colored circular marker represents one metric-eligible positive-service execution; the deterministic horizontal offsets separate executions visually without changing their blockchain--topology configuration. Triangles denote relative deviations beyond $\pm100\%$, and $\times$ denotes an observed configuration with no point-valued TPS execution.}}",
+            r"\caption{\vd{M5, R2.6: Run-level throughput deviations for DDoS, FIFA, and Gaming at 10 and 40 validators. Each colored circle is one point-valued positive-service TPS execution; deterministic horizontal offsets separate runs without changing their configuration. Triangles mark relative deviations beyond $\pm100\%$, and $\times$ marks a configuration with no point-valued TPS execution. Zero-commit and no-submission executions are counted separately in Figure~\ref{fig:configuration-outcomes}.}}",
             r"% fig:tps-main",
-            r"\caption{\vd{M1/M3/M5: Run-level throughput deviations for GAFAM, PayPal, and VISA at 10 and 40 validators. Each colored circular marker represents one metric-eligible positive-service execution; plotting conventions are otherwise as in Figure~\ref{fig:tps-added}.}}",
+            r"\caption{\vd{M5, R2.6: Run-level throughput deviations for GAFAM, PayPal, and VISA at 10 and 40 validators. Each colored circle is one point-valued positive-service TPS execution; plotting conventions and the separate treatment of non-positive outcomes are as in Figures~\ref{fig:tps-added} and~\ref{fig:configuration-outcomes}.}}",
             r"% fig:lat-added",
-            r"\caption{\vd{M1/M3/M5: Run-level block-latency deviations for DDoS, FIFA, and Gaming at 10 and 40 validators. Each colored circular marker represents one metric-eligible positive-service execution; the deterministic horizontal offsets separate executions visually without changing their blockchain--topology configuration. Triangles denote relative deviations beyond $\pm100\%$, and $\times$ denotes an observed configuration with no eligible latency execution.}}",
+            r"\caption{\vd{M5, R2.6: Run-level block-latency deviations for DDoS, FIFA, and Gaming at 10 and 40 validators. Each colored circle is one metric-eligible positive-service execution; deterministic horizontal offsets separate runs without changing their configuration. Triangles mark relative deviations beyond $\pm100\%$, and $\times$ marks a configuration with no eligible latency execution. Zero-commit and no-submission executions are counted separately in Figure~\ref{fig:configuration-outcomes}.}}",
             r"% fig:lat-main",
-            r"\caption{\vd{M1/M3/M5: Run-level block-latency deviations for GAFAM, PayPal, and VISA at 10 and 40 validators. Each colored circular marker represents one metric-eligible positive-service execution; plotting conventions are otherwise as in Figure~\ref{fig:lat-added}.}}",
+            r"\caption{\vd{M5, R2.6: Run-level block-latency deviations for GAFAM, PayPal, and VISA at 10 and 40 validators. Each colored circle is one metric-eligible positive-service execution; plotting conventions and the separate treatment of non-positive outcomes are as in Figures~\ref{fig:lat-added} and~\ref{fig:configuration-outcomes}.}}",
             r"% fig:energy-added",
-            r"\caption{\vd{M1/M3/M5: Run-level positive-service energy deviations for DDoS, FIFA, and Gaming at 10 and 40 validators. Each colored circular marker represents one positive-service energy execution; the deterministic horizontal offsets separate executions visually without changing their blockchain--topology configuration. $\times$ denotes an observed configuration with no positive-service energy execution.}}",
+            r"\caption{\vd{M5, R2.6: Run-level positive-service energy deviations for DDoS, FIFA, and Gaming at 10 and 40 validators. Each colored circle is one positive-service energy execution; deterministic horizontal offsets separate runs without changing their configuration. $\times$ marks a configuration with no positive-service energy execution. Energy measurements for zero-commit and no-submission executions are not plotted here; their outcome counts are reported in Figure~\ref{fig:configuration-outcomes}.}}",
             r"% fig:energy-main",
-            r"\caption{\vd{M1/M3/M5: Run-level positive-service energy deviations for GAFAM, PayPal, and VISA at 10 and 40 validators. Each colored circular marker represents one positive-service energy execution; plotting conventions are otherwise as in Figure~\ref{fig:energy-added}.}}",
+            r"\caption{\vd{M5, R2.6: Run-level positive-service energy deviations for GAFAM, PayPal, and VISA at 10 and 40 validators. Each colored circle is one positive-service energy execution; plotting conventions and the separate treatment of non-positive outcomes are as in Figures~\ref{fig:energy-added} and~\ref{fig:configuration-outcomes}.}}",
             "",
         ]
     )

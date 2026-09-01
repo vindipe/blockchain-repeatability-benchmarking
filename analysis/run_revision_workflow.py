@@ -75,6 +75,7 @@ def validate_frozen_results() -> dict[str, object]:
     icc = read_json("outputs/revision/icc_by_blockchain/summary.json")
     campaign = read_json("outputs/revision/m6_campaign_structure/campaign_identifier_audit.json")
     delta = read_json("outputs/revision/m8_study_delta/study_delta.json")
+    figures = read_json("outputs/revision/m1_figures/summary.json")
 
     expected = {
         "observed_executions": 4080,
@@ -106,6 +107,9 @@ def validate_frozen_results() -> dict[str, object]:
         "icc_bootstrap_failures": icc.get("bootstrap_failures"),
         "hash_batches": campaign.get("hash_batches"),
         "delta_rows": delta.get("comparison_rows"),
+        "figure_pdfs": figures.get("pdf_count"),
+        "outcome_figure_configurations": figures.get("configuration_outcome_rows"),
+        "plotted_execution_rows": figures.get("manifest_rows"),
     }
     required = {
         "inconsistent": 0,
@@ -116,6 +120,9 @@ def validate_frozen_results() -> dict[str, object]:
         "icc_bootstrap_failures": 0,
         "hash_batches": 1006,
         "delta_rows": 7,
+        "figure_pdfs": 13,
+        "outcome_figure_configurations": 300,
+        "plotted_execution_rows": 9368,
     }
     for key, value in required.items():
         if checks[key] != value:

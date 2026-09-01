@@ -335,8 +335,11 @@ python3 analysis/plot_run_level_deviations.py
 
 creates the m2 GAFAM trace audit, the six-workload catalog under
 `outputs/revision/m1_workloads/`, its generated LaTeX table under
-`paper_tables/six_workloads/`, and twelve corrected
-PDF run-level deviation figures under `outputs/revision/m1_figures/`.
+`paper_tables/six_workloads/`, twelve corrected run-level deviation PDFs, and
+one annotated per-configuration outcome-count PDF under
+`outputs/revision/m1_figures/`. It also writes separate execution- and
+configuration-level manifests, exact M5/R2.6 captions, and the compact
+`paper_tables/r2_6/table_outcome_accounting.tex` summary.
 Running the legacy provenance script separately:
 
 ```bash
@@ -352,7 +355,13 @@ configuration mean. A deterministic horizontal offset in the interval
 `[-0.18, 0.18]` separates executions that belong to the same configuration;
 it has no statistical meaning and does not change factor assignment. The
 generated `plotted_execution_manifest.csv` provides a row-by-row audit from
-the source execution identifiers to every plotted coordinate.
+the source execution identifiers to every plotted coordinate. Zero-commit and
+no-submission executions do not receive artificial TPS or latency coordinates;
+their exact per-configuration counts are instead reported in
+`configuration_outcome_counts.pdf` and reconciled through
+`configuration_outcome_figure_manifest.csv`. All figure PDFs are vector output
+with embedded TrueType fonts, and `summary.json` records the final panel layout,
+source typography, and recommended manuscript placement width.
 
 ## M6 hash-batch audit
 
