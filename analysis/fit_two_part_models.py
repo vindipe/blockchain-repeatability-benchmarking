@@ -615,7 +615,8 @@ def render_term_table(
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
-        r"\caption{Two-part factorial models. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance models report Type-II $F$ tests with HC3 covariance and partial $\eta^2$.}",
+        r"\color{olive}",
+        r"\caption{\vd{S1/S2: Two-part factorial models. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance models report Type-II $F$ tests with HC3 covariance and partial $\eta^2$.}}",
         r"\label{tab:two_part_factorial_models}",
         r"\small",
         r"\setlength{\tabcolsep}{3.4pt}",
@@ -670,7 +671,8 @@ def render_estimability_table(table: pd.DataFrame) -> str:
     lines = [
         r"\begin{table}[t]",
         r"\centering",
-        r"\caption{Design-matrix audit for targeted three-way interaction sensitivities. Added rank gives the supported degrees of freedom; a term can be tested on observed support even when empty positive-service cells reduce its nominal rank.}",
+        r"\color{olive}",
+        r"\caption{\vd{S3: Design-matrix audit for targeted three-way interaction sensitivities. Added rank gives the supported degrees of freedom; a term can be tested on observed support even when empty positive-service cells reduce its nominal rank.}}",
         r"\label{tab:three_way_estimability}",
         r"\small",
         r"\begin{tabular}{llrrc}",
@@ -703,7 +705,8 @@ def render_three_way_sensitivity_table(
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
-        r"\caption{Targeted three-way interaction sensitivity tests. Conditional-performance terms are tested on their estimable observed-support basis; added rank over nominal columns is shown when empty positive-service cells reduce rank.}",
+        r"\color{olive}",
+        r"\caption{\vd{S3: Targeted three-way interaction sensitivity tests. Conditional-performance terms are tested on their estimable observed-support basis; added rank over nominal columns is shown when empty positive-service cells reduce rank.}}",
         r"\label{tab:three_way_sensitivity}",
         r"\small",
         r"\resizebox{\textwidth}{!}{%",

@@ -36,6 +36,7 @@ class WorkloadCatalogTests(unittest.TestCase):
             self.assertTrue((root / "outputs" / "summary.json").is_file())
             latex = (root / "table.tex").read_text(encoding="utf-8")
             self.assertIn(r"\label{tab:six_workload_catalog}", latex)
+            self.assertIn(r"\color{olive}", latex)
             self.assertIn(r"\caption{\vd{M1/M2:", latex)
             self.assertIn("19,800 TPS at 0 s", latex)
             self.assertIn("DDoS denotes", latex)

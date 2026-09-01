@@ -102,6 +102,7 @@ def render_table(catalog: pd.DataFrame) -> str:
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
+        r"\color{olive}",
         r"\caption{\vd{M1/M2: Six workload profiles and observed outcome accounting. Offered loads and trace characteristics follow the released Lilith/Diablo inputs; counts refer to the selected repeated-execution corpus.}}",
         r"\label{tab:six_workload_catalog}",
         r"\small",

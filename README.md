@@ -120,6 +120,12 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
   require rerunning the analysis to recover the manuscript tables or audit
   files.
 
+All generated manuscript tables carry their revision marking internally. The
+table environment applies `\color{olive}` to the complete caption, body, and
+notes, while each caption also uses `\vd{review point: ...}` with the relevant
+review identifiers. Copying a generated `.tex` file into the manuscript is
+therefore sufficient; no manual highlighting edit is required.
+
 ## Experimental matrix
 
 The released measurements cover:
