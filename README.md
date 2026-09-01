@@ -112,6 +112,10 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
   sums-of-squares sensitivity. It writes configuration-level and summary CSVs
   plus a manuscript table with a revision-marked caption; it does not reinterpret the
   nested hash batches as a crossed experimental factor.
+- `analysis/generate_study_delta.py` generates the M8/R2.5 row-by-row
+  ACM-DLT-versus-IEEE comparison from an explicit novelty manifest and validates
+  every quantitative IEEE claim against the completed revision outputs. The
+  generated table marks only its caption and leaves its body uncoloured.
 - `analysis/plot_run_level_deviations.py` generates corrected run-level PDF
   absolute and relative deviation figures for all six workloads, using the
   same metric-specific eligibility masks as the numerical analysis. Each
