@@ -1,0 +1,251 @@
+{
+  "dataset_sha256": "c520ec25a02f2bc7e8c719c8b2dd0524c4c6a11d1d53953d77bb361d3f96b765",
+  "output_sha256": {
+    "outputs/revision/balanced_n9/balanced_sensitivity_summary.json": "ac6327f50440c69a384bdd30d5aaac004280b9d775bea6fb5ea4bb334ae2c1eb",
+    "outputs/revision/balanced_n9/configuration_sensitivity.csv": "8063ed4030da9e4c989c4fd3f42e6bde5696f7427a9e1677200d769208b5796a",
+    "outputs/revision/balanced_n9/denominator_sensitivity.csv": "5887ada758fa60a9dcfaf06aad2e93e5611d5d3b2704fc9231b0a705f626775a",
+    "outputs/revision/balanced_n9/extrema_sensitivity.csv": "7a6403f8d2f6454c477ed93a42b55cded1156f0baace3bab223da6df124a3537",
+    "outputs/revision/balanced_n9/factor_sensitivity.csv": "63f8725773eeeb27e319abca54e84eb5ce7612baaaa0731f244310f692acb57c",
+    "outputs/revision/icc_by_blockchain/icc_by_blockchain.csv": "99229a4b4bf89f3ff478c0f7f7b614c35a41183f2e61b73abd9143c3b91259a8",
+    "outputs/revision/icc_by_blockchain/legacy_three_workloads/icc_by_blockchain.csv": "f3cf9bdf74e1126f18f82232b455304c239306f319ffde427f4f3645a9e8cf84",
+    "outputs/revision/icc_by_blockchain/six_workloads/icc_by_blockchain.csv": "1e8ffe9f598ac2d955eab1120cc4df64ddd0a1ea50a8da2766578449993f244a",
+    "outputs/revision/icc_by_blockchain/summary.json": "a3e3cc630107d639677a0d0ed1b06f34c6323c94904528d70e5675c4f85f319b",
+    "outputs/revision/m1_figures/energy_10_nodes_DDoS_FIFA_Gaming.pdf": "c4f9c0b4cd4fbb1200ca60dab2c3a250d47bebfa50746517f3074b9eee3ee063",
+    "outputs/revision/m1_figures/energy_10_nodes_GAFAM_PayPal_VISA.pdf": "cd16450d4e6db560b22b191772597b20cc33fde373f0baf87363c40174497c7f",
+    "outputs/revision/m1_figures/energy_40_nodes_DDoS_FIFA_Gaming.pdf": "6c46abf0d5f9e8681b0e2bc5d70fb03451e9a96a86b7d86d3e54260108488e67",
+    "outputs/revision/m1_figures/energy_40_nodes_GAFAM_PayPal_VISA.pdf": "f8b1ad6b257481e70ad0bdb53c80ec137468e838b42086a1331986d2504d7acb",
+    "outputs/revision/m1_figures/latency_10_nodes_DDoS_FIFA_Gaming.pdf": "85504571f0e8e4253cc443776c134ec8fe6487fada66dc80e3558b73e4885845",
+    "outputs/revision/m1_figures/latency_10_nodes_GAFAM_PayPal_VISA.pdf": "dd7813fc1b10542e44a7aee596f994d1079ca0473e3e3618c1b45e7b5f5e9352",
+    "outputs/revision/m1_figures/latency_40_nodes_DDoS_FIFA_Gaming.pdf": "26456bfd9b324e4c85c2c693251126d7771368a85492edc48e8d52b7abbaaf17",
+    "outputs/revision/m1_figures/latency_40_nodes_GAFAM_PayPal_VISA.pdf": "9ef9761b89bb6fb6096f4759ceeed462a61405db6760e1865bdbdc5f9d5c6fec",
+    "outputs/revision/m1_figures/m5_figure_caption_replacements.tex": "cf1d643b275de5bacb40820cb1fbc5b892bf8558dbf60e82872b97f3faac5016",
+    "outputs/revision/m1_figures/plotted_execution_manifest.csv": "3d5d011e4d6a73f3bd234dd8561d8c1339c359ab0f2ac365e359be5325c17bf4",
+    "outputs/revision/m1_figures/summary.json": "6a46ec7ffbaa7bd1b662ffa540fe2c2061e3d0ad9761f9d9a995a0da861b4a32",
+    "outputs/revision/m1_figures/tps_10_nodes_DDoS_FIFA_Gaming.pdf": "e30bab477085a37da91423ac90e931eaffb881bdafd98df07583a54d46c15c18",
+    "outputs/revision/m1_figures/tps_10_nodes_GAFAM_PayPal_VISA.pdf": "6a6dc0fc10ecdbc65219e0cb4985627d422cedd32415a9e8233276809c362449",
+    "outputs/revision/m1_figures/tps_40_nodes_DDoS_FIFA_Gaming.pdf": "58f3a70e5ff9796188e93586b76d61df43f28bcafe8559d04c457248bad66145",
+    "outputs/revision/m1_figures/tps_40_nodes_GAFAM_PayPal_VISA.pdf": "7657409d6c9cbb7f260af541b349e8a2a78034c0f81a2606c1bbfeddbace42df",
+    "outputs/revision/m1_observed_design/audit_summary.json": "c10274bd974814a8005245bf708b90b4929dac2c338ed6ffbb46e79aac379a3f",
+    "outputs/revision/m1_observed_design/campaign_inventory.csv": "1d4e7ee22f5815394e2f9b8d80e1a11af21659d493e56b9d65f08dc3066e1d58",
+    "outputs/revision/m1_observed_design/configuration_inventory.csv": "0d150aae8c01092eb3d780e18900681d11647b6aae03e26235609749231ea478",
+    "outputs/revision/m1_workloads/summary.json": "9c7b7fac90abbf5735f2514206c162e02dac90bdf94f4075fb6d020292767426",
+    "outputs/revision/m1_workloads/workload_catalog.csv": "e8e0d0502ab24c848a797b8f6f126a5140a92405b53a56d9fc25042ba3c4cb00",
+    "outputs/revision/m2_gafam_trace/gafam_trace_audit.json": "0b35f6b1c278047993a7d75e88e82ed09853fbdfbe4686ddc7a57b63922a0e4d",
+    "outputs/revision/m2_gafam_trace/gafam_trace_schedule.csv": "18af2594a9b4c4951d3a9e2adfe623cd36093d4041d6fe43ed90e9a907c028b8",
+    "outputs/revision/m2_outcomes/configuration_outcome_counts.csv": "3023c1bc68e8081d27f3637425c6d303b571172f3c44a5a92206088ce2dd08fe",
+    "outputs/revision/m2_outcomes/outcome_summary.json": "e14729ae7145856e78275c523e5d9db2ed9f6fd1f2d2267f47144c03e50c44d5",
+    "outputs/revision/m2_outcomes/run_outcomes.csv": "e8166bb39c4bd2aa580acb086bd31af3010dcad0dd486b51e2fc48944388ebe1",
+    "outputs/revision/m3_dispersion/configuration_metric_statistics.csv": "7bd4468c4f214e991f5021f62311c04f40b2a06c5cc94f9f4e92c1fdf279b1c7",
+    "outputs/revision/m3_dispersion/dispersion_summary.json": "2f6c94be53ffa701619cd45ffa7e8b1347ca3cb39f196387ceba9169f32ae922",
+    "outputs/revision/m4_bootstrap/bootstrap_summary.json": "da288264966d3e76847c2259b3a534be20eed03b34aba20b6e878f722951aeff",
+    "outputs/revision/m4_bootstrap/configuration_bootstrap_intervals.csv": "813d25b6822fbfea5ef648a3e346020ae29080eff5f54eb2485a86dc54447739",
+    "outputs/revision/m4_bootstrap/factor_bootstrap_summary.csv": "739704d6f4ee99a4a60bd4262da14c6c8e0f816891a1dda0a7cdffe077a1f5e3",
+    "outputs/revision/m4_bootstrap/legacy_three_workloads/tables/table_scaling_energy.tex": "0140d05433e13fc3e35e17ab6ce89c9ae8e18cefa78f8cc22c968b03a94bf0c0",
+    "outputs/revision/m4_bootstrap/legacy_three_workloads/tables/table_scaling_latency.tex": "bdf67bfdb10bb15be2a131bb86e58b089a8e7be79a742ee67cacf9664f2527e5",
+    "outputs/revision/m4_bootstrap/legacy_three_workloads/tables/table_scaling_tps.tex": "8f2591f6f27eb9ca9cb836154124de6d0f89bdd6b5300b4481df8960591362f5",
+    "outputs/revision/m4_bootstrap/legacy_three_workloads/tables/table_topology_energy.tex": "e1d6e2c7dafe48d2c7d16bab2d2c51613e18eaa549352b887a49fdccfe45a5e8",
+    "outputs/revision/m4_bootstrap/legacy_three_workloads/tables/table_topology_latency.tex": "cf82f7e34f5eb5e39ec51c6ff7a7510d5e520eab97f7ff3f46b32767dd7623a9",
+    "outputs/revision/m4_bootstrap/legacy_three_workloads/tables/table_topology_tps.tex": "e1bb07f3c7a45ef2b55e380ee1703bfeedcb26dfe2004e5b7f97b4a6f3f89012",
+    "outputs/revision/m4_bootstrap/legacy_three_workloads/tables/table_workload_energy.tex": "18747e217f2da1fb83434c73cc8870462c04761e9b2bcaa5881c2f617ae8e3eb",
+    "outputs/revision/m4_bootstrap/legacy_three_workloads/tables/table_workload_latency.tex": "d402ca19ad7ce8ebfd1371fa2fcd031aa3f5779ed0f2389364d6a41f5a5b6041",
+    "outputs/revision/m4_bootstrap/legacy_three_workloads/tables/table_workload_tps.tex": "73867f1dabd484b200ae449e202365d43713a12043e3ea0ff18ecff92c4a2941",
+    "outputs/revision/m4_bootstrap/six_workloads/tables/table_scaling_energy.tex": "419b4ce97906e34f7443215cdd283bf63e2b7a45c0581c867c593dfd3f168928",
+    "outputs/revision/m4_bootstrap/six_workloads/tables/table_scaling_latency.tex": "43bc1ea788366778554337339ce5a730df017b77269fecdcfc4890e4b9f84bb7",
+    "outputs/revision/m4_bootstrap/six_workloads/tables/table_scaling_tps.tex": "c4d2841d8b7d9e1432449e16d734b4ab0c5478cfa7fb8553e3bb1d92803f94ff",
+    "outputs/revision/m4_bootstrap/six_workloads/tables/table_topology_energy.tex": "54db0667480a3abf02c2e50114bdf9a4d888c889a7978843227e995db09b00af",
+    "outputs/revision/m4_bootstrap/six_workloads/tables/table_topology_latency.tex": "787541ae022ddb3c34666ddb07d1df40dc2efdde3c2110a87923fbca0b742023",
+    "outputs/revision/m4_bootstrap/six_workloads/tables/table_topology_tps.tex": "d4ce2d001e548a61980da65f55b126fea66ae29e6ed186bd5fca915eface675d",
+    "outputs/revision/m4_bootstrap/six_workloads/tables/table_workload_energy.tex": "71ca66240783fd44bdbdd0e3a0bd978f065360d91c8fa4a43db2325078e6afd4",
+    "outputs/revision/m4_bootstrap/six_workloads/tables/table_workload_latency.tex": "8f8f787c9e662f0d56c9fb988c115798ac55eaa0e13ae76da2673570f20b66f5",
+    "outputs/revision/m4_bootstrap/six_workloads/tables/table_workload_tps.tex": "59694241127ba5a903ff96606ddab98c1798c677ec996d951e4249c0474e6cc5",
+    "outputs/revision/m6_campaign_structure/campaign_identifier_audit.json": "a3b654027b1ba63698df0a0fbaa71ffadd39a11f4f82d500006568a16646a1b6",
+    "outputs/revision/m6_campaign_structure/campaign_variance_decomposition.csv": "fa0f888792092503c831ffefae3afdc65ff77cfb74899bb423d430c3c10c6d1b",
+    "outputs/revision/m6_campaign_structure/campaign_variance_summary.csv": "7452337dc319e4bcd4811dda59cdb7cd1b6a8ee52769e129b4b7c25be10b98ef",
+    "outputs/revision/m6_campaign_structure/configuration_hash_structure.csv": "df9865ecb7d0558f9f2b32bb1ff4b052a058c33f4c467021b01fdaf0654337de",
+    "outputs/revision/m6_campaign_structure/summary.json": "4c409e784253a72b1dcabf7b32a99077f7ef6386f395e70360cf3b14b1497b4a",
+    "outputs/revision/m8_study_delta/acm_ieee_delta.csv": "c647766b0b626813a44a76aaa4739c8910efaff93a6ff3124ec41d931b1c7b4a",
+    "outputs/revision/m8_study_delta/study_delta.json": "b01214a38405f985c4fda47c79855c7a6f12a7ccbac9bd3a4d5a291375982289",
+    "outputs/revision/statistical_models/legacy_three_workloads/diagnostics_energy.pdf": "cc5ca354dd7b6763dd1918ab757997d4cff1dce5964a3e9206dbe70c92a29db0",
+    "outputs/revision/statistical_models/legacy_three_workloads/diagnostics_latency.pdf": "68dd95056b60678c39c6cad66929b3b755c9b86787c004bb4d8a03641d1d5e45",
+    "outputs/revision/statistical_models/legacy_three_workloads/diagnostics_tps.pdf": "a90b996f303b38c7d6b4d77dc8fd0268d2b2c6e240fbbd835258b15dc68d40fd",
+    "outputs/revision/statistical_models/legacy_three_workloads/model_diagnostics.json": "5a4fdf4b2f209431b4d935367c743d7a2c28f166525792937c3d836f66369226",
+    "outputs/revision/statistical_models/legacy_three_workloads/outcome_likelihood_ratio_tests.csv": "2e2120a2cfe6febf63f0022c83347a3add4eaac64e76a7b135d98ace6e274b76",
+    "outputs/revision/statistical_models/legacy_three_workloads/performance_type_ii_hc3.csv": "8d120f868dd89698dea770791fccfce82842468f0ca072c9ef7ab083669af03c",
+    "outputs/revision/statistical_models/legacy_three_workloads/performance_type_iii_hc3_sensitivity.csv": "3b5a091c835fe624793faf110a8814bfebe43e90ea9310cff4b6c2f46fbab1db",
+    "outputs/revision/statistical_models/legacy_three_workloads/three_way_estimability.csv": "aaa06d6c8481abb722d84624dbbb0aff93778c5344a5233fd8eda71617fcd57d",
+    "outputs/revision/statistical_models/legacy_three_workloads/three_way_sensitivity.csv": "e8c04f433a5369a92824cdc538b7427236537a65f635fb78f584af56500bee9f",
+    "outputs/revision/statistical_models/six_workloads/diagnostics_energy.pdf": "38bd4abf13f5ec101eaa1ebb371d6f5bdd350844bb1edee721f045e8a6e4e625",
+    "outputs/revision/statistical_models/six_workloads/diagnostics_latency.pdf": "e743894f2ef624680a64ae57f02d28f62f2becc3b99f96c46f64981dddb371c2",
+    "outputs/revision/statistical_models/six_workloads/diagnostics_tps.pdf": "1f75c216ff3ab459a41a3bb325e331716dff4e95d39258853af76b524de97e8e",
+    "outputs/revision/statistical_models/six_workloads/model_diagnostics.json": "a728f23c4b06c9a44fd8fe1045bcabd93c0622908a5f82b086299ad61f4fc19c",
+    "outputs/revision/statistical_models/six_workloads/outcome_likelihood_ratio_tests.csv": "fbfa876b717dfeb83e5bf68af5d6429ac62bb0c5f4f3907a66c7b0046493dd02",
+    "outputs/revision/statistical_models/six_workloads/performance_type_ii_hc3.csv": "18bc116b556110bc203cec429decc7a761885c225bc7ebd4374518e0b69c4880",
+    "outputs/revision/statistical_models/six_workloads/performance_type_iii_hc3_sensitivity.csv": "0cffd67db4e1e256562fb97d9e6860f4a8174e00e8cfc915919786746f5cd066",
+    "outputs/revision/statistical_models/six_workloads/three_way_estimability.csv": "bba2d8a2a955aa68cc9c1437f14c598a515df1b8c34517fe45292f8c9eca6f65",
+    "outputs/revision/statistical_models/six_workloads/three_way_sensitivity.csv": "7b05fdd141e0ef9199192f9fc557101627dcce9ca9a4311998fb0379fbb06b7c",
+    "outputs/revision/statistical_models/summary.json": "3f1efffeeca94032d1d3e8df68edd76dde8328ec5fb0f7547da8d93b89290daa",
+    "paper_tables/legacy_three_workloads/table_icc_by_blockchain.tex": "af5edf3494317a4b70da85b6c86e2c73dcfa90049144bc039145a1e502a21c86",
+    "paper_tables/legacy_three_workloads/table_scaling_energy.tex": "ec4c6343cc5bc2f591bb901e74e8f72f0666481efd66619a1d6bc1a8326d1192",
+    "paper_tables/legacy_three_workloads/table_scaling_latency.tex": "d5f7993faa067c5115dfb273e80699fe707f6bb676dc757ffe72598794855e83",
+    "paper_tables/legacy_three_workloads/table_scaling_tps.tex": "522223ce329d58773353680178bb070378677a0175b8a34f54753f8bae79214c",
+    "paper_tables/legacy_three_workloads/table_three_way_estimability.tex": "d6079dc193168d465ecdf6ba2b50374f34d7e7d659104091e111dbd167bb1ccb",
+    "paper_tables/legacy_three_workloads/table_three_way_sensitivity.tex": "a16f7cf4d9b01684c320a44a15476cab094a1334ba1a036aca41417e8ecebaf1",
+    "paper_tables/legacy_three_workloads/table_topology_energy.tex": "dcb51149f82127fad44817df12c291b1a7b82f691ef4ac85d11cff131c2563a9",
+    "paper_tables/legacy_three_workloads/table_topology_latency.tex": "a695fa476a5f61259903b913469d733306edbfde82e99266f2b54b925e2334a3",
+    "paper_tables/legacy_three_workloads/table_topology_tps.tex": "d94aed4a7fabf7eee6e742b1aa0226695b5cb22611f704f66eb6f9881dec06ab",
+    "paper_tables/legacy_three_workloads/table_two_part_factorial_models.tex": "8ed5eb1745ab2cc3911a50f93a6ffbf27233d6fa7e59b96985e886329162e3cf",
+    "paper_tables/legacy_three_workloads/table_workload_energy.tex": "5ab2bdd709b180735fa1f03981271b28390e273a56bfdddb9bc1ff7b1b1b2762",
+    "paper_tables/legacy_three_workloads/table_workload_latency.tex": "195098bcaf597230028301e73f70469df13c9cfe5062f17535d961de96f72584",
+    "paper_tables/legacy_three_workloads/table_workload_tps.tex": "dce1fa5d7d994ba6646a73f83eec9471ab26c335318d38cf702bff47a358df87",
+    "paper_tables/six_workloads/table_acm_ieee_delta.tex": "c2158a5ae0f1ef48747fc9fb33225145752eea429fe9352cda8b9fc1aeee87bb",
+    "paper_tables/six_workloads/table_campaign_structure.tex": "96a1355bb71953ce816c399a9a0e171ca931d06fb18ce3a0d04d85b453b74294",
+    "paper_tables/six_workloads/table_icc_by_blockchain.tex": "79f2c40d359cbe60ef92c8d53bca386ebd4b1261367569ceeb7423a1ea23ffe1",
+    "paper_tables/six_workloads/table_scaling_energy.tex": "057d3a14e7730c1deeb41faf501fc8dfafad3ed893ae81c985cbaf9b9262685c",
+    "paper_tables/six_workloads/table_scaling_latency.tex": "61e1620a7f25b9382ccac7c6223325c86ac5e1953e4246391a25e1edb864695f",
+    "paper_tables/six_workloads/table_scaling_tps.tex": "82a29bffd9a7fad434a06b522d25535125af02cadc89323e4c7bb765b0065cfb",
+    "paper_tables/six_workloads/table_three_way_estimability.tex": "34a2f866d216714b4ba1de5cb6ba0f67e3cb5601d6f3f5535c45e7ea5a7198b3",
+    "paper_tables/six_workloads/table_three_way_sensitivity.tex": "db170d3d165f19062d7654fe25592fdf3d4f00af9f0440a9b8174160c88b639e",
+    "paper_tables/six_workloads/table_topology_energy.tex": "eb56c9a03df240610f7cc844c31bd2a4d001a043087a57e860c200c3a37f38e1",
+    "paper_tables/six_workloads/table_topology_latency.tex": "0681e41756796f26e460d59078829dbe26d0a2a65fe712943ae5869442670962",
+    "paper_tables/six_workloads/table_topology_tps.tex": "391de690aff062310151a1a08117c026d3cd00a6160cad9aa3b351ed817a0127",
+    "paper_tables/six_workloads/table_two_part_factorial_models.tex": "24e6614e5e8dc60b954e4b462b2aca9a1559a3b3a668b6718913e9aae3585c68",
+    "paper_tables/six_workloads/table_workload_catalog.tex": "c5aff3251ba3bbd16c0a687e14375c2428a400a75033d2959f5102eca5c004f3",
+    "paper_tables/six_workloads/table_workload_energy.tex": "2b1db3c21df69be0400bb801fe5bd5ab655fe2e42f05eb6b1b76699907a8de48",
+    "paper_tables/six_workloads/table_workload_latency.tex": "18515be3f866a43fa9138e5382e8104edc0408283d66a2f98528a6540122647a",
+    "paper_tables/six_workloads/table_workload_tps.tex": "9ef9ecf862c9288ac0e5da61a4e18196b8d1cad04cf17feda68a58204ee59fd1"
+  },
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.39",
+  "python": "3.12.13 (main, Aug  7 2026, 02:25:39) [Clang 22.1.3 ]",
+  "requirements_sha256": "406ac924eaf91ee26b670382c8361d9bf29bc8afd6fee33c47db20788271152d",
+  "result_checks": {
+    "balanced_repetitions": 5000,
+    "configuration_cells": 300,
+    "delta_rows": 7,
+    "dispersion_bootstrap_repetitions": 5000,
+    "hash_batches": 1006,
+    "icc_bootstrap_failures": 0,
+    "icc_models": 30,
+    "icc_repetitions": 1000,
+    "inconsistent": 0,
+    "no_submission": 2,
+    "observed_executions": 4080,
+    "positive_commit": 3125,
+    "workloads": 6,
+    "zero_commit": 953
+  },
+  "steps": [
+    {
+      "command": [
+        "/tmp/blockchain-revision-clean.7PC9gi/.venv/bin/python",
+        "analysis/audit_observed_runs.py"
+      ],
+      "elapsed_seconds": 0.8,
+      "return_code": 0
+    },
+    {
+      "command": [
+        "/tmp/blockchain-revision-clean.7PC9gi/.venv/bin/python",
+        "analysis/derive_run_outcomes.py"
+      ],
+      "elapsed_seconds": 0.861,
+      "return_code": 0
+    },
+    {
+      "command": [
+        "/tmp/blockchain-revision-clean.7PC9gi/.venv/bin/python",
+        "analysis/compute_corrected_dispersion.py"
+      ],
+      "elapsed_seconds": 2.054,
+      "return_code": 0
+    },
+    {
+      "command": [
+        "/tmp/blockchain-revision-clean.7PC9gi/.venv/bin/python",
+        "analysis/balanced_sensitivity.py"
+      ],
+      "elapsed_seconds": 162.02,
+      "return_code": 0
+    },
+    {
+      "command": [
+        "/tmp/blockchain-revision-clean.7PC9gi/.venv/bin/python",
+        "analysis/bootstrap_dispersion_tables.py"
+      ],
+      "elapsed_seconds": 7.023,
+      "return_code": 0
+    },
+    {
+      "command": [
+        "/tmp/blockchain-revision-clean.7PC9gi/.venv/bin/python",
+        "analysis/fit_two_part_models.py"
+      ],
+      "elapsed_seconds": 40.101,
+      "return_code": 0
+    },
+    {
+      "command": [
+        "/tmp/blockchain-revision-clean.7PC9gi/.venv/bin/python",
+        "analysis/icc_by_blockchain.py",
+        "--workers",
+        "4"
+      ],
+      "elapsed_seconds": 902.386,
+      "return_code": 0
+    },
+    {
+      "command": [
+        "/tmp/blockchain-revision-clean.7PC9gi/.venv/bin/python",
+        "analysis/audit_gafam_trace.py"
+      ],
+      "elapsed_seconds": 0.256,
+      "return_code": 0
+    },
+    {
+      "command": [
+        "/tmp/blockchain-revision-clean.7PC9gi/.venv/bin/python",
+        "analysis/workload_catalog.py"
+      ],
+      "elapsed_seconds": 0.762,
+      "return_code": 0
+    },
+    {
+      "command": [
+        "/tmp/blockchain-revision-clean.7PC9gi/.venv/bin/python",
+        "analysis/plot_run_level_deviations.py"
+      ],
+      "elapsed_seconds": 9.029,
+      "return_code": 0
+    },
+    {
+      "command": [
+        "/tmp/blockchain-revision-clean.7PC9gi/.venv/bin/python",
+        "analysis/audit_campaign_structure.py"
+      ],
+      "elapsed_seconds": 1.151,
+      "return_code": 0
+    },
+    {
+      "command": [
+        "/tmp/blockchain-revision-clean.7PC9gi/.venv/bin/python",
+        "analysis/generate_study_delta.py"
+      ],
+      "elapsed_seconds": 0.026,
+      "return_code": 0
+    },
+    {
+      "command": [
+        "/tmp/blockchain-revision-clean.7PC9gi/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "elapsed_seconds": 65.68,
+      "return_code": 0
+    }
+  ],
+  "total_elapsed_seconds": 1192.153,
+  "workflow": "complete IEEE Access revision analysis"
+}

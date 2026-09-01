@@ -1,0 +1,166 @@
+{
+  "configuration_columns": [
+    "blockchain",
+    "mode",
+    "workload",
+    "cores",
+    "ram",
+    "secondaries",
+    "dataset",
+    "link_strategy",
+    "network_size",
+    "dynamic"
+  ],
+  "fixed_filters": {
+    "cores": 8,
+    "dataset": "2023",
+    "dynamic": 0,
+    "link_strategy": "hop",
+    "ram": 16,
+    "secondaries": 10
+  },
+  "input": {
+    "columns": 26,
+    "path": "dataset/reproducibility-runs.csv",
+    "rows": 4105,
+    "sha256": "c520ec25a02f2bc7e8c719c8b2dd0524c4c6a11d1d53953d77bb361d3f96b765"
+  },
+  "interpretation": {
+    "campaign_hash_is_analysis_factor": false,
+    "campaign_hash_role": "provenance identifier",
+    "primary_unit": "observed execution",
+    "scheduled_attempt_count_available": false,
+    "synthetic_observations_added": false
+  },
+  "legacy_three_workload_subset": {
+    "campaign_hashes": 512,
+    "campaign_size_distribution": {
+      "1": 199,
+      "10": 134,
+      "2": 144,
+      "3": 10,
+      "5": 2,
+      "6": 1,
+      "7": 6,
+      "8": 6,
+      "9": 10
+    },
+    "campaigns_per_configuration_distribution": {
+      "2": 3,
+      "3": 103,
+      "4": 28,
+      "5": 11,
+      "6": 5
+    },
+    "configurations": 150,
+    "n_observed_distribution": {
+      "10": 2,
+      "11": 4,
+      "12": 7,
+      "13": 99,
+      "14": 11,
+      "15": 9,
+      "16": 5,
+      "17": 3,
+      "18": 2,
+      "19": 3,
+      "23": 2,
+      "24": 1,
+      "26": 1,
+      "9": 1
+    },
+    "n_observed_max": 26,
+    "n_observed_min": 9,
+    "rows": 2053,
+    "workloads": [
+      "GAFAM",
+      "PayPal",
+      "VISA"
+    ]
+  },
+  "selected_corpus": {
+    "blockchains": [
+      "Algorand",
+      "Diem",
+      "Ethereum",
+      "Quorum",
+      "Solana"
+    ],
+    "campaign_hashes": 1006,
+    "campaign_size_distribution": {
+      "1": 386,
+      "10": 267,
+      "2": 284,
+      "3": 18,
+      "5": 2,
+      "6": 5,
+      "7": 10,
+      "8": 14,
+      "9": 20
+    },
+    "campaigns_per_configuration_distribution": {
+      "2": 7,
+      "3": 216,
+      "4": 48,
+      "5": 22,
+      "6": 7
+    },
+    "configurations": 300,
+    "first_observed_at": "2024-04-21 21:29:22.775",
+    "last_observed_at": "2025-08-08 17:05:23.621",
+    "n_observed_distribution": {
+      "10": 4,
+      "11": 12,
+      "12": 14,
+      "13": 196,
+      "14": 24,
+      "15": 10,
+      "16": 14,
+      "17": 6,
+      "18": 3,
+      "19": 5,
+      "20": 2,
+      "21": 1,
+      "22": 1,
+      "23": 2,
+      "24": 1,
+      "25": 1,
+      "26": 1,
+      "9": 3
+    },
+    "n_observed_max": 26,
+    "n_observed_min": 9,
+    "network_sizes": [
+      "10 nodes",
+      "40 nodes"
+    ],
+    "rows": 4080,
+    "run_values": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "topologies": [
+      "fat-tree",
+      "full mesh",
+      "hypercube",
+      "scale-free",
+      "torus"
+    ],
+    "workloads": [
+      "DDoS",
+      "FIFA",
+      "GAFAM",
+      "Gaming",
+      "PayPal",
+      "VISA"
+    ]
+  }
+}
