@@ -49,7 +49,7 @@ class TwoPartModelTests(unittest.TestCase):
         self.assertIn(r"\label{tab:two_part_factorial_models}", latex)
         self.assertIn(r"\resizebox{\textwidth}{!}", latex)
         self.assertNotIn(r"\color{olive}", latex)
-        self.assertIn(r"\caption{\vd{R1.9/R1.10:", latex)
+        self.assertIn(r"\caption{\vd{R1.9-10:", latex)
         self.assertIn(r"\footnotesize", latex)
         self.assertIn("hierarchical omnibus", latex)
         self.assertNotIn("rank-deficient", latex)
