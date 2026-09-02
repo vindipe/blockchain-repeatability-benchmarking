@@ -37,7 +37,7 @@ class WorkloadCatalogTests(unittest.TestCase):
             latex = (root / "table.tex").read_text(encoding="utf-8")
             self.assertIn(r"\label{tab:six_workload_catalog}", latex)
             self.assertNotIn(r"\color{olive}", latex)
-            self.assertIn(r"\caption{\vd{R1.1/R1.2:", latex)
+            self.assertIn(r"\caption{\vd{R1.1-2:", latex)
             self.assertIn(r"\footnotesize", latex)
             self.assertEqual(latex.count(r"\vd{"), 1)
             self.assertIn("19,800 TPS at 0 s", latex)
