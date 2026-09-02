@@ -326,14 +326,15 @@ def render_latex_table(
         r"\centering",
         r"\footnotesize",
         (
-            rf"\caption{{\vd{{R1.1/R1.3/R1.4/R1.7: {factor_display}-conditioned {metric_display} dispersion "
+            rf"\caption{{\vd{{R1.1-3-4-7: {factor_display}-conditioned {metric_display} dispersion "
             rf"across {workload_text}. Values are point estimates with 95\% "
             rf"percentile bootstrap intervals from {repetitions:,} within-configuration "
             rf"replicates (seed {seed}). Mean and median are unweighted across "
             rf"configuration cells. $C$ is the number of contributing cells and "
             rf"$n_{{c,k}}$ is their metric-eligible run-count range. Within each "
-            rf"blockchain and summary column, minimum and maximum point estimates "
-            rf"across factor levels use the best and worst cell styles; these "
+            rf"blockchain and summary column, minimum point estimates across factor "
+            rf"levels are highlighted in green and bold (best), while maximum point "
+            rf"estimates are highlighted in orange and italics (worst); these "
             rf"descriptive highlights do not imply statistically distinct ranks "
             rf"when intervals overlap.}}}}"
         ),
