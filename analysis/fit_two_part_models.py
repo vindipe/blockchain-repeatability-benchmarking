@@ -615,7 +615,7 @@ def render_term_table(
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
-        r"\caption{\vd{R1.9/R1.10: Two-part factorial models. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance models report Type-II $F$ tests with HC3 covariance and partial $\eta^2$.}}",
+        r"\caption{\vd{R1.9-10: Two-part factorial models. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance models report Type-II $F$ tests with HC3 covariance and partial $\eta^2$.}}",
         r"\label{tab:two_part_factorial_models}",
         r"\footnotesize",
         r"\setlength{\tabcolsep}{3.4pt}",
