@@ -104,9 +104,8 @@ def render_table(catalog: pd.DataFrame) -> str:
         r"\centering",
         r"\caption{\vd{R1.1-2-12-13: Six workload profiles and observed outcome accounting. Offered loads and trace characteristics follow the released Lilith/Diablo inputs; counts refer to the selected repeated-execution corpus.}}",
         r"\label{tab:six_workload_catalog}",
-        r"\footnotesize",
-        r"\setlength{\tabcolsep}{3.2pt}",
-        r"\resizebox{\textwidth}{!}{%",
+        r"\TableFont",
+        r"\setlength{\tabcolsep}{2pt}",
         r"\begin{tabular}{llllrrrr}",
         r"\hline",
         "Workload & Raw label & Transaction profile & Offered-load pattern & "
@@ -124,9 +123,8 @@ def render_table(catalog: pd.DataFrame) -> str:
         [
             r"\hline",
             r"\end{tabular}",
-            r"}",
             r"\vspace{1mm}",
-            r"\parbox{\textwidth}{\footnotesize The raw labels \texttt{10000}, \texttt{football}, \texttt{gafam}, and \texttt{dota} are reported as DDoS, FIFA, GAFAM, and Gaming, respectively. The GAFAM trace contains a 19,800-TPS control point at 0~s, falls to 115~TPS at 1~s, uses 25--140-TPS control points through 180~s, and reaches zero at 300~s; Diablo linearly interpolates between control points. Gaming also contains the corpus's two no-submission observations. DDoS denotes the artifact's 10,000-TPS workload label; the present study does not infer that an observed zero-commit execution was caused by a network attack.}",
+            r"\parbox{\textwidth}{\TableFont The raw labels \texttt{10000}, \texttt{football}, \texttt{gafam}, and \texttt{dota} are reported as DDoS, FIFA, GAFAM, and Gaming, respectively. The GAFAM trace contains a 19,800-TPS control point at 0~s, falls to 115~TPS at 1~s, uses 25--140-TPS control points through 180~s, and reaches zero at 300~s; Diablo linearly interpolates between control points. Gaming also contains the corpus's two no-submission observations. DDoS denotes the artifact's 10,000-TPS workload label; the present study does not infer that an observed zero-commit execution was caused by a network attack.}",
             r"\end{table*}",
             "",
         ]

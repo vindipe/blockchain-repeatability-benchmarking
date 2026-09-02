@@ -2,8 +2,8 @@
 \centering
 \caption{\vd{R1.11: Targeted three-way interaction sensitivity tests. Conditional-performance terms are tested on their estimable observed-support basis; added rank over nominal columns is shown when empty positive-service cells reduce rank.}}
 \label{tab:three_way_sensitivity}
-\footnotesize
-\resizebox{\textwidth}{!}{%
+\TableFont
+\setlength{\tabcolsep}{2pt}
 \begin{tabular}{lllrrrc}
 \hline
 Component & Metric & Interaction & Test statistic & df & $p$ & Status \\
@@ -18,7 +18,6 @@ Conditional performance & Energy & B $\times$ T $\times$ W & 0.70 & 68/80 & 0.97
 Conditional performance & Energy & B $\times$ W $\times$ S & 1.37 & 15/20 & 0.151 & reported on observed support \\
 \hline
 \end{tabular}
-}
 \vspace{1mm}
-\parbox{\textwidth}{\footnotesize Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests for the added highest-order term. When empty positive-service cells reduce nominal rank, df is shown as supported rank over nominal columns; no empty cell is imputed. The outcome likelihood-ratio rows are retained as model-screening evidence because the binomial component exhibits quasi-separation in this scope.}
+\parbox{\textwidth}{\TableFont Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests for the added highest-order term. When empty positive-service cells reduce nominal rank, df is shown as supported rank over nominal columns; no empty cell is imputed. The outcome likelihood-ratio rows are retained as model-screening evidence because the binomial component exhibits quasi-separation in this scope.}
 \end{table*}

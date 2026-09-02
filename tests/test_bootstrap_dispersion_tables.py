@@ -59,12 +59,15 @@ class BootstrapDispersionTableTests(unittest.TestCase):
             self.assertNotIn(r"\color{olive}", latex)
             self.assertEqual(latex.count(r"\vd{"), 1)
             self.assertIn(r"\caption{\vd{R1.1-3-4-7:", latex)
-            self.assertIn(r"\footnotesize", latex)
+            self.assertIn(r"\TableFont", latex)
+            self.assertNotIn(r"\footnotesize", latex)
             self.assertNotIn(r"\scriptsize", latex)
+            self.assertIn(r"\setlength{\tabcolsep}{2pt}", latex)
+            self.assertNotIn(r"\adjustbox", latex)
             self.assertGreater(latex.count(r"\hlcell{best}"), 0)
             self.assertGreater(latex.count(r"\hlcell{worst}"), 0)
-            self.assertIn("green and bold (best)", latex)
-            self.assertIn("orange and italics (worst)", latex)
+            self.assertNotIn("green and bold (best)", latex)
+            self.assertNotIn("orange and italics (worst)", latex)
             self.assertIn(r"\label{tab:repeatability_topology_tps}", latex)
             legacy_latex = (
                 output

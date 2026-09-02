@@ -475,7 +475,7 @@ def render_outcome_table(counts: pd.DataFrame) -> str:
         r"\centering",
         r"\caption{\vd{R1.5/R2.6: Readable outcome and metric-validity summary by blockchain and validator-set size. $C$ is the number of configurations; Obs., Sub., Pos., Zero, and No-sub. count observed, submitted, positive-commit, zero-commit, and no-submission executions. TPS is the point-valued positive-service count; Lat. and $E^+$ are positive-service latency and energy counts. Exact counts for all 300 configurations are shown in Figure~\ref{fig:configuration-outcomes} and released in \texttt{configuration\_outcome\_counts.csv}.}}",
         r"\label{tab:r26_outcome_accounting}",
-        r"\footnotesize",
+        r"\TableFont",
         r"\setlength{\tabcolsep}{4pt}",
         r"\begin{tabular}{llrrrrrrrrr}",
         r"\hline",

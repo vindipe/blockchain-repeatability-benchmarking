@@ -197,8 +197,8 @@ def render_table(summary: pd.DataFrame) -> str:
         r"\centering",
         r"\caption{\vd{R1.6: Descriptive sensitivity to hash-batch boundaries within configurations. The strict subset requires at least two hash batches that each contain at least two metric-eligible executions. Between-hash shares partition observed sums of squares and are not estimates of a crossed campaign effect because each hash is nested within one configuration.}}",
         r"\label{tab:campaign_hash_sensitivity}",
-        r"\footnotesize",
-        r"\resizebox{\textwidth}{!}{%",
+        r"\TableFont",
+        r"\setlength{\tabcolsep}{2pt}",
         r"\begin{tabular}{lrrrrrrr}",
         r"\hline",
         r"Metric & Eligible $C$ & Decomposable $C$ & Strict $C$ & Q1 (\%) & Median (\%) & Q3 (\%) & Weighted share (\%) \\",
@@ -218,9 +218,8 @@ def render_table(summary: pd.DataFrame) -> str:
         [
             r"\hline",
             r"\end{tabular}",
-            r"}",
             r"\vspace{1mm}",
-            r"\parbox{\textwidth}{\footnotesize The released corpus contains 1,006 hash batches, each nested within exactly one blockchain--topology--workload--size configuration; 386 are singletons and 620 contain repeated executions. The run index is reused across configurations and therefore is not a campaign identifier. The primary analysis intentionally summarizes all independently reset executions of a fixed configuration; this sensitivity shows how much observed dispersion coincides descriptively with hash-batch boundaries.}",
+            r"\parbox{\textwidth}{\TableFont The released corpus contains 1,006 hash batches, each nested within exactly one blockchain--topology--workload--size configuration; 386 are singletons and 620 contain repeated executions. The run index is reused across configurations and therefore is not a campaign identifier. The primary analysis intentionally summarizes all independently reset executions of a fixed configuration; this sensitivity shows how much observed dispersion coincides descriptively with hash-batch boundaries.}",
             r"\end{table*}",
             "",
         ]

@@ -161,7 +161,7 @@ def render_table() -> str:
         r"\centering",
         r"\caption{\vd{R1.8/R2.5: Published ACM DLT content and analysis introduced in this IEEE Access submission. The shared framework, corpus, experimental factors, P0--P3 ladder, and basic dispersion definitions are not claimed as new.}}",
         r"\label{tab:acm_ieee_delta}",
-        r"\footnotesize",
+        r"\TableFont",
         r"\setlength{\tabcolsep}{4pt}",
         r"\renewcommand{\arraystretch}{1.12}",
         r"\begin{tabular}{p{0.16\textwidth}p{0.39\textwidth}p{0.39\textwidth}}",

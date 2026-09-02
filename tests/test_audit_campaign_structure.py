@@ -42,7 +42,7 @@ class CampaignStructureAuditTests(unittest.TestCase):
         latex = render_table(summary)
         self.assertNotIn(r"\color{olive}", latex)
         self.assertIn(r"\caption{\vd{R1.6:", latex)
-        self.assertIn(r"\footnotesize", latex)
+        self.assertIn(r"\TableFont", latex)
         self.assertEqual(latex.count(r"\vd{"), 1)
         self.assertIn(r"\label{tab:campaign_hash_sensitivity}", latex)
 

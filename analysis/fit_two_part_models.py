@@ -617,9 +617,8 @@ def render_term_table(
         r"\centering",
         r"\caption{\vd{R1.9-10: Two-part factorial models. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance models report Type-II $F$ tests with HC3 covariance and partial $\eta^2$.}}",
         r"\label{tab:two_part_factorial_models}",
-        r"\footnotesize",
-        r"\setlength{\tabcolsep}{3.4pt}",
-        r"\resizebox{\textwidth}{!}{%",
+        r"\TableFont",
+        r"\setlength{\tabcolsep}{2pt}",
         r"\begin{tabular}{lrr|rrr|rrr|rrr}",
         r"\hline",
         r"& \multicolumn{2}{c|}{Outcome} & \multicolumn{3}{c|}{TPS} & \multicolumn{3}{c|}{Latency} & \multicolumn{3}{c}{Energy} \\",
@@ -652,9 +651,8 @@ def render_term_table(
         [
             r"\hline",
             r"\end{tabular}",
-            r"}",
             r"\vspace{1mm}",
-            r"\parbox{\textwidth}{\footnotesize Outcome interactions are likelihood-ratio deletion tests; each outcome main-factor row is a hierarchical omnibus test of that factor and all interactions containing it. Performance tests are Type-II tests on log-transformed, positive-service observations with HC3 covariance; $\eta_p^2$ is partial eta squared. Degrees of freedom are provided in the machine-readable output."
+            r"\parbox{\textwidth}{\TableFont Outcome interactions are likelihood-ratio deletion tests; each outcome main-factor row is a hierarchical omnibus test of that factor and all interactions containing it. Performance tests are Type-II tests on log-transformed, positive-service observations with HC3 covariance; $\eta_p^2$ is partial eta squared. Degrees of freedom are provided in the machine-readable output."
             + suppression_note
             + support_note
             + outcome_caution_note
@@ -672,7 +670,7 @@ def render_estimability_table(table: pd.DataFrame) -> str:
         r"\centering",
         r"\caption{\vd{R1.11: Design-matrix audit for targeted three-way interaction sensitivities. Added rank gives the supported degrees of freedom; a term can be tested on observed support even when empty positive-service cells reduce its nominal rank.}}",
         r"\label{tab:three_way_estimability}",
-        r"\footnotesize",
+        r"\TableFont",
         r"\begin{tabular}{llrrc}",
         r"\hline",
         r"Metric & Interaction & Added columns & Added rank & Full nominal rank \\",
@@ -705,8 +703,8 @@ def render_three_way_sensitivity_table(
         r"\centering",
         r"\caption{\vd{R1.11: Targeted three-way interaction sensitivity tests. Conditional-performance terms are tested on their estimable observed-support basis; added rank over nominal columns is shown when empty positive-service cells reduce rank.}}",
         r"\label{tab:three_way_sensitivity}",
-        r"\footnotesize",
-        r"\resizebox{\textwidth}{!}{%",
+        r"\TableFont",
+        r"\setlength{\tabcolsep}{2pt}",
         r"\begin{tabular}{lllrrrc}",
         r"\hline",
         r"Component & Metric & Interaction & Test statistic & df & $p$ & Status \\",
@@ -736,9 +734,8 @@ def render_three_way_sensitivity_table(
         [
             r"\hline",
             r"\end{tabular}",
-            r"}",
             r"\vspace{1mm}",
-            r"\parbox{\textwidth}{\footnotesize Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests for the added highest-order term. When empty positive-service cells reduce nominal rank, df is shown as supported rank over nominal columns; no empty cell is imputed."
+            r"\parbox{\textwidth}{\TableFont Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests for the added highest-order term. When empty positive-service cells reduce nominal rank, df is shown as supported rank over nominal columns; no empty cell is imputed."
             + outcome_caution_note
             + "}",
             r"\end{table*}",

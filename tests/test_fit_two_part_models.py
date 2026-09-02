@@ -47,10 +47,11 @@ class TwoPartModelTests(unittest.TestCase):
             parts.append(primary)
         latex = render_term_table(outcome, pd.concat(parts, ignore_index=True))
         self.assertIn(r"\label{tab:two_part_factorial_models}", latex)
-        self.assertIn(r"\resizebox{\textwidth}{!}", latex)
+        self.assertIn(r"\setlength{\tabcolsep}{2pt}", latex)
+        self.assertNotIn(r"\resizebox", latex)
         self.assertNotIn(r"\color{olive}", latex)
         self.assertIn(r"\caption{\vd{R1.9-10:", latex)
-        self.assertIn(r"\footnotesize", latex)
+        self.assertIn(r"\TableFont", latex)
         self.assertIn("hierarchical omnibus", latex)
         self.assertNotIn("rank-deficient", latex)
 
@@ -76,7 +77,8 @@ class TwoPartModelTests(unittest.TestCase):
             table, outcome_quasi_separation=True
         )
         self.assertIn(r"\label{tab:three_way_sensitivity}", latex)
-        self.assertIn(r"\resizebox{\textwidth}{!}", latex)
+        self.assertIn(r"\setlength{\tabcolsep}{2pt}", latex)
+        self.assertNotIn(r"\resizebox", latex)
         self.assertNotIn(r"\color{olive}", latex)
         self.assertIn(r"\caption{\vd{R1.11:", latex)
         self.assertIn("likelihood-ratio", latex)

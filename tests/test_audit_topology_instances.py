@@ -28,7 +28,7 @@ class TopologyInstanceAuditTests(unittest.TestCase):
         rows, _ = audit(REPOSITORY_ROOT / "inputs" / "topologies")
         table = latex_table(rows)
         self.assertIn(r"\vd{R1.16:", table)
-        self.assertIn(r"\footnotesize", table)
+        self.assertIn(r"\TableFont", table)
         self.assertIn(r"$\bar{p}_{e}$", table)
         self.assertIn("10- and 40-validator XMLs", table)
 

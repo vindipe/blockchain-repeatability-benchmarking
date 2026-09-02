@@ -2,9 +2,9 @@
 \centering
 \caption{\vd{R1.9-10: Two-part factorial models. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance models report Type-II $F$ tests with HC3 covariance and partial $\eta^2$.}}
 \label{tab:two_part_factorial_models}
-\footnotesize
+\TableFont
 \setlength{\tabcolsep}{3.4pt}
-\resizebox{\textwidth}{!}{%
+\setlength{\tabcolsep}{2pt}
 \begin{tabular}{lrr|rrr|rrr|rrr}
 \hline
 & \multicolumn{2}{c|}{Outcome} & \multicolumn{3}{c|}{TPS} & \multicolumn{3}{c|}{Latency} & \multicolumn{3}{c}{Energy} \\
@@ -22,7 +22,6 @@ Topology $\times$ size & 16.43 & 0.002 & 3.19 & 0.013 & 0.004 & 3.14 & 0.014 & 0
 Workload $\times$ size & 40.81 & $<0.001$ & 34.82 & $<0.001$ & 0.040 & 7.83 & $<0.001$ & 0.014 & 0.43 & 0.826 & 0.001 \\
 \hline
 \end{tabular}
-}
 \vspace{1mm}
-\parbox{\textwidth}{\footnotesize Outcome interactions are likelihood-ratio deletion tests; each outcome main-factor row is a hierarchical omnibus test of that factor and all interactions containing it. Performance tests are Type-II tests on log-transformed, positive-service observations with HC3 covariance; $\eta_p^2$ is partial eta squared. Degrees of freedom are provided in the machine-readable output. The conditional models are fitted on a full-rank basis for the observed positive-service support. For the six-workload scope, Quorum--FIFA and Quorum--Gaming contain no positive-service observations; the blockchain--workload test consequently uses 18 estimable df rather than 20, without imputing either cell. The binomial outcome component exhibits quasi-separation in this scope; its likelihood-ratio rows are retained as model-screening evidence for service incidence, not as finite-sample causal inference.}
+\parbox{\textwidth}{\TableFont Outcome interactions are likelihood-ratio deletion tests; each outcome main-factor row is a hierarchical omnibus test of that factor and all interactions containing it. Performance tests are Type-II tests on log-transformed, positive-service observations with HC3 covariance; $\eta_p^2$ is partial eta squared. Degrees of freedom are provided in the machine-readable output. The conditional models are fitted on a full-rank basis for the observed positive-service support. For the six-workload scope, Quorum--FIFA and Quorum--Gaming contain no positive-service observations; the blockchain--workload test consequently uses 18 estimable df rather than 20, without imputing either cell. The binomial outcome component exhibits quasi-separation in this scope; its likelihood-ratio rows are retained as model-screening evidence for service incidence, not as finite-sample causal inference.}
 \end{table*}

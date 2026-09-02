@@ -245,7 +245,7 @@ def latex_table(rows: Iterable[TopologyMetrics]) -> str:
         r"\caption{\vd{R1.16: Numerical audit of the instantiated topology XMLs.} $V$ and $E$ are the vertices and undirected edges after workload-service leaves are excluded and numbered hop-emulation bridges are contracted. Degree is min/median/max; $\bar{\ell}$ is average shortest-path length; $\lambda$ is global edge connectivity; and $\bar{p}_{e}$ is the mean number of pairwise edge-disjoint paths. The 10- and 40-validator XMLs have identical contracted overlay graphs; validator count changes endpoint replication, not the regional overlay.}",
         r"\label{tab:topology_numeric_audit}",
         r"\centering",
-        r"\footnotesize",
+        r"\TableFont",
         r"\setlength{\tabcolsep}{3.6pt}",
         r"\begin{tabular}{lrrrrrrr}",
         r"\toprule",
