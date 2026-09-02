@@ -21,6 +21,7 @@ def workflow_commands(icc_workers: int | None = None) -> list[list[str]]:
     python = sys.executable
     commands = [
         [python, "analysis/audit_observed_runs.py"],
+        [python, "analysis/audit_topology_instances.py"],
         [python, "analysis/derive_run_outcomes.py"],
         [python, "analysis/compute_corrected_dispersion.py"],
         [python, "analysis/balanced_sensitivity.py"],

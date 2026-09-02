@@ -1,0 +1,159 @@
+{
+  "files": {
+    "fat-tree-l_1.xml": {
+      "bytes": 19714,
+      "contracted_edges": 18,
+      "contracted_vertices": 17,
+      "sha256": "db870669246f244e42d43dbbe9883258e3561784198fdbce9dc5cc2ee06d2b6c",
+      "validators": 10
+    },
+    "fat-tree-l_4.xml": {
+      "bytes": 27124,
+      "contracted_edges": 18,
+      "contracted_vertices": 17,
+      "sha256": "0ab31a9ca40fe362b8d3478460d837ba58789908ac6510c822a815ac21f17c71",
+      "validators": 40
+    },
+    "full-mesh_1.xml": {
+      "bytes": 78239,
+      "contracted_edges": 45,
+      "contracted_vertices": 10,
+      "sha256": "de80ba9d71a08e684207080625cc75d80e30835d437c7f078693516735141355",
+      "validators": 10
+    },
+    "full-mesh_4.xml": {
+      "bytes": 85649,
+      "contracted_edges": 45,
+      "contracted_vertices": 10,
+      "sha256": "9995a95e2837d05889b2a2e38db2a1dc6d75f91f2ab77ee38f11c13cd76c9877",
+      "validators": 40
+    },
+    "hypercube_1.xml": {
+      "bytes": 44493,
+      "contracted_edges": 25,
+      "contracted_vertices": 10,
+      "sha256": "1c682f6f5e8658c9695945a41d99da5a2c23704219b33a3a447ee59e31fb16aa",
+      "validators": 10
+    },
+    "hypercube_4.xml": {
+      "bytes": 51903,
+      "contracted_edges": 25,
+      "contracted_vertices": 10,
+      "sha256": "d262295b8d6689b2970a08025721e6f74f8525c4bfa204578a7382ab4bb5037f",
+      "validators": 40
+    },
+    "scale-free-l_1.xml": {
+      "bytes": 18928,
+      "contracted_edges": 9,
+      "contracted_vertices": 10,
+      "sha256": "7c43ccbd41c7a052b21d47635c0bd5eea872088bb331140260608284ce1d77a9",
+      "validators": 10
+    },
+    "scale-free-l_4.xml": {
+      "bytes": 26338,
+      "contracted_edges": 9,
+      "contracted_vertices": 10,
+      "sha256": "678a1f9eb0adf5c6fb05467733c003ac71c890f926e4dd71591a55acd94d5274",
+      "validators": 40
+    },
+    "torus-l_1.xml": {
+      "bytes": 38131,
+      "contracted_edges": 19,
+      "contracted_vertices": 10,
+      "sha256": "62e15efc3d44c6c4114ea72c65f1597bc5f0e92e3cec257fae68849b52839b13",
+      "validators": 10
+    },
+    "torus-l_4.xml": {
+      "bytes": 45541,
+      "contracted_edges": 19,
+      "contracted_vertices": 10,
+      "sha256": "227e0f03be18e5093938960456aac3817a180829b07f85b9c239c42f7756bf28",
+      "validators": 40
+    }
+  },
+  "method": {
+    "contracted": "numbered s<N> hop-emulation bridges",
+    "excluded": "workload-service endpoint leaves",
+    "graph": "undirected simple contracted overlay",
+    "path_diversity": "mean unit-capacity edge-disjoint paths over unordered vertex pairs",
+    "retained": "regional and structural branching bridges"
+  },
+  "metrics": [
+    {
+      "average_pairwise_edge_disjoint_paths": 1.0808823529411764,
+      "average_shortest_path": 2.9558823529411766,
+      "degree_max": 4,
+      "degree_median": 1.0,
+      "degree_min": 1,
+      "diameter": 6,
+      "edge_connectivity": 1,
+      "edges": 18,
+      "topology": "Fat-tree",
+      "validator_sizes": "10/40",
+      "vertices": 17
+    },
+    {
+      "average_pairwise_edge_disjoint_paths": 9.0,
+      "average_shortest_path": 1.0,
+      "degree_max": 9,
+      "degree_median": 9.0,
+      "degree_min": 9,
+      "diameter": 1,
+      "edge_connectivity": 9,
+      "edges": 45,
+      "topology": "Full mesh",
+      "validator_sizes": "10/40",
+      "vertices": 10
+    },
+    {
+      "average_pairwise_edge_disjoint_paths": 4.644444444444445,
+      "average_shortest_path": 1.4444444444444444,
+      "degree_max": 6,
+      "degree_median": 5.0,
+      "degree_min": 4,
+      "diameter": 2,
+      "edge_connectivity": 4,
+      "edges": 25,
+      "topology": "Hypercube",
+      "validator_sizes": "10/40",
+      "vertices": 10
+    },
+    {
+      "average_pairwise_edge_disjoint_paths": 1.0,
+      "average_shortest_path": 2.7111111111111112,
+      "degree_max": 3,
+      "degree_median": 1.5,
+      "degree_min": 1,
+      "diameter": 5,
+      "edge_connectivity": 1,
+      "edges": 9,
+      "topology": "Scale-free",
+      "validator_sizes": "10/40",
+      "vertices": 10
+    },
+    {
+      "average_pairwise_edge_disjoint_paths": 3.0444444444444443,
+      "average_shortest_path": 1.6444444444444444,
+      "degree_max": 7,
+      "degree_median": 3.5,
+      "degree_min": 2,
+      "diameter": 3,
+      "edge_connectivity": 2,
+      "edges": 19,
+      "topology": "Torus",
+      "validator_sizes": "10/40",
+      "vertices": 10
+    }
+  ],
+  "provenance": {
+    "generator_path": "scripts/gen_topo.py",
+    "generator_sha256": "e9c23f7b923867648b8401ccdc09f4a0e7de62c8a685e5eff0b15e73a1779ada",
+    "lilith_commit": "dd1d457c6079661b158f601cdf70817cbe2a5f2a",
+    "lilith_repository": "https://github.com/vindipe/lilith",
+    "regeneration": "deterministic regeneration from the frozen source revision and input",
+    "template_path": "misc/sample-topology.xml",
+    "template_sha256": "62bd7fedfd311482a376049a6e1e4b661fb8f25165ddeb263830f70a397b3816",
+    "trace_path": "misc/diablo-aws.csv",
+    "trace_sha256": "c7f384cf276666293d275d4c5056dface1d6271f54e449fd9629024b7ab1b7d3"
+  }
+}

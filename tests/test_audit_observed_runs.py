@@ -39,6 +39,20 @@ class ObservedRunAuditTests(unittest.TestCase):
         self.assertEqual(selected["n_observed_distribution"]["10"], 4)
         self.assertEqual(selected["run_values"], list(range(1, 11)))
 
+        trace = summary["network_trace_provenance"]
+        self.assertEqual(trace["display_vintage"], "2023")
+        self.assertEqual(
+            trace["source_sha256"],
+            "c7f384cf276666293d275d4c5056dface1d6271f54e449fd9629024b7ab1b7d3",
+        )
+        self.assertEqual(
+            trace["campaign_first_observed_at"], "2024-04-21 21:29:22.775"
+        )
+        self.assertEqual(
+            trace["campaign_last_observed_at"], "2025-08-08 17:05:23.621"
+        )
+        self.assertFalse(trace["campaign_timestamp_is_trace_vintage"])
+
         legacy = summary["legacy_three_workload_subset"]
         self.assertEqual(legacy["rows"], 2053)
         self.assertEqual(legacy["configurations"], 150)

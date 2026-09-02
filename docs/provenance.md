@@ -62,6 +62,27 @@ historical execution manifest with a trace checksum. The artifact therefore
 records both links explicitly and does not claim a cryptographic binding that
 the released run rows themselves cannot establish.
 
+## Network trace and topology XMLs (m9)
+
+The selected raw label `dataset=diablo` refers to the 2023 AWS RTT-trace
+vintage. The exact versioned input is Lilith
+`misc/diablo-aws.csv` at commit
+`dd1d457c6079661b158f601cdf70817cbe2a5f2a`, SHA-256
+`c7f384cf276666293d275d4c5056dface1d6271f54e449fd9629024b7ab1b7d3`.
+It is mirrored under `inputs/topologies/`. This label is independent of
+`start_bench`, whose selected campaign timestamps span 21 April 2024 through
+8 August 2025.
+
+Lilith creates `topology.xml` at runtime and does not version generated XMLs.
+The ten files under `inputs/topologies/` are therefore deterministic
+regenerations, not unverified claims about preserved runtime logs. They use the
+frozen Lilith commit, `scripts/gen_topo.py` (SHA-256
+`e9c23f7b923867648b8401ccdc09f4a0e7de62c8a685e5eff0b15e73a1779ada`),
+the frozen trace above, and `misc/sample-topology.xml` (SHA-256
+`62bd7fedfd311482a376049a6e1e4b661fb8f25165ddeb263830f70a397b3816`).
+Each generated XML checksum and the contraction rule are recorded in
+`outputs/revision/m9_topology_audit/topology_audit.json`.
+
 ## Validation
 
 The artifact was validated on 29 July 2026 with Python 3.12 and the pinned

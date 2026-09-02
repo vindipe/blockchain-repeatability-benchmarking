@@ -46,6 +46,17 @@ PRIMARY_WORKLOADS_LEGACY = ["GAFAM", "PayPal", "VISA"]
 
 REQUIRED_COLUMNS = set(CONFIGURATION_COLUMNS) | {"hash", "run", "start_bench"}
 
+NETWORK_TRACE = {
+    "raw_dataset_label": "diablo",
+    "display_vintage": "2023",
+    "semantic_role": "replayed AWS RTT trace vintage",
+    "source_repository": "https://github.com/vindipe/lilith",
+    "source_commit": "dd1d457c6079661b158f601cdf70817cbe2a5f2a",
+    "source_path": "misc/diablo-aws.csv",
+    "source_sha256": "c7f384cf276666293d275d4c5056dface1d6271f54e449fd9629024b7ab1b7d3",
+    "exact_collection_date_available": False,
+}
+
 
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
@@ -213,6 +224,13 @@ def build_summary(raw: pd.DataFrame, selected: pd.DataFrame, input_path: Path) -
             "network_sizes": sorted(selected["network_size"].unique().tolist()),
             "first_observed_at": str(selected["start_bench"].min()),
             "last_observed_at": str(selected["start_bench"].max()),
+        },
+        "network_trace_provenance": {
+            **NETWORK_TRACE,
+            "campaign_timestamp_field": "start_bench",
+            "campaign_first_observed_at": str(selected["start_bench"].min()),
+            "campaign_last_observed_at": str(selected["start_bench"].max()),
+            "campaign_timestamp_is_trace_vintage": False,
         },
         "legacy_three_workload_subset": {
             "workloads": PRIMARY_WORKLOADS_LEGACY,

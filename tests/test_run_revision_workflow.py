@@ -14,6 +14,7 @@ class RevisionWorkflowTests(unittest.TestCase):
             scripts,
             [
                 "analysis/audit_observed_runs.py",
+                "analysis/audit_topology_instances.py",
                 "analysis/derive_run_outcomes.py",
                 "analysis/compute_corrected_dispersion.py",
                 "analysis/balanced_sensitivity.py",
@@ -27,7 +28,7 @@ class RevisionWorkflowTests(unittest.TestCase):
                 "analysis/generate_study_delta.py",
             ],
         )
-        self.assertEqual(commands[6][-2:], ["--workers", "2"])
+        self.assertEqual(commands[7][-2:], ["--workers", "2"])
         self.assertEqual(commands[-1][0], sys.executable)
         self.assertEqual(commands[-1][1:4], ["-m", "unittest", "discover"])
 
@@ -41,6 +42,7 @@ class RevisionWorkflowTests(unittest.TestCase):
         hashes = frozen_output_hashes()
         self.assertNotIn("outputs/revision/clean_room_manifest.json", hashes)
         self.assertIn("paper_tables/six_workloads/table_acm_ieee_delta.tex", hashes)
+        self.assertIn("paper_tables/six_workloads/table_topology_properties.tex", hashes)
 
 
 if __name__ == "__main__":

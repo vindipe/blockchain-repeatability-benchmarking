@@ -36,6 +36,7 @@ The archival record is available through the stable Zenodo concept DOI:
 ├── requirements.txt
 ├── analysis/
 │   ├── audit_observed_runs.py
+│   ├── audit_topology_instances.py
 │   ├── balanced_sensitivity.py
 │   ├── bootstrap_dispersion_tables.py
 │   ├── compute_corrected_dispersion.py
@@ -51,6 +52,7 @@ The archival record is available through the stable Zenodo concept DOI:
 │   ├── reproducibility-dataset.csv
 │   └── reproducibility-runs.csv
 ├── inputs/
+│   ├── topologies/              # frozen 10/40-validator XML instances
 │   └── workloads/
 │       └── workload-gafam-long.yaml
 ├── docs/
@@ -82,6 +84,10 @@ The archival record is available through the stable Zenodo concept DOI:
 - `analysis/audit_observed_runs.py` inventories the observed configuration and
   campaign structure without classifying outcomes or computing performance
   statistics.
+- `analysis/audit_topology_instances.py` verifies all regenerated XML
+  checksums, contracts numbered hop-emulation bridges, computes numerical graph
+  properties without assuming them from topology names, and generates the R1.16
+  manuscript table.
 - `analysis/derive_run_outcomes.py` derives observable execution states and
   metric-specific validity masks without inferring failures from absent logs.
 - `analysis/compute_corrected_dispersion.py` applies those masks symmetrically
@@ -186,6 +192,7 @@ Audit the observed design and run its regression tests with:
 
 ```bash
 python3 analysis/audit_observed_runs.py
+python3 analysis/audit_topology_instances.py
 python3 analysis/derive_run_outcomes.py
 python3 analysis/compute_corrected_dispersion.py
 python3 analysis/balanced_sensitivity.py

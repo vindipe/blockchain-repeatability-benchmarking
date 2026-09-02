@@ -83,6 +83,36 @@ analysis in `analysis/balanced_sensitivity.py` repeatedly samples nine observed
 executions per configuration before applying outcome and metric-specific
 eligibility masks.
 
+### Trace vintage versus campaign execution time
+
+The raw value `dataset=diablo`, displayed as `2023`, selects the frozen AWS RTT
+trace replayed by the topology generator. Its exact source is Lilith commit
+`dd1d457c6079661b158f601cdf70817cbe2a5f2a`,
+`misc/diablo-aws.csv`, SHA-256
+`c7f384cf276666293d275d4c5056dface1d6271f54e449fd9629024b7ab1b7d3`.
+The vintage label is not an execution year. The independent `start_bench`
+field places the selected campaigns between 21 April 2024 and 8 August 2025.
+The source does not record a more precise collection day for the 2023 trace.
+
+## Instantiated-topology audit (M9)
+
+`analysis/audit_topology_instances.py` parses ten frozen XML instances: five
+topologies at the 10- and 40-validator sizes. These XMLs are deterministic
+regenerations from the exact public Lilith revision, generator, 2023 trace
+input, and XML template recorded in
+`outputs/revision/m9_topology_audit/topology_audit.json`. The parser excludes
+workload-service endpoint leaves and contracts only numbered `s<N>` bridges
+inserted to emulate hops. Regional vertices and structural branching bridges,
+including fat-tree gates, remain in the measured undirected overlay.
+
+For every instance the audit reports vertices, edges, degree
+minimum/median/maximum, diameter, average shortest-path length, global edge
+connectivity, and mean pairwise edge-disjoint paths. The 10- and 40-validator
+XMLs have identical contracted overlay graphs; the size factor replicates
+validator endpoints within regions rather than changing the regional overlay.
+The audit writes CSV/JSON evidence and the manuscript-ready
+`paper_tables/six_workloads/table_topology_properties.tex`.
+
 ## Observable outcome states and eligibility (M2)
 
 `analysis/derive_run_outcomes.py` classifies each selected row using only the

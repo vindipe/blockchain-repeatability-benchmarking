@@ -1,0 +1,18 @@
+\begin{table*}[t]
+\caption{\vd{R1.16: Numerical audit of the instantiated topology XMLs.} $V$ and $E$ are the vertices and undirected edges after workload-service leaves are excluded and numbered hop-emulation bridges are contracted. Degree is min/median/max; $\bar{\ell}$ is average shortest-path length; $\lambda$ is global edge connectivity; and $\bar{p}_{e}$ is the mean number of pairwise edge-disjoint paths. The 10- and 40-validator XMLs have identical contracted overlay graphs; validator count changes endpoint replication, not the regional overlay.}
+\label{tab:topology_numeric_audit}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3.6pt}
+\begin{tabular}{lrrrrrrr}
+\toprule
+Topology & $V$ & $E$ & Degree & Diam. & $\bar{\ell}$ & $\lambda$ & $\bar{p}_{e}$ \\
+\midrule
+Fat-tree & 17 & 18 & 1/1/4 & 6 & 2.96 & 1 & 1.08 \\
+Full mesh & 10 & 45 & 9/9/9 & 1 & 1.00 & 9 & 9.00 \\
+Hypercube & 10 & 25 & 4/5/6 & 2 & 1.44 & 4 & 4.64 \\
+Scale-free & 10 & 9 & 1/1.5/3 & 5 & 2.71 & 1 & 1.00 \\
+Torus & 10 & 19 & 2/3.5/7 & 3 & 1.64 & 2 & 3.04 \\
+\bottomrule
+\end{tabular}
+\end{table*}

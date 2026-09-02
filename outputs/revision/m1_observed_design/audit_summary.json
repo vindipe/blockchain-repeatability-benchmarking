@@ -78,6 +78,20 @@
       "VISA"
     ]
   },
+  "network_trace_provenance": {
+    "campaign_first_observed_at": "2024-04-21 21:29:22.775",
+    "campaign_last_observed_at": "2025-08-08 17:05:23.621",
+    "campaign_timestamp_field": "start_bench",
+    "campaign_timestamp_is_trace_vintage": false,
+    "display_vintage": "2023",
+    "exact_collection_date_available": false,
+    "raw_dataset_label": "diablo",
+    "semantic_role": "replayed AWS RTT trace vintage",
+    "source_commit": "dd1d457c6079661b158f601cdf70817cbe2a5f2a",
+    "source_path": "misc/diablo-aws.csv",
+    "source_repository": "https://github.com/vindipe/lilith",
+    "source_sha256": "c7f384cf276666293d275d4c5056dface1d6271f54e449fd9629024b7ab1b7d3"
+  },
   "selected_corpus": {
     "blockchains": [
       "Algorand",
