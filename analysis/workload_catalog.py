@@ -22,12 +22,6 @@ except ImportError:  # Direct execution
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT_DIR = REPOSITORY_ROOT / "outputs" / "revision" / "m1_workloads"
-DEFAULT_TABLE = (
-    REPOSITORY_ROOT
-    / "paper_tables"
-    / "six_workloads"
-    / "table_workload_catalog.tex"
-)
 
 WORKLOADS = {
     "DDoS": {
@@ -98,47 +92,11 @@ def build_catalog(derived: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def render_table(catalog: pd.DataFrame) -> str:
-    lines = [
-        r"\begin{table*}[t]",
-        r"\centering",
-        r"\caption{\vd{R1.1-2-12-13: Six workload profiles and observed outcome accounting. Offered loads and trace characteristics follow the released Lilith/Diablo inputs; counts refer to the selected repeated-execution corpus.}}",
-        r"\label{tab:six_workload_catalog}",
-        r"\TableFont",
-        r"\setlength{\tabcolsep}{2pt}",
-        r"\begin{tabular}{llllrrrr}",
-        r"\hline",
-        "Workload & Raw label & Transaction profile & Offered-load pattern & "
-        "Cells & Observed & Positive & Zero commit \\\\",
-        r"\hline",
-    ]
-    for _, row in catalog.iterrows():
-        lines.append(
-            f"{row['workload']} & {row['raw_label']} & {row['transaction_profile']} & "
-            f"{row['offered_load']} & {row['configuration_cells']} & "
-            f"{row['observed_executions']} & {row['positive_commit']} & "
-            f"{row['zero_commit']} \\\\"
-        )
-    lines.extend(
-        [
-            r"\hline",
-            r"\end{tabular}",
-            r"\vspace{1mm}",
-            r"\parbox{\textwidth}{\TableFont The raw labels \texttt{10000}, \texttt{football}, \texttt{gafam}, and \texttt{dota} are reported as DDoS, FIFA, GAFAM, and Gaming, respectively. The GAFAM trace contains a 19,800-TPS control point at 0~s, falls to 115~TPS at 1~s, uses 25--140-TPS control points through 180~s, and reaches zero at 300~s; Diablo linearly interpolates between control points. Gaming also contains the corpus's two no-submission observations. DDoS denotes the artifact's 10,000-TPS workload label; the present study does not infer that an observed zero-commit execution was caused by a network attack.}",
-            r"\end{table*}",
-            "",
-        ]
-    )
-    return "\n".join(lines)
-
-
-def run(input_path: Path, output_dir: Path, table_path: Path) -> dict[str, object]:
+def run(input_path: Path, output_dir: Path) -> dict[str, object]:
     derived = derive_outcomes(prepare_selected_runs(load_runs(input_path)))
     catalog = build_catalog(derived)
     output_dir.mkdir(parents=True, exist_ok=True)
-    table_path.parent.mkdir(parents=True, exist_ok=True)
     catalog.to_csv(output_dir / "workload_catalog.csv", index=False)
-    table_path.write_text(render_table(catalog), encoding="utf-8")
     summary = {
         "workloads": int(len(catalog)),
         "configuration_cells": int(catalog["configuration_cells"].sum()),
@@ -159,13 +117,12 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
-    parser.add_argument("--table", type=Path, default=DEFAULT_TABLE)
     return parser.parse_args(argv)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
-    print(json.dumps(run(args.input, args.output_dir, args.table), indent=2))
+    print(json.dumps(run(args.input, args.output_dir), indent=2))
     return 0
 
 

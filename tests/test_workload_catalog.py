@@ -27,21 +27,14 @@ class WorkloadCatalogTests(unittest.TestCase):
         self.assertEqual(catalog.loc["FIFA", "raw_label"], "football")
         self.assertEqual(catalog.loc["Gaming", "raw_label"], "dota")
 
-    def test_run_writes_csv_json_and_latex(self):
+    def test_run_writes_csv_and_json(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            summary = run(DEFAULT_INPUT, root / "outputs", root / "table.tex")
+            summary = run(DEFAULT_INPUT, root / "outputs")
             self.assertEqual(summary["configuration_cells"], 300)
             self.assertTrue((root / "outputs" / "workload_catalog.csv").is_file())
             self.assertTrue((root / "outputs" / "summary.json").is_file())
-            latex = (root / "table.tex").read_text(encoding="utf-8")
-            self.assertIn(r"\label{tab:six_workload_catalog}", latex)
-            self.assertNotIn(r"\color{olive}", latex)
-            self.assertIn(r"\caption{\vd{R1.1-2-12-13:", latex)
-            self.assertIn(r"\TableFont", latex)
-            self.assertEqual(latex.count(r"\vd{"), 1)
-            self.assertIn("19,800 TPS at 0 s", latex)
-            self.assertIn("DDoS denotes", latex)
+            self.assertFalse((root / "table.tex").exists())
 
 
 if __name__ == "__main__":

@@ -96,12 +96,18 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
         table = render_outcome_table(outcome_table_frame(self.derived))
         self.assertIn(r"\caption{\vd{R1.5/R2.6:", table)
         self.assertIn(r"\TableFont", table)
+        self.assertIn(r"\textbf{Total} & -- & 300 & 205 & 46 & 49", table)
         self.assertIn(
-            r"\textbf{Total} & -- & 300 & 205 & 46 & 49 & 4080 & 4078 & 3125 & 953 & 2 & 3118 & 3125 & 3125",
+            r"\textbf{Total} & -- & 4080/4078 & 3125/953/2 & 3118/3125/3125",
             table,
         )
         self.assertNotIn(r"\color{olive}", table)
-        self.assertIn(r"\multicolumn{4}{c}{\textbf{Configurations}}", table)
+        self.assertIn(r"\begin{table}[t]", table)
+        self.assertNotIn(r"\begin{table*}", table)
+        self.assertIn(r"\textbf{(a) Configuration regimes}", table)
+        self.assertIn(
+            r"\textbf{(b) Execution outcomes and metric validity}", table
+        )
 
     def test_final_layout_uses_readable_source_typography(self):
         self.assertEqual(DEVIATION_FIGURE_SIZE, (10.2, 5.6))
