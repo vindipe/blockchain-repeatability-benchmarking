@@ -6,10 +6,7 @@ from pathlib import Path
 
 from analysis.audit_campaign_structure import (
     identifier_audit,
-    render_table,
     run,
-    summarize_decomposition,
-    variance_decomposition,
 )
 from analysis.audit_observed_runs import DEFAULT_INPUT, load_runs
 from analysis.derive_run_outcomes import derive_outcomes, prepare_selected_runs
@@ -30,36 +27,23 @@ class CampaignStructureAuditTests(unittest.TestCase):
         self.assertEqual(audit["repeated_hash_batches"], 620)
         self.assertEqual(len(structure), 300)
 
-    def test_decomposition_reconstructs_total_sum_of_squares(self):
-        decomposition = variance_decomposition(self.derived)
-        self.assertLess(decomposition["decomposition_identity_error"].max(), 1e-7)
-        summary = summarize_decomposition(decomposition)
-        self.assertEqual(set(summary["strict_configurations"]), {221})
-        self.assertEqual(set(summary["decomposable_configurations"]), {245})
-
-    def test_generated_table_marks_caption_only(self):
-        summary = summarize_decomposition(variance_decomposition(self.derived))
-        latex = render_table(summary)
-        self.assertNotIn(r"\color{olive}", latex)
-        self.assertIn(r"\caption{\vd{R1.6:", latex)
-        self.assertIn(r"\TableFont", latex)
-        self.assertEqual(latex.count(r"\vd{"), 1)
-        self.assertIn(r"\label{tab:campaign_hash_sensitivity}", latex)
-
-    def test_run_writes_machine_readable_outputs_and_table(self):
+    def test_run_writes_provenance_outputs_only(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            result = run(DEFAULT_INPUT, root / "outputs", root / "table.tex")
+            result = run(DEFAULT_INPUT, root / "outputs")
             self.assertEqual(result["review_point"], "R1.6")
+            self.assertIn("provenance-only", result["scope"])
             for filename in (
                 "campaign_identifier_audit.json",
                 "configuration_hash_structure.csv",
-                "campaign_variance_decomposition.csv",
-                "campaign_variance_summary.csv",
                 "summary.json",
             ):
                 self.assertTrue((root / "outputs" / filename).is_file())
-            self.assertTrue((root / "table.tex").is_file())
+            self.assertFalse(
+                (root / "outputs/campaign_variance_decomposition.csv").exists()
+            )
+            self.assertFalse((root / "outputs/campaign_variance_summary.csv").exists())
+            self.assertFalse((root / "table.tex").exists())
 
 
 if __name__ == "__main__":

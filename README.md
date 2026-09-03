@@ -113,15 +113,14 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
 - `analysis/audit_gafam_trace.py` verifies the mirrored GAFAM input checksum,
   schedule, units, source revision, raw-to-display label mapping, and its link
   to the 668 selected GAFAM observations.
-- `analysis/audit_campaign_structure.py` audits the M6 hash/run/dataset
-  provenance structure and performs a descriptive within-hash/between-hash
-  sums-of-squares sensitivity. It writes configuration-level and summary CSVs
-  plus a manuscript table with a revision-marked caption; it does not reinterpret the
-  nested hash batches as a crossed experimental factor.
-- `analysis/generate_study_delta.py` generates the M8/R2.5 row-by-row
-  ACM-DLT-versus-IEEE comparison from an explicit novelty manifest and validates
-  every quantitative IEEE claim against the completed revision outputs. The
-  generated table marks only its caption and leaves its body uncoloured.
+- `analysis/audit_campaign_structure.py` verifies that `hash` is nested within
+  configuration, `run` is reused and restarted, and `dataset` is constant. It
+  writes provenance records only: it neither estimates within-/between-campaign
+  variance nor generates a manuscript table.
+- `analysis/generate_study_delta.py` records the M8/R2.5 row-by-row
+  ACM-DLT-versus-IEEE comparison as CSV and JSON audit outputs and validates
+  every quantitative IEEE claim against the completed revision outputs. It no
+  longer generates a manuscript table.
 - `analysis/plot_run_level_deviations.py` generates corrected vector-PDF
   absolute and relative deviation figures for all six workloads, using the
   same metric-specific eligibility masks as the numerical analysis. Each
@@ -241,7 +240,7 @@ manifest is available, the artifact reports observed rather than scheduled
 attempt counts. No observations are synthesized or discarded to force a fixed
 cell size.
 
-The raw `hash` column identifies benchmark campaigns. The original plotting
+The raw `hash` column identifies collection batches nested within configurations. The original plotting
 script does not use `hash` as a grouping key and does not remove CSV rows with
 `commit_number == 0` before configuration-level aggregation. M2 adds a separate
 derived layer rather than overwriting that script or either released CSV. It

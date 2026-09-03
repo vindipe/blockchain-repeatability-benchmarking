@@ -1,5 +1,4 @@
 {
-  "generated_table": "paper_tables/six_workloads/table_campaign_structure.tex",
   "identifier_audit": {
     "configuration_cells": 300,
     "configurations_per_run_index": {
@@ -44,9 +43,5 @@
     "singleton_hash_batches": 386
   },
   "review_point": "R1.6",
-  "strict_configurations_by_metric": {
-    "Energy": 221,
-    "Latency": 221,
-    "TPS": 221
-  }
+  "scope": "provenance-only; no within-/between-batch variance decomposition"
 }

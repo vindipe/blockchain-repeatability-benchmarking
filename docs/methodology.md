@@ -35,7 +35,7 @@ exactly 10 observations. The complete six-workload corpus is the primary
 manuscript scope; the three-workload subset is retained only for compatibility
 and sensitivity checks.
 
-The raw `hash` column identifies benchmark campaigns. The supplied analysis
+The raw `hash` column identifies collection batches nested within configurations. The supplied analysis
 groups all selected observations by:
 
 ```text
@@ -393,19 +393,16 @@ their exact per-configuration counts are instead reported in
 with embedded TrueType fonts, and `summary.json` records the final panel layout,
 source typography, and recommended manuscript placement width.
 
-## M6 hash-batch audit
+## M6 provenance audit
 
 The `hash` field identifies an execution batch nested within exactly one
 blockchain--topology--workload--size configuration. The `run` index is reused
 across configurations and restarts within hash batches, while `dataset` is
 constant in the selected corpus. These columns therefore do not define a
-campaign factor crossed with configuration. The M6 audit preserves the pooled
-configuration-level analysis and adds a descriptive sums-of-squares
-partitioning into within-hash and between-hash components. Its strict
-sensitivity subset requires at least two hash batches that each contain at
-least two metric-eligible executions. This partition is reported as a
-sensitivity to collection-batch boundaries, not as an independently identified
-campaign variance component.
+campaign factor crossed with configuration. The M6 script records this
+provenance only; it neither partitions variability into within-/between-hash
+components nor generates manuscript results. Possible unobserved batch or
+temporal effects are treated as a limitation.
 
 ## Scope
 

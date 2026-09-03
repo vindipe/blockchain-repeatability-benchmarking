@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from analysis.generate_study_delta import ACM_DOI, ROWS, render_table, run, validate_evidence
+from analysis.generate_study_delta import ACM_DOI, ROWS, run, validate_evidence
 
 
 class StudyDeltaTests(unittest.TestCase):
@@ -22,24 +22,15 @@ class StudyDeltaTests(unittest.TestCase):
         self.assertEqual(evidence["balanced_bootstrap_repetitions"], 5000)
         self.assertEqual(evidence["icc_bootstrap_repetitions"], 1000)
 
-    def test_table_marks_caption_only(self):
-        latex = render_table()
-        self.assertIn(r"\caption{\vd{R1.8/R2.5:", latex)
-        self.assertIn(r"\TableFont", latex)
-        self.assertEqual(latex.count(r"\vd{"), 1)
-        self.assertNotIn(r"\color{olive}", latex)
-        self.assertIn("Published in ACM DLT", latex)
-        self.assertIn("New in this IEEE Access submission", latex)
-
     def test_run_writes_executed_outputs(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            result = run(root / "outputs", root / "table.tex")
+            result = run(root / "outputs")
             self.assertEqual(result["published_article_doi"], ACM_DOI)
             self.assertEqual(result["comparison_rows"], 7)
             self.assertTrue((root / "outputs/acm_ieee_delta.csv").is_file())
             self.assertTrue((root / "outputs/study_delta.json").is_file())
-            self.assertTrue((root / "table.tex").is_file())
+            self.assertFalse((root / "table_acm_ieee_delta.tex").exists())
 
 
 if __name__ == "__main__":
