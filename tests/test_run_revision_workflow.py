@@ -41,7 +41,7 @@ class RevisionWorkflowTests(unittest.TestCase):
     def test_manifest_does_not_hash_itself(self):
         hashes = frozen_output_hashes()
         self.assertNotIn("outputs/revision/clean_room_manifest.json", hashes)
-        self.assertIn("paper_tables/six_workloads/table_acm_ieee_delta.tex", hashes)
+        self.assertNotIn("paper_tables/six_workloads/table_acm_ieee_delta.tex", hashes)
         self.assertIn("paper_tables/six_workloads/table_topology_properties.tex", hashes)
 
 

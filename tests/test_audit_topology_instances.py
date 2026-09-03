@@ -29,10 +29,13 @@ class TopologyInstanceAuditTests(unittest.TestCase):
         table = latex_table(rows)
         caption = next(line for line in table.splitlines() if line.startswith(r"\caption{"))
         self.assertIn(r"\vd{R1.16:", table)
-        self.assertTrue(caption.endswith("not the regional overlay.}}"))
+        self.assertTrue(caption.endswith("only endpoint replication differs.}}"))
         self.assertIn(r"\TableFont", table)
+        self.assertIn(r"\begin{table}[t]", table)
+        self.assertNotIn(r"\begin{table*}", table)
+        self.assertIn(r"\begin{tabular}{lrrrrrrr}", table)
         self.assertIn(r"$\bar{p}_{e}$", table)
-        self.assertIn("10- and 40-validator XMLs", table)
+        self.assertIn("Both validator sizes yield the same overlay", table)
 
 
 if __name__ == "__main__":

@@ -241,8 +241,8 @@ def format_number(value: float) -> str:
 
 def latex_table(rows: Iterable[TopologyMetrics]) -> str:
     lines = [
-        r"\begin{table*}[t]",
-        r"\caption{\vd{R1.16: Numerical audit of the instantiated topology XMLs. $V$ and $E$ are the vertices and undirected edges after workload-service leaves are excluded and numbered hop-emulation bridges are contracted. Degree is min/median/max; $\bar{\ell}$ is average shortest-path length; $\lambda$ is global edge connectivity; and $\bar{p}_{e}$ is the mean number of pairwise edge-disjoint paths. The 10- and 40-validator XMLs have identical contracted overlay graphs; validator count changes endpoint replication, not the regional overlay.}}",
+        r"\begin{table}[t]",
+        r"\caption{\vd{R1.16: Numerical audit of the instantiated topology XMLs. $V/E$: vertices/undirected edges; degree: min/median/max; $\bar{\ell}$: average shortest-path length; $\lambda$: global edge connectivity; $\bar{p}_{e}$: mean pairwise edge-disjoint paths. Workload leaves are excluded and numbered hop bridges contracted. Both validator sizes yield the same overlay; only endpoint replication differs.}}",
         r"\label{tab:topology_numeric_audit}",
         r"\centering",
         r"\TableFont",
@@ -266,7 +266,7 @@ def latex_table(rows: Iterable[TopologyMetrics]) -> str:
         [
             r"\bottomrule",
             r"\end{tabular}",
-            r"\end{table*}",
+            r"\end{table}",
             "",
         ]
     )

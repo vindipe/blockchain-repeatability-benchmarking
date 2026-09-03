@@ -51,6 +51,8 @@ class TwoPartModelTests(unittest.TestCase):
         self.assertNotIn(r"\resizebox", latex)
         self.assertNotIn(r"\color{olive}", latex)
         self.assertIn(r"\caption{\vd{R1.9-10:", latex)
+        self.assertIn("Two-part factorial analysis", latex)
+        self.assertIn("conditional log-performance ANOVAs", latex)
         self.assertIn(r"\TableFont", latex)
         self.assertIn("hierarchical omnibus", latex)
         self.assertNotIn("rank-deficient", latex)
