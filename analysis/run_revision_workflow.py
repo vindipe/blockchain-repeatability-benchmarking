@@ -109,7 +109,7 @@ def validate_frozen_results() -> dict[str, object]:
         "hash_batches": campaign.get("hash_batches"),
         "delta_rows": delta.get("comparison_rows"),
         "figure_pdfs": figures.get("pdf_count"),
-        "outcome_figure_configurations": figures.get("configuration_outcome_rows"),
+        "outcome_table_configurations": figures.get("configuration_outcome_rows"),
         "plotted_execution_rows": figures.get("manifest_rows"),
     }
     required = {
@@ -121,8 +121,8 @@ def validate_frozen_results() -> dict[str, object]:
         "icc_bootstrap_failures": 0,
         "hash_batches": 1006,
         "delta_rows": 7,
-        "figure_pdfs": 13,
-        "outcome_figure_configurations": 300,
+        "figure_pdfs": 12,
+        "outcome_table_configurations": 300,
         "plotted_execution_rows": 9368,
     }
     for key, value in required.items():

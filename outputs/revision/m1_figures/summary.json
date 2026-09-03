@@ -1,7 +1,7 @@
 {
-  "configuration_outcome_figure_manifest": "outputs/revision/m1_figures/configuration_outcome_figure_manifest.csv",
   "configuration_outcome_rows": 300,
-  "figure_count": 13,
+  "configuration_outcome_table_manifest": "outputs/revision/m1_figures/configuration_outcome_table_manifest.csv",
+  "figure_count": 12,
   "figures": [
     {
       "eligible_points": 750,
@@ -226,11 +226,7 @@
       10.2,
       5.6
     ],
-    "outcome_source_inches": [
-      7.2,
-      8.0
-    ],
-    "panel_decision": "retain one 3x2 deviation PDF per metric, validator size, and three-workload group; stack the two validator-size PDFs in each manuscript figure at full text width; report all 300 configuration outcome counts in one separate 5x2 panel PDF",
+    "panel_decision": "retain one 3x2 deviation PDF per metric, validator size, and three-workload group; stack the two validator-size PDFs in each manuscript figure at full text width; report configuration-regime totals, execution outcomes, and metric-valid counts in one compact aggregate LaTeX table",
     "pdf_fonttype": 42,
     "recommended_manuscript_width_fraction": 1.0,
     "source_minimum_text_pt": 11.5
@@ -243,19 +239,10 @@
     "latency": 3125,
     "tps": 3118
   },
-  "outcome_figure": {
-    "cell_text": "positive_commit/zero_commit/no_submission",
-    "configuration_cells": 300,
-    "pdf": "outputs/revision/m1_figures/configuration_outcome_counts.pdf",
-    "source_figure_inches": [
-      7.2,
-      8.0
-    ]
-  },
-  "pdf_count": 13,
+  "pdf_count": 12,
   "plot_semantics": {
     "deviation_figures": "one circular marker per metric-eligible positive-service execution",
-    "outcome_figure": "one annotated cell per configuration; cell text is positive_commit/zero_commit/no_submission"
+    "outcome_table": "configuration-regime, execution-outcome, and metric-valid counts aggregated by blockchain and validator-set size"
   },
   "plotted_execution_manifest": "outputs/revision/m1_figures/plotted_execution_manifest.csv",
   "png_count": 0

@@ -8,7 +8,7 @@ from analysis.plot_run_level_deviations import (
     JITTER_HALF_WIDTH,
     SOURCE_MINIMUM_TEXT_PT,
     deviation_frame,
-    outcome_figure_frame,
+    outcome_table_frame,
     render_caption_replacements,
     render_outcome_table,
 )
@@ -61,13 +61,13 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
 
     def test_generated_r1_5_captions_are_revision_marked(self):
         captions = render_caption_replacements()
-        self.assertEqual(captions.count(r"\caption{"), 7)
-        self.assertEqual(captions.count(r"\vd{R1.5/R2.6:"), 7)
+        self.assertEqual(captions.count(r"\caption{"), 6)
+        self.assertEqual(captions.count(r"\vd{R1.5/R2.6:"), 6)
         self.assertIn("one point-valued positive-service TPS execution", captions)
-        self.assertIn("positive-commit/zero-commit/no-submission", captions)
+        self.assertIn(r"Table~\ref{tab:r26_outcome_accounting}", captions)
 
-    def test_outcome_figure_has_one_exact_cell_per_configuration(self):
-        counts = outcome_figure_frame(self.derived)
+    def test_outcome_table_source_has_one_exact_row_per_configuration(self):
+        counts = outcome_table_frame(self.derived)
         self.assertEqual(len(counts), 300)
         self.assertFalse(
             counts.duplicated(
@@ -93,14 +93,15 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
         )
 
     def test_outcome_table_reconciles_outcomes_and_metric_validity(self):
-        table = render_outcome_table(outcome_figure_frame(self.derived))
+        table = render_outcome_table(outcome_table_frame(self.derived))
         self.assertIn(r"\caption{\vd{R1.5/R2.6:", table)
         self.assertIn(r"\TableFont", table)
         self.assertIn(
-            "Total & -- & 300 & 4080 & 4078 & 3125 & 953 & 2 & 3118 & 3125 & 3125",
+            r"\textbf{Total} & -- & 300 & 205 & 46 & 49 & 4080 & 4078 & 3125 & 953 & 2 & 3118 & 3125 & 3125",
             table,
         )
         self.assertNotIn(r"\color{olive}", table)
+        self.assertIn(r"\multicolumn{4}{c}{\textbf{Configurations}}", table)
 
     def test_final_layout_uses_readable_source_typography(self):
         self.assertEqual(DEVIATION_FIGURE_SIZE, (10.2, 5.6))

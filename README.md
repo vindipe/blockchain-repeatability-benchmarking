@@ -127,11 +127,11 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
   colored circular marker is one eligible positive-service execution; a
   deterministic small horizontal offset separates executions within a
   configuration without changing their factor assignment. R2.6 additionally
-  generates an annotated outcome-count figure with one cell for each of the
-  300 configurations, a compact outcome/metric-validity LaTeX table, separate
+  merges configuration-regime counts, execution outcomes, and metric-validity
+  counts into one compact LaTeX summary table, with separate
   execution- and configuration-level manifests, and exact figure captions
-  marked `\vd{M5, R2.6: ...}`. The PDFs use embedded TrueType fonts and record
-  the final panel/placement decision in the figure summary.
+  marked `\vd{R1.5/R2.6: ...}`. The remaining figure PDFs use embedded TrueType
+  fonts and record the final panel/placement decision in the figure summary.
 - `outputs/revision/` contains the definitive versioned CSV, JSON, diagnostic
   PDF, and generated-table outputs from the completed revision analyses. A
   GitHub source ZIP therefore includes the executed results and does not
