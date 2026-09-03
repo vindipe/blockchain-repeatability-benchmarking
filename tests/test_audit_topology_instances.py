@@ -27,7 +27,9 @@ class TopologyInstanceAuditTests(unittest.TestCase):
     def test_generated_table_defines_every_reported_metric(self) -> None:
         rows, _ = audit(REPOSITORY_ROOT / "inputs" / "topologies")
         table = latex_table(rows)
+        caption = next(line for line in table.splitlines() if line.startswith(r"\caption{"))
         self.assertIn(r"\vd{R1.16:", table)
+        self.assertTrue(caption.endswith("not the regional overlay.}}"))
         self.assertIn(r"\TableFont", table)
         self.assertIn(r"$\bar{p}_{e}$", table)
         self.assertIn("10- and 40-validator XMLs", table)
