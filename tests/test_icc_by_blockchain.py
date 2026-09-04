@@ -53,6 +53,7 @@ class ICCModelTests(unittest.TestCase):
         )
         latex = render_icc_table(table, repetitions=10, seed=1)
         self.assertIn(r"\setlength{\tabcolsep}{2pt}", latex)
+        self.assertIn(r"\begin{tabular}{lrrr}", latex)
         self.assertNotIn(r"\resizebox", latex)
         self.assertNotIn(r"\color{olive}", latex)
         self.assertEqual(latex.count(r"\vd{"), 1)

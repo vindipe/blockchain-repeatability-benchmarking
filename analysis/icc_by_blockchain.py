@@ -154,7 +154,7 @@ def render_icc_table(table: pd.DataFrame, repetitions: int, seed: int) -> str:
         r"\label{tab:icc_by_blockchain}",
         r"\TableFont",
         r"\setlength{\tabcolsep}{2pt}",
-        r"\begin{tabular}{lccc}",
+        r"\begin{tabular}{lrrr}",
         r"\hline",
         r"Blockchain & TPS ICC [95\% CI] & Latency ICC [95\% CI] & Energy ICC [95\% CI] \\",
         r"\hline",

@@ -64,6 +64,7 @@ class BootstrapDispersionTableTests(unittest.TestCase):
             self.assertNotIn(r"\scriptsize", latex)
             self.assertIn(r"\setlength{\tabcolsep}{2pt}", latex)
             self.assertIn(r"\resizebox{\textwidth}{!}{%", latex)
+            self.assertIn(r"\begin{tabular}{ll*{3}{rrrrrrr}}", latex)
             self.assertNotIn(r"\adjustbox", latex)
             self.assertIn(r"\multicolumn{7}{c}{\textbf{TPS}}", latex)
             self.assertIn(r"\multicolumn{7}{c}{\textbf{Latency}}", latex)

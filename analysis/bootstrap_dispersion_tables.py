@@ -320,7 +320,7 @@ def render_latex_table(
         rf"\label{{{label}}}",
         r"\setlength{\tabcolsep}{2pt}",
         r"\resizebox{\textwidth}{!}{%",
-        r"\begin{tabular}{ll*{3}{rrrllll}}",
+        r"\begin{tabular}{ll*{3}{rrrrrrr}}",
         r"\toprule",
         (
             rf"\textbf{{Blockchain}} & \textbf{{{factor_display}}} & "
