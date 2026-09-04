@@ -61,8 +61,9 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
 
     def test_generated_r1_5_captions_are_revision_marked(self):
         captions = render_caption_replacements()
-        self.assertEqual(captions.count(r"\caption{"), 6)
-        self.assertEqual(captions.count(r"\vd{R1.5/R2.6:"), 6)
+        self.assertEqual(captions.count(r"\caption{"), 3)
+        self.assertEqual(captions.count(r"\vd{R1.5/R2.6:"), 3)
+        self.assertIn("across all six workloads", captions)
         self.assertIn("one point-valued positive-service TPS execution", captions)
         self.assertIn(r"Table~\ref{tab:r26_outcome_accounting}", captions)
 
@@ -113,9 +114,9 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
         self.assertIn(r"\textbf{No-sub.}", table)
 
     def test_final_layout_uses_readable_source_typography(self):
-        self.assertEqual(DEVIATION_FIGURE_SIZE, (10.2, 5.6))
+        self.assertEqual(DEVIATION_FIGURE_SIZE, (10.8, 13.5))
         self.assertEqual(FINAL_PLACEMENT_FRACTION, 1.0)
-        self.assertGreaterEqual(SOURCE_MINIMUM_TEXT_PT, 11.5)
+        self.assertEqual(SOURCE_MINIMUM_TEXT_PT, 7.5)
 
 
 if __name__ == "__main__":

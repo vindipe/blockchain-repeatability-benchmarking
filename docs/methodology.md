@@ -366,10 +366,11 @@ python3 analysis/plot_run_level_deviations.py
 
 creates the m2 GAFAM trace audit, the six-workload catalog under
 `outputs/revision/m1_workloads/`, its generated LaTeX table under
-`paper_tables/six_workloads/`, twelve corrected run-level deviation PDFs, and
-the merged configuration-regime, execution-outcome, and metric-validity table
-`paper_tables/r2_6/table_outcome_accounting.tex`. It also writes separate
-execution- and configuration-level manifests and exact M5/R2.6 figure captions.
+`paper_tables/six_workloads/`, three corrected six-workload run-level deviation
+PDFs, and the merged configuration-regime, execution-outcome, and
+metric-validity table
+`paper_tables/r2_6/table_outcome_accounting.tex`. It also writes an
+execution-level plotting manifest and exact M5/R2.6 figure captions.
 Running the legacy provenance script separately:
 
 ```bash
@@ -388,9 +389,8 @@ generated `plotted_execution_manifest.csv` provides a row-by-row audit from
 the source execution identifiers to every plotted coordinate. Zero-commit and
 no-submission executions do not receive artificial TPS or latency coordinates;
 their configuration regimes and aggregate outcome counts are instead reported
-in `table_outcome_accounting.tex`; the exact per-configuration counts remain
-available in `configuration_outcome_table_manifest.csv`. All remaining figure
-PDFs are vector output with embedded TrueType fonts, and `summary.json` records
+in `table_outcome_accounting.tex`. All remaining figure PDFs are vector output
+with embedded TrueType fonts, and `summary.json` records
 the final panel layout, source typography, and recommended manuscript placement
 width.
 

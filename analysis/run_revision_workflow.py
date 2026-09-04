@@ -121,7 +121,7 @@ def validate_frozen_results() -> dict[str, object]:
         "icc_bootstrap_failures": 0,
         "hash_batches": 1006,
         "delta_rows": 7,
-        "figure_pdfs": 12,
+        "figure_pdfs": 3,
         "outcome_table_configurations": 300,
         "plotted_execution_rows": 9368,
     }

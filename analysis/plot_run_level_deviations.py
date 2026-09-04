@@ -13,6 +13,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.ticker import MaxNLocator
 
 try:
     from .audit_observed_runs import DEFAULT_INPUT, load_runs
@@ -33,10 +34,8 @@ except ImportError:  # Direct execution
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT_DIR = REPOSITORY_ROOT / "outputs" / "revision" / "m1_figures"
 
-WORKLOAD_GROUPS = {
-    "DDoS_FIFA_Gaming": ["DDoS", "FIFA", "Gaming"],
-    "GAFAM_PayPal_VISA": ["GAFAM", "PayPal", "VISA"],
-}
+WORKLOADS = ["DDoS", "FIFA", "Gaming", "GAFAM", "PayPal", "VISA"]
+NETWORK_SIZES = ["10 nodes", "40 nodes"]
 BLOCKCHAINS = ["Algorand", "Diem", "Ethereum", "Quorum", "Solana"]
 BLOCKCHAIN_LABELS = {
     "Algorand": "Algorand",
@@ -57,37 +56,37 @@ METRICS = {
     "tps": {
         "value": "average_throughput",
         "eligible": "tps_point_valid_positive_commit",
-        "absolute_label": r"Signed deviation (TPS)",
-        "title": "Throughput",
+        "absolute_label": r"$\Delta$ TPS",
+        "panel_title": "Throughput deviations",
     },
     "latency": {
         "value": "average_latency",
         "eligible": "latency_valid_positive_commit",
-        "absolute_label": r"Signed deviation (s)",
-        "title": "Block latency",
+        "absolute_label": r"$\Delta$ Block latency (s)",
+        "panel_title": "Block latency deviations",
     },
     "energy": {
         "value": "energy",
         "eligible": "energy_valid_positive_commit",
-        "absolute_label": r"Signed deviation (kWh)",
-        "title": "Positive-service energy",
+        "absolute_label": r"$\Delta$ Energy (kWh)",
+        "panel_title": "Energy deviations",
     },
 }
 CONFIG = ["blockchain", "mode", "workload", "network_size"]
 RUN_ID = ["dataset", "run", "hash"]
 JITTER_HALF_WIDTH = 0.18
-DEVIATION_FIGURE_SIZE = (10.2, 5.6)
+DEVIATION_FIGURE_SIZE = (10.8, 13.5)
 FINAL_PLACEMENT_FRACTION = 1.0
-SOURCE_MINIMUM_TEXT_PT = 11.5
+SOURCE_MINIMUM_TEXT_PT = 7.5
 matplotlib.rcParams.update(
     {
         "pdf.fonttype": 42,
-        "font.size": 11.5,
-        "axes.titlesize": 11.5,
-        "axes.labelsize": 11.5,
-        "xtick.labelsize": 11.5,
-        "ytick.labelsize": 11.5,
-        "legend.fontsize": 11.5,
+        "font.size": 8.5,
+        "axes.titlesize": 8.5,
+        "axes.labelsize": 9.5,
+        "xtick.labelsize": 7.5,
+        "ytick.labelsize": 7.5,
+        "legend.fontsize": 8.0,
     }
 )
 
@@ -128,105 +127,144 @@ def configuration_position(blockchain: str, topology: str) -> float:
     return float(BLOCKCHAINS.index(blockchain) * 6 + TOPOLOGIES.index(topology))
 
 
-def plot_group(
+def plot_metric(
     derived: pd.DataFrame,
     deviations: pd.DataFrame,
     metric_key: str,
-    network_size: str,
-    group_name: str,
-    workloads: list[str],
     output_dir: Path,
 ) -> dict[str, object]:
     spec = METRICS[metric_key]
-    fig, axes = plt.subplots(
-        len(workloads), 2, figsize=DEVIATION_FIGURE_SIZE, squeeze=False
+    fig = plt.figure(figsize=DEVIATION_FIGURE_SIZE)
+    grid = fig.add_gridspec(
+        14,
+        2,
+        height_ratios=[1.0] * 6 + [0.72] + [1.0] * 6 + [0.72],
+        left=0.080,
+        right=0.920,
+        top=0.944,
+        bottom=0.018,
+        hspace=0.22,
+        wspace=0.10,
     )
     empty_cells = 0
     plotted_points = 0
     overflow_points = 0
-    for row, workload in enumerate(workloads):
-        observed = derived.loc[
-            (derived["network_size"] == network_size)
-            & (derived["workload"] == workload)
-        ]
-        eligible = deviations.loc[
-            (deviations["network_size"] == network_size)
-            & (deviations["workload"] == workload)
-        ]
-        for column, measure in enumerate(["absolute_deviation", "relative_deviation"]):
-            axis = axes[row, column]
-            for topology in TOPOLOGIES:
-                points = eligible.loc[eligible["mode"] == topology]
-                x = points["plot_x"].to_numpy(float)
-                y = points[measure].to_numpy(float)
+    for network_index, network_size in enumerate(NETWORK_SIZES):
+        for workload_index, workload in enumerate(WORKLOADS):
+            grid_row = network_index * 7 + workload_index
+            observed = derived.loc[
+                (derived["network_size"] == network_size)
+                & (derived["workload"] == workload)
+            ]
+            eligible = deviations.loc[
+                (deviations["network_size"] == network_size)
+                & (deviations["workload"] == workload)
+            ]
+            plotted_points += int(len(eligible))
+            for column, measure in enumerate(
+                ["absolute_deviation", "relative_deviation"]
+            ):
+                axis = fig.add_subplot(grid[grid_row, column])
+                for topology in TOPOLOGIES:
+                    points = eligible.loc[eligible["mode"] == topology]
+                    x = points["plot_x"].to_numpy(float)
+                    y = points[measure].to_numpy(float)
+                    if measure == "relative_deviation":
+                        overflow = np.abs(y) > 100.0
+                        overflow_points += int(overflow.sum())
+                        normal = ~overflow
+                        axis.scatter(
+                            x[normal],
+                            y[normal],
+                            s=16,
+                            alpha=0.55,
+                            color=TOPOLOGY_COLORS[topology],
+                            linewidths=0,
+                        )
+                        axis.scatter(
+                            x[overflow],
+                            np.clip(y[overflow], -100.0, 100.0),
+                            s=30,
+                            alpha=0.85,
+                            color=TOPOLOGY_COLORS[topology],
+                            marker="^",
+                            linewidths=0,
+                        )
+                    else:
+                        axis.scatter(
+                            x,
+                            y,
+                            s=16,
+                            alpha=0.55,
+                            color=TOPOLOGY_COLORS[topology],
+                            linewidths=0,
+                        )
+                for blockchain in BLOCKCHAINS:
+                    for topology in TOPOLOGIES:
+                        cell_observed = observed.loc[
+                            (observed["blockchain"] == blockchain)
+                            & (observed["mode"] == topology)
+                        ]
+                        cell_eligible = eligible.loc[
+                            (eligible["blockchain"] == blockchain)
+                            & (eligible["mode"] == topology)
+                        ]
+                        if len(cell_observed) and cell_eligible.empty:
+                            axis.scatter(
+                                configuration_position(blockchain, topology),
+                                0,
+                                marker="x",
+                                s=32,
+                                color="black",
+                                linewidths=1.1,
+                            )
+                            if column == 0:
+                                empty_cells += 1
+                axis.axhline(0, color="black", linewidth=0.65)
+                for boundary in [5.0, 11.0, 17.0, 23.0]:
+                    axis.axvline(boundary - 0.5, color="#BBBBBB", linewidth=0.45)
+                axis.grid(axis="y", alpha=0.20, linewidth=0.45)
+                axis.set_xlim(-0.8, 28.8)
+                axis.tick_params(axis="both", labelsize=7.5, pad=1.5)
                 if measure == "relative_deviation":
-                    overflow = np.abs(y) > 100.0
-                    overflow_points += int(overflow.sum())
-                    normal = ~overflow
-                    axis.scatter(
-                        x[normal],
-                        y[normal],
-                        s=13,
-                        alpha=0.55,
-                        color=TOPOLOGY_COLORS[topology],
-                        linewidths=0,
+                    axis.set_ylim(-105, 105)
+                    axis.set_yticks([-100, 0, 100])
+                    axis.yaxis.tick_right()
+                    axis.yaxis.set_label_position("right")
+                else:
+                    axis.yaxis.set_major_locator(MaxNLocator(nbins=3))
+                    axis.yaxis.tick_left()
+                    axis.yaxis.set_label_position("left")
+                    axis.set_title(
+                        workload,
+                        loc="left",
+                        fontsize=8.5,
+                        fontweight="semibold",
+                        pad=1.0,
                     )
-                    axis.scatter(
-                        x[overflow],
-                        np.clip(y[overflow], -100.0, 100.0),
-                        s=28,
-                        alpha=0.85,
-                        color=TOPOLOGY_COLORS[topology],
-                        marker="^",
-                        linewidths=0,
+                if workload_index == len(WORKLOADS) - 1:
+                    centers = [2, 8, 14, 20, 26]
+                    axis.set_xticks(centers)
+                    axis.set_xticklabels(
+                        [BLOCKCHAIN_LABELS[item] for item in BLOCKCHAINS],
+                        rotation=12,
+                        ha="right",
                     )
                 else:
-                    axis.scatter(
-                        x,
-                        y,
-                        s=13,
-                        alpha=0.55,
-                        color=TOPOLOGY_COLORS[topology],
-                        linewidths=0,
-                    )
-            plotted_points += int(len(eligible)) if column == 0 else 0
-            for blockchain in BLOCKCHAINS:
-                for topology in TOPOLOGIES:
-                    cell_observed = observed.loc[
-                        (observed["blockchain"] == blockchain)
-                        & (observed["mode"] == topology)
-                    ]
-                    cell_eligible = eligible.loc[
-                        (eligible["blockchain"] == blockchain)
-                        & (eligible["mode"] == topology)
-                    ]
-                    if len(cell_observed) and cell_eligible.empty:
-                        axis.scatter(
-                            configuration_position(blockchain, topology),
-                            0,
-                            marker="x",
-                            s=36,
-                            color="black",
-                            linewidths=1.2,
-                        )
-                        if column == 0:
-                            empty_cells += 1
-            axis.axhline(0, color="black", linewidth=0.7)
-            for boundary in [5.0, 11.0, 17.0, 23.0]:
-                axis.axvline(boundary - 0.5, color="#BBBBBB", linewidth=0.5)
-            axis.grid(axis="y", alpha=0.2, linewidth=0.5)
-            axis.set_xlim(-0.8, 28.8)
-            if measure == "relative_deviation":
-                axis.set_ylim(-105, 105)
-            axis.set_title(f"{workload}: {'absolute' if column == 0 else 'relative'}")
-            centers = [2, 8, 14, 20, 26]
-            axis.set_xticks(centers)
-            axis.set_xticklabels(
-                [BLOCKCHAIN_LABELS[item] for item in BLOCKCHAINS],
-                rotation=15,
-                ha="right",
-            )
+                    axis.set_xticks([])
 
+        title_axis = fig.add_subplot(grid[network_index * 7 + 6, :])
+        title_axis.axis("off")
+        panel_letter = "a" if network_index == 0 else "b"
+        title_axis.text(
+            0.5,
+            0.20,
+            rf"$\mathbf{{({panel_letter})}}$ {spec['panel_title']}, "
+            rf"{network_size}, six workloads",
+            ha="center",
+            va="center",
+            fontsize=10.5,
+        )
     handles = [
         plt.Line2D(
             [0],
@@ -239,53 +277,64 @@ def plot_group(
         )
         for topology in TOPOLOGIES
     ]
-    handles.extend(
-        [
-            plt.Line2D([0], [0], marker="^", linestyle="", color="black", label="|deviation| > 100%"),
-            plt.Line2D([0], [0], marker="x", linestyle="", color="black", label="no metric-eligible run"),
-        ]
+    if (deviations["relative_deviation"].abs() > 100.0).any():
+        handles.append(
+            plt.Line2D(
+                [0],
+                [0],
+                marker="^",
+                linestyle="",
+                color="black",
+                label=r"$|\Delta|>100\%$",
+            )
+        )
+    handles.append(
+        plt.Line2D(
+            [0],
+            [0],
+            marker="x",
+            linestyle="",
+            color="black",
+            label="no metric-eligible run",
+        )
     )
     fig.legend(
         handles=handles,
         loc="upper center",
         bbox_to_anchor=(0.5, 0.995),
-        ncol=4,
+        ncol=len(handles),
         frameon=False,
+        handletextpad=0.35,
+        columnspacing=0.8,
     )
-    fig.suptitle(
-        f"{spec['title']} deviations, {network_size}: {', '.join(workloads)}",
-        y=0.895,
-        fontsize=13.0,
-    )
-    fig.text(
-        0.012,
-        0.43,
-        str(spec["absolute_label"]),
-        rotation=90,
-        ha="center",
-        va="center",
-        fontsize=11.5,
-    )
-    fig.text(
-        0.502,
-        0.43,
-        "Signed deviation (%)",
-        rotation=90,
-        ha="center",
-        va="center",
-        fontsize=11.5,
-    )
-    fig.tight_layout(rect=(0.025, 0, 1, 0.825), h_pad=1.0, w_pad=1.0)
+    for center in (0.724, 0.270):
+        fig.text(
+            0.014,
+            center,
+            str(spec["absolute_label"]),
+            rotation=90,
+            ha="center",
+            va="center",
+            fontsize=9.5,
+        )
+        fig.text(
+            0.986,
+            center,
+            r"$\Delta$ Percentage (\%)",
+            rotation=90,
+            ha="center",
+            va="center",
+            fontsize=9.5,
+        )
     output_dir.mkdir(parents=True, exist_ok=True)
-    stem = f"{metric_key}_{network_size.replace(' ', '_')}_{group_name}"
+    stem = f"{metric_key}_six_workloads"
     pdf = output_dir / f"{stem}.pdf"
     fig.savefig(pdf)
     plt.close(fig)
     return {
         "metric": metric_key,
-        "network_size": network_size,
-        "workload_group": group_name,
-        "workloads": workloads,
+        "network_sizes": NETWORK_SIZES,
+        "workloads": WORKLOADS,
         "eligible_points": plotted_points,
         "empty_metric_cells": empty_cells,
         "relative_overflow_points": overflow_points,
@@ -408,22 +457,13 @@ def run(input_path: Path, output_dir: Path) -> dict[str, object]:
     deviations_by_metric = {
         metric_key: deviation_frame(derived, metric_key) for metric_key in METRICS
     }
-    figures: list[dict[str, object]] = []
-    for metric_key in METRICS:
-        deviations = deviations_by_metric[metric_key]
-        for network_size in ["10 nodes", "40 nodes"]:
-            for group_name, workloads in WORKLOAD_GROUPS.items():
-                figures.append(
-                    plot_group(
-                        derived,
-                        deviations,
-                        metric_key,
-                        network_size,
-                        group_name,
-                        workloads,
-                        output_dir,
-                    )
-                )
+    output_dir.mkdir(parents=True, exist_ok=True)
+    for obsolete in output_dir.glob("*_nodes_*.pdf"):
+        obsolete.unlink()
+    figures = [
+        plot_metric(derived, deviations_by_metric[metric_key], metric_key, output_dir)
+        for metric_key in METRICS
+    ]
     manifest = pd.concat(
         [
             frame.assign(metric=metric_key)[
@@ -443,11 +483,8 @@ def run(input_path: Path, output_dir: Path) -> dict[str, object]:
         ],
         ignore_index=True,
     )
-    output_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = output_dir / "plotted_execution_manifest.csv"
     manifest.to_csv(manifest_path, index=False)
-    outcome_manifest_path = output_dir / "configuration_outcome_table_manifest.csv"
-    outcome_counts.to_csv(outcome_manifest_path, index=False)
     caption_path = output_dir / "m5_figure_caption_replacements.tex"
     caption_path.write_text(render_caption_replacements(), encoding="utf-8")
     outcome_table_path = (
@@ -477,17 +514,13 @@ def run(input_path: Path, output_dir: Path) -> dict[str, object]:
             "source_minimum_text_pt": SOURCE_MINIMUM_TEXT_PT,
             "pdf_fonttype": int(matplotlib.rcParams["pdf.fonttype"]),
             "panel_decision": (
-                "retain one 3x2 deviation PDF per metric, validator size, and "
-                "three-workload group; stack the two validator-size PDFs in "
-                "each manuscript figure at full text width; report "
-                "configuration-regime totals, execution outcomes, and "
-                "metric-valid counts in one compact aggregate LaTeX table"
+                "use one full-width six-workload PDF per metric, with vertically "
+                "stacked 10- and 40-node panels, one shared legend, absolute "
+                "deviations on the left, relative deviations on the right, and "
+                "node-specific titles below each panel"
             ),
         },
         "plotted_execution_manifest": str(manifest_path.relative_to(REPOSITORY_ROOT)),
-        "configuration_outcome_table_manifest": str(
-            outcome_manifest_path.relative_to(REPOSITORY_ROOT)
-        ),
         "manuscript_caption_replacements": str(caption_path.relative_to(REPOSITORY_ROOT)),
         "manuscript_outcome_table": str(
             outcome_table_path.relative_to(REPOSITORY_ROOT)
@@ -508,18 +541,12 @@ def render_caption_replacements() -> str:
     return "\n".join(
         [
             r"% Exact R1.5/R2.6 caption replacements for IEEE Access/4_Measurement_Results.tex",
-            r"% fig:tps-added",
-            r"\caption{\vd{R1.5/R2.6: Run-level throughput deviations for DDoS, FIFA, and Gaming at 10 and 40 validators. Each colored circle is one point-valued positive-service TPS execution; deterministic horizontal offsets separate runs without changing their configuration. Triangles mark relative deviations beyond $\pm100\%$, and $\times$ marks a configuration with no point-valued TPS execution. Zero-commit and no-submission executions are counted separately in Table~\ref{tab:r26_outcome_accounting}.}}",
-            r"% fig:tps-main",
-            r"\caption{\vd{R1.5/R2.6: Run-level throughput deviations for GAFAM, PayPal, and VISA at 10 and 40 validators. Each colored circle is one point-valued positive-service TPS execution; plotting conventions are as in Figure~\ref{fig:tps-added}, while non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
-            r"% fig:lat-added",
-            r"\caption{\vd{R1.5/R2.6: Run-level block-latency deviations for DDoS, FIFA, and Gaming at 10 and 40 validators. Each colored circle is one metric-eligible positive-service execution; deterministic horizontal offsets separate runs without changing their configuration. Triangles mark relative deviations beyond $\pm100\%$, and $\times$ marks a configuration with no eligible latency execution. Zero-commit and no-submission executions are counted separately in Table~\ref{tab:r26_outcome_accounting}.}}",
-            r"% fig:lat-main",
-            r"\caption{\vd{R1.5/R2.6: Run-level block-latency deviations for GAFAM, PayPal, and VISA at 10 and 40 validators. Each colored circle is one metric-eligible positive-service execution; plotting conventions are as in Figure~\ref{fig:lat-added}, while non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
-            r"% fig:energy-added",
-            r"\caption{\vd{R1.5/R2.6: Run-level positive-service energy deviations for DDoS, FIFA, and Gaming at 10 and 40 validators. Each colored circle is one positive-service energy execution; deterministic horizontal offsets separate runs without changing their configuration. $\times$ marks a configuration with no positive-service energy execution. Energy measurements for zero-commit and no-submission executions are not plotted here; their outcome counts are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
-            r"% fig:energy-main",
-            r"\caption{\vd{R1.5/R2.6: Run-level positive-service energy deviations for GAFAM, PayPal, and VISA at 10 and 40 validators. Each colored circle is one positive-service energy execution; plotting conventions are as in Figure~\ref{fig:energy-added}, while non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
+            r"% fig:tps-deviations",
+            r"\caption{\vd{R1.5/R2.6: Run-level throughput deviations across all six workloads at 10 and 40 nodes. Each colored circle is one point-valued positive-service TPS execution; deterministic horizontal offsets separate runs without changing their configuration. Left and right panels report $\Delta$ TPS and $\Delta$ Percentage, respectively; triangles mark relative deviations beyond $\pm100\%$, and $\times$ marks a configuration with no point-valued TPS execution. Non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
+            r"% fig:latency-deviations",
+            r"\caption{\vd{R1.5/R2.6: Run-level block-latency deviations across all six workloads at 10 and 40 nodes. Each colored circle is one metric-eligible positive-service execution; plotting conventions are as in Figure~\ref{fig:tps-deviations}, with left panels reporting $\Delta$ Block latency (s). Non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
+            r"% fig:energy-deviations",
+            r"\caption{\vd{R1.5/R2.6: Run-level positive-service energy deviations across all six workloads at 10 and 40 nodes. Each colored circle is one positive-service energy execution; plotting conventions are as in Figure~\ref{fig:tps-deviations}, with left panels reporting $\Delta$ Energy (kWh). Energy measurements for non-positive outcomes are not plotted; their counts are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
             "",
         ]
     )
