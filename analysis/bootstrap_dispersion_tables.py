@@ -321,9 +321,10 @@ def render_latex_table(
     if factor_name == "topology":
         convention_text = (
             rf" Each metric block reports contributing cells $C$, metric-eligible "
-            rf"observations $N_k$, their run-count range $n_{{c,k}}$, and unweighted "
-            rf"mean and median IQR\% and Std\%, with 95\% percentile bootstrap "
-            rf"intervals from {repetitions:,} within-configuration replicates."
+            rf"observations $N_k$, and their run-count range $n_{{c,k}}$. IQR\% and "
+            rf"Std\% cells give the unweighted mean ($\mu$, upper line) and median "
+            rf"($\widetilde{{x}}$, lower line), each with its 95\% percentile bootstrap "
+            rf"interval from {repetitions:,} within-configuration replicates."
         )
     else:
         convention_text = (
@@ -340,17 +341,17 @@ def render_latex_table(
             rf"{interval_note}}}}}"
         ),
         rf"\label{{{label}}}",
-        r"\setlength{\tabcolsep}{2pt}",
+        r"\setlength{\tabcolsep}{1.5pt}",
         r"\resizebox{\textwidth}{!}{%",
-        r"\begin{tabular}{ll*{3}{rrrrrrr}}",
+        r"\begin{tabular}{ll*{3}{rrrrr}}",
         r"\toprule",
         (
             rf"\textbf{{Blockchain}} & \textbf{{{factor_display}}} & "
-            r"\multicolumn{7}{c}{\textbf{TPS}} & "
-            r"\multicolumn{7}{c}{\textbf{Latency (s)}} & "
-            r"\multicolumn{7}{c}{\textbf{Energy (kWh)}} \\"
+            r"\multicolumn{5}{c}{\textbf{TPS}} & "
+            r"\multicolumn{5}{c}{\textbf{Latency (s)}} & "
+            r"\multicolumn{5}{c}{\textbf{Energy (kWh)}} \\"
         ),
-        r"\cmidrule(lr){3-9}\cmidrule(lr){10-16}\cmidrule(lr){17-23}",
+        r"\cmidrule(lr){3-7}\cmidrule(lr){8-12}\cmidrule(lr){13-17}",
         (
             r" & & "
             + " & ".join(
@@ -358,10 +359,8 @@ def render_latex_table(
                     r"$\mathbf{C}$",
                     r"$\mathbf{N_k}$",
                     r"$\mathbf{n_{c,k}}$",
-                    r"\textbf{Mean IQR\%}",
-                    r"\textbf{Median IQR\%}",
-                    r"\textbf{Mean Std\%}",
-                    r"\textbf{Median Std\%}",
+                    r"\textbf{IQR\%}",
+                    r"\textbf{Std\%}",
                 ]
                 * len(TABLE_METRIC_NAMES)
             )
@@ -423,10 +422,18 @@ def render_latex_table(
                 return estimate
             value = float(match.iloc[0]["point_estimate"])
             if np.isclose(value, float(peers["point_estimate"].min())):
-                return r"\hlcell{best}" + estimate
+                return rf"\bestline{{{estimate}}}"
             if np.isclose(value, float(peers["point_estimate"].max())):
-                return r"\hlcell{worst}" + estimate
+                return rf"\worstline{{{estimate}}}"
             return estimate
+
+        def statistic_cell(metric_name: str, statistic: str) -> str:
+            mean = cell(metric_name, statistic, "mean")
+            median = cell(metric_name, statistic, "median")
+            return (
+                rf"\makecell[r]{{$\mu$ {mean}\\"
+                rf"$\widetilde{{x}}$ {median}}}"
+            )
 
         values = [
             BLOCKCHAIN_LATEX[blockchain],
@@ -446,10 +453,8 @@ def render_latex_table(
                     str(contributing),
                     str(int(metadata["metric_observations"])),
                     n_range,
-                    cell(metric_name, "iqr_pct", "mean"),
-                    cell(metric_name, "iqr_pct", "median"),
-                    cell(metric_name, "sample_std_pct", "mean"),
-                    cell(metric_name, "sample_std_pct", "median"),
+                    statistic_cell(metric_name, "iqr_pct"),
+                    statistic_cell(metric_name, "sample_std_pct"),
                 )
             )
         lines.append(
