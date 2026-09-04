@@ -47,14 +47,17 @@ class TwoPartModelTests(unittest.TestCase):
             parts.append(primary)
         latex = render_term_table(outcome, pd.concat(parts, ignore_index=True))
         self.assertIn(r"\label{tab:two_part_factorial_models}", latex)
-        self.assertIn(r"\setlength{\tabcolsep}{2pt}", latex)
-        self.assertNotIn(r"\resizebox", latex)
+        self.assertIn(r"\setlength{\tabcolsep}{1pt}", latex)
+        self.assertIn(r"\resizebox{\columnwidth}{!}{%", latex)
+        self.assertIn(r"\begin{table}[t]", latex)
         self.assertNotIn(r"\color{olive}", latex)
         self.assertIn(r"\caption{\vd{R1.9-10:", latex)
         self.assertIn("Two-part factorial analysis", latex)
         self.assertIn("conditional log-performance ANOVAs", latex)
         self.assertIn(r"\TableFont", latex)
-        self.assertIn("hierarchical omnibus", latex)
+        self.assertIn("main-factor rows are omnibus tests", latex)
+        self.assertIn(r"B $\times$ S", latex)
+        self.assertNotIn(r"\parbox", latex)
         self.assertNotIn("rank-deficient", latex)
 
     def test_rank_deficient_metric_is_suppressed_in_latex_table(self):
@@ -69,7 +72,6 @@ class TwoPartModelTests(unittest.TestCase):
             parts.append(primary)
         latex = render_term_table(outcome, pd.concat(parts, ignore_index=True))
         self.assertIn("-- & -- & --", latex)
-        self.assertIn("rank-deficient", latex)
 
     def test_legacy_targeted_three_way_sensitivity_is_reported(self):
         table = targeted_three_way_sensitivity(self.legacy)
@@ -79,13 +81,15 @@ class TwoPartModelTests(unittest.TestCase):
             table, outcome_quasi_separation=True
         )
         self.assertIn(r"\label{tab:three_way_sensitivity}", latex)
-        self.assertIn(r"\setlength{\tabcolsep}{2pt}", latex)
-        self.assertNotIn(r"\resizebox", latex)
+        self.assertIn(r"\setlength{\tabcolsep}{1pt}", latex)
+        self.assertIn(r"\resizebox{\columnwidth}{!}{%", latex)
+        self.assertIn(r"\begin{table}[t]", latex)
         self.assertNotIn(r"\color{olive}", latex)
         self.assertIn(r"\caption{\vd{R1.11:", latex)
         self.assertIn("likelihood-ratio", latex)
         self.assertIn("HC3 Type-II", latex)
         self.assertIn("quasi-separation", latex)
+        self.assertIn("Cond. Perf.", latex)
 
         estimability_latex = render_estimability_table(
             three_way_estimability(self.legacy, "TPS")
@@ -94,7 +98,7 @@ class TwoPartModelTests(unittest.TestCase):
         self.assertIn(r"\caption{\vd{R1.11:", estimability_latex)
         self.assertIn(r"\begin{table*}[t]", estimability_latex)
 
-    def test_quasi_separation_is_disclosed_in_the_primary_table(self):
+    def test_primary_table_omits_redundant_explanatory_note(self):
         _, outcome, _ = fit_binomial(self.legacy)
         parts = []
         for metric in METRIC_SPECS:
@@ -107,7 +111,7 @@ class TwoPartModelTests(unittest.TestCase):
             pd.concat(parts, ignore_index=True),
             outcome_quasi_separation=True,
         )
-        self.assertIn("quasi-separation", latex)
+        self.assertNotIn(r"\parbox", latex)
 
     def test_six_workload_models_use_full_rank_observed_support(self):
         for metric in METRIC_SPECS:
@@ -138,8 +142,7 @@ class TwoPartModelTests(unittest.TestCase):
             parts.append(primary)
         latex = render_term_table(outcome, pd.concat(parts, ignore_index=True))
         self.assertNotIn("-- & -- & --", latex)
-        self.assertIn("18 estimable df rather than 20", latex)
-        self.assertIn("Quorum--FIFA", latex)
+        self.assertIn(r"B $\times$ W", latex)
 
     def test_six_workload_three_way_terms_are_reported_on_support(self):
         table = targeted_three_way_sensitivity(self.six)
@@ -148,6 +151,8 @@ class TwoPartModelTests(unittest.TestCase):
         self.assertTrue((conditional["added_rank"] > 0).all())
         self.assertTrue((~conditional["fully_estimable"]).any())
         self.assertIn("reported on observed support", set(conditional["status"]))
+        latex = render_three_way_sensitivity_table(table)
+        self.assertIn("reported on obs. support", latex)
 
 
 if __name__ == "__main__":

@@ -1,9 +1,10 @@
-\begin{table*}[t]
+\begin{table}[t]
 \centering
 \caption{\vd{R2.4: Within-blockchain log-scale random-intercept ICC estimates. Brackets give 95\% configuration-cluster bootstrap intervals.}}
 \label{tab:icc_by_blockchain}
 \TableFont
-\setlength{\tabcolsep}{2pt}
+\setlength{\tabcolsep}{1pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lrrr}
 \hline
 Blockchain & TPS ICC [95\% CI] & Latency ICC [95\% CI] & Energy ICC [95\% CI] \\
@@ -15,5 +16,6 @@ Quorum~IBFT & 0.843 [0.765, 0.890] & 0.679 [0.000, 0.810] & 0.685 [0.588, 0.736]
 Solana & 0.852 [0.716, 0.926] & 0.721 [0.000, 0.851] & 0.855 [0.808, 0.882] \\
 \hline
 \end{tabular}
-\parbox{\textwidth}{\TableFont REML random-intercept models use configuration as the grouping factor and positive-service observations on the natural-log scale. Intervals use 1,000 cluster-bootstrap replicates.}
-\end{table*}
+}
+\parbox{\linewidth}{\TableFont REML random-intercept models use configuration as the grouping factor and positive-service observations on the natural-log scale. Intervals use 1,000 cluster-bootstrap replicates.}
+\end{table}

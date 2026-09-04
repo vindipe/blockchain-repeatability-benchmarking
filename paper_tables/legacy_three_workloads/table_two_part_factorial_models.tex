@@ -1,26 +1,26 @@
-\begin{table*}[t]
+\begin{table}[t]
 \centering
-\caption{\vd{R1.9-10: Two-part factorial analysis. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance ANOVAs report Type-II HC3 $F$ tests and partial $\eta^2$.}}
+\caption{\vd{R1.9-10: Two-part factorial analysis. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance ANOVAs report Type-II HC3 $F$ tests and partial $\eta^2$. $B$, $T$, $W$, and $S$ denote blockchain, topology, workload, and validator-set size; main-factor rows are omnibus tests.}}
 \label{tab:two_part_factorial_models}
 \TableFont
-\setlength{\tabcolsep}{2pt}
+\setlength{\tabcolsep}{1pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lrr|rrr|rrr|rrr}
 \hline
 & \multicolumn{2}{c|}{Outcome} & \multicolumn{3}{c|}{TPS} & \multicolumn{3}{c|}{Latency} & \multicolumn{3}{c}{Energy} \\
 Term & $\chi^2$ & $p$ & $F_{\mathrm{HC3}}$ & $p$ & $\eta_p^2$ & $F_{\mathrm{HC3}}$ & $p$ & $\eta_p^2$ & $F_{\mathrm{HC3}}$ & $p$ & $\eta_p^2$ \\
 \hline
-Blockchain (omnibus) & 876.34 & $<0.001$ & 18610.63 & $<0.001$ & 0.809 & 5383.48 & $<0.001$ & 0.754 & 0.26 & 0.902 & 0.001 \\
-Topology (omnibus) & 76.89 & $<0.001$ & 5.95 & $<0.001$ & 0.003 & 22.33 & $<0.001$ & 0.007 & 0.69 & 0.601 & 0.001 \\
-Workload (omnibus) & 247.25 & $<0.001$ & 1212.44 & $<0.001$ & 0.157 & 785.39 & $<0.001$ & 0.092 & 1575.59 & $<0.001$ & 0.648 \\
-Size (omnibus) & 145.51 & $<0.001$ & 160.82 & $<0.001$ & 0.020 & 115.13 & $<0.001$ & 0.008 & 0.32 & 0.572 & 0.000 \\
-Blockchain $\times$ topology & 15.29 & 0.503 & 10.61 & $<0.001$ & 0.047 & 23.29 & $<0.001$ & 0.074 & 0.41 & 0.981 & 0.004 \\
-Blockchain $\times$ workload & 200.54 & $<0.001$ & 250.76 & $<0.001$ & 0.610 & 493.15 & $<0.001$ & 0.567 & 0.59 & 0.789 & 0.003 \\
-Blockchain $\times$ size & 45.56 & $<0.001$ & 27.69 & $<0.001$ & 0.124 & 178.97 & $<0.001$ & 0.286 & 0.57 & 0.687 & 0.001 \\
-Topology $\times$ workload & 11.62 & 0.169 & 2.08 & 0.035 & 0.012 & 4.44 & $<0.001$ & 0.020 & 0.83 & 0.573 & 0.004 \\
-Topology $\times$ size & 13.49 & 0.009 & 0.89 & 0.470 & 0.002 & 6.52 & $<0.001$ & 0.016 & 0.24 & 0.913 & 0.001 \\
-Workload $\times$ size & 14.22 & $<0.001$ & 24.89 & $<0.001$ & 0.044 & 5.98 & 0.003 & 0.014 & 0.53 & 0.591 & 0.001 \\
+B & 876.34 & $<0.001$ & 18610.63 & $<0.001$ & 0.809 & 5383.48 & $<0.001$ & 0.754 & 0.26 & 0.902 & 0.001 \\
+T & 76.89 & $<0.001$ & 5.95 & $<0.001$ & 0.003 & 22.33 & $<0.001$ & 0.007 & 0.69 & 0.601 & 0.001 \\
+W & 247.25 & $<0.001$ & 1212.44 & $<0.001$ & 0.157 & 785.39 & $<0.001$ & 0.092 & 1575.59 & $<0.001$ & 0.648 \\
+S & 145.51 & $<0.001$ & 160.82 & $<0.001$ & 0.020 & 115.13 & $<0.001$ & 0.008 & 0.32 & 0.572 & 0.000 \\
+B $\times$ T & 15.29 & 0.503 & 10.61 & $<0.001$ & 0.047 & 23.29 & $<0.001$ & 0.074 & 0.41 & 0.981 & 0.004 \\
+B $\times$ W & 200.54 & $<0.001$ & 250.76 & $<0.001$ & 0.610 & 493.15 & $<0.001$ & 0.567 & 0.59 & 0.789 & 0.003 \\
+B $\times$ S & 45.56 & $<0.001$ & 27.69 & $<0.001$ & 0.124 & 178.97 & $<0.001$ & 0.286 & 0.57 & 0.687 & 0.001 \\
+T $\times$ W & 11.62 & 0.169 & 2.08 & 0.035 & 0.012 & 4.44 & $<0.001$ & 0.020 & 0.83 & 0.573 & 0.004 \\
+T $\times$ S & 13.49 & 0.009 & 0.89 & 0.470 & 0.002 & 6.52 & $<0.001$ & 0.016 & 0.24 & 0.913 & 0.001 \\
+W $\times$ S & 14.22 & $<0.001$ & 24.89 & $<0.001$ & 0.044 & 5.98 & 0.003 & 0.014 & 0.53 & 0.591 & 0.001 \\
 \hline
 \end{tabular}
-\vspace{1mm}
-\parbox{\textwidth}{\TableFont Outcome interactions are likelihood-ratio deletion tests; each outcome main-factor row is a hierarchical omnibus test of that factor and all interactions containing it. Performance tests are Type-II tests on log-transformed, positive-service observations with HC3 covariance; $\eta_p^2$ is partial eta squared. Degrees of freedom are provided in the machine-readable output. The binomial outcome component exhibits quasi-separation in this scope; its likelihood-ratio rows are retained as model-screening evidence for service incidence, not as finite-sample causal inference.}
-\end{table*}
+}
+\end{table}

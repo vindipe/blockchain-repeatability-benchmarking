@@ -1,23 +1,25 @@
-\begin{table*}[t]
+\begin{table}[t]
 \centering
 \caption{\vd{R1.11: Targeted three-way interaction sensitivity tests. Conditional-performance terms are tested on their estimable observed-support basis; added rank over nominal columns is shown when empty positive-service cells reduce rank.}}
 \label{tab:three_way_sensitivity}
 \TableFont
-\setlength{\tabcolsep}{2pt}
+\setlength{\tabcolsep}{1pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lllrrrc}
 \hline
 Component & Metric & Interaction & Test statistic & df & $p$ & Status \\
 \hline
 Outcome & Positive commit & B $\times$ T $\times$ W & 47.04 & 80 & 0.999 & reported \\
 Outcome & Positive commit & B $\times$ W $\times$ S & 186.71 & 20 & $<0.001$ & reported \\
-Conditional performance & TPS & B $\times$ T $\times$ W & 2.41 & 68/80 & $<0.001$ & reported on observed support \\
-Conditional performance & TPS & B $\times$ W $\times$ S & 29.97 & 15/20 & $<0.001$ & reported on observed support \\
-Conditional performance & Latency & B $\times$ T $\times$ W & 5.22 & 68/80 & $<0.001$ & reported on observed support \\
-Conditional performance & Latency & B $\times$ W $\times$ S & 55.00 & 15/20 & $<0.001$ & reported on observed support \\
-Conditional performance & Energy & B $\times$ T $\times$ W & 0.70 & 68/80 & 0.971 & reported on observed support \\
-Conditional performance & Energy & B $\times$ W $\times$ S & 1.37 & 15/20 & 0.151 & reported on observed support \\
+Cond. Perf. & TPS & B $\times$ T $\times$ W & 2.41 & 68/80 & $<0.001$ & reported on obs. support \\
+Cond. Perf. & TPS & B $\times$ W $\times$ S & 29.97 & 15/20 & $<0.001$ & reported on obs. support \\
+Cond. Perf. & Latency & B $\times$ T $\times$ W & 5.22 & 68/80 & $<0.001$ & reported on obs. support \\
+Cond. Perf. & Latency & B $\times$ W $\times$ S & 55.00 & 15/20 & $<0.001$ & reported on obs. support \\
+Cond. Perf. & Energy & B $\times$ T $\times$ W & 0.70 & 68/80 & 0.971 & reported on obs. support \\
+Cond. Perf. & Energy & B $\times$ W $\times$ S & 1.37 & 15/20 & 0.151 & reported on obs. support \\
 \hline
 \end{tabular}
+}
 \vspace{1mm}
-\parbox{\textwidth}{\TableFont Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests for the added highest-order term. When empty positive-service cells reduce nominal rank, df is shown as supported rank over nominal columns; no empty cell is imputed. The outcome likelihood-ratio rows are retained as model-screening evidence because the binomial component exhibits quasi-separation in this scope.}
-\end{table*}
+\parbox{\linewidth}{\TableFont Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests for the added highest-order term. When empty positive-service cells reduce nominal rank, df is shown as supported rank over nominal columns; no empty cell is imputed. The outcome likelihood-ratio rows are retained as model-screening evidence because the binomial component exhibits quasi-separation in this scope.}
+\end{table}

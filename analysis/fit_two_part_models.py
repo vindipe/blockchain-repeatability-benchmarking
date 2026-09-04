@@ -575,50 +575,26 @@ def render_term_table(
     performance: pd.DataFrame,
     outcome_quasi_separation: bool = False,
 ) -> str:
-    suppressed_metrics = sorted(
-        {
-            str(row["metric"])
-            for _, row in performance.iterrows()
-            if not bool(row.get("design_full_rank", True))
-        }
-    )
-    suppression_note = (
-        " Performance inferential entries marked ``--'' are not reported because "
-        "the corresponding conditional log-performance design matrix is "
-        "rank-deficient; the estimability audit gives the exact rank deficiency."
-        if suppressed_metrics
-        else ""
-    )
-    support_adjusted_metrics = sorted(
-        {
-            str(row["metric"])
-            for _, row in performance.iterrows()
-            if bool(row.get("support_adjusted", False))
-        }
-    )
-    support_note = (
-        " The conditional models are fitted on a full-rank basis for the "
-        "observed positive-service support. For the six-workload scope, "
-        "Quorum--FIFA and Quorum--Gaming contain no positive-service "
-        "observations; the blockchain--workload test consequently uses 18 "
-        "estimable df rather than 20, without imputing either cell."
-        if support_adjusted_metrics
-        else ""
-    )
-    outcome_caution_note = (
-        " The binomial outcome component exhibits quasi-separation in this "
-        "scope; its likelihood-ratio rows are retained as model-screening "
-        "evidence for service incidence, not as finite-sample causal inference."
-        if outcome_quasi_separation
-        else ""
-    )
+    term_labels = {
+        "Blockchain (omnibus)": "B",
+        "Topology (omnibus)": "T",
+        "Workload (omnibus)": "W",
+        "Size (omnibus)": "S",
+        "Blockchain $\\times$ topology": r"B $\times$ T",
+        "Blockchain $\\times$ workload": r"B $\times$ W",
+        "Blockchain $\\times$ size": r"B $\times$ S",
+        "Topology $\\times$ workload": r"T $\times$ W",
+        "Topology $\\times$ size": r"T $\times$ S",
+        "Workload $\\times$ size": r"W $\times$ S",
+    }
     lines = [
-        r"\begin{table*}[t]",
+        r"\begin{table}[t]",
         r"\centering",
-        r"\caption{\vd{R1.9-10: Two-part factorial analysis. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance ANOVAs report Type-II HC3 $F$ tests and partial $\eta^2$.}}",
+        r"\caption{\vd{R1.9-10: Two-part factorial analysis. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance ANOVAs report Type-II HC3 $F$ tests and partial $\eta^2$. $B$, $T$, $W$, and $S$ denote blockchain, topology, workload, and validator-set size; main-factor rows are omnibus tests.}}",
         r"\label{tab:two_part_factorial_models}",
         r"\TableFont",
-        r"\setlength{\tabcolsep}{2pt}",
+        r"\setlength{\tabcolsep}{1pt}",
+        r"\resizebox{\columnwidth}{!}{%",
         r"\begin{tabular}{lrr|rrr|rrr|rrr}",
         r"\hline",
         r"& \multicolumn{2}{c|}{Outcome} & \multicolumn{3}{c|}{TPS} & \multicolumn{3}{c|}{Latency} & \multicolumn{3}{c}{Energy} \\",
@@ -627,7 +603,7 @@ def render_term_table(
     ]
     for _, row in outcome.iterrows():
         pieces = [
-            str(row["term"]),
+            term_labels.get(str(row["term"]), str(row["term"])),
             f"{row['statistic']:.2f}",
             p_text(float(row["p_value"])),
         ]
@@ -651,13 +627,8 @@ def render_term_table(
         [
             r"\hline",
             r"\end{tabular}",
-            r"\vspace{1mm}",
-            r"\parbox{\textwidth}{\TableFont Outcome interactions are likelihood-ratio deletion tests; each outcome main-factor row is a hierarchical omnibus test of that factor and all interactions containing it. Performance tests are Type-II tests on log-transformed, positive-service observations with HC3 covariance; $\eta_p^2$ is partial eta squared. Degrees of freedom are provided in the machine-readable output."
-            + suppression_note
-            + support_note
-            + outcome_caution_note
-            + "}",
-            r"\end{table*}",
+            r"}",
+            r"\end{table}",
             "",
         ]
     )
@@ -666,7 +637,7 @@ def render_term_table(
 
 def render_estimability_table(table: pd.DataFrame) -> str:
     lines = [
-        r"\begin{table*}[t]",
+        r"\begin{table}[t]",
         r"\centering",
         r"\caption{\vd{R1.11: Design-matrix audit for targeted three-way interaction sensitivities. Added rank gives the supported degrees of freedom; a term can be tested on observed support even when empty positive-service cells reduce its nominal rank.}}",
         r"\label{tab:three_way_estimability}",
@@ -704,7 +675,8 @@ def render_three_way_sensitivity_table(
         r"\caption{\vd{R1.11: Targeted three-way interaction sensitivity tests. Conditional-performance terms are tested on their estimable observed-support basis; added rank over nominal columns is shown when empty positive-service cells reduce rank.}}",
         r"\label{tab:three_way_sensitivity}",
         r"\TableFont",
-        r"\setlength{\tabcolsep}{2pt}",
+        r"\setlength{\tabcolsep}{1pt}",
+        r"\resizebox{\columnwidth}{!}{%",
         r"\begin{tabular}{lllrrrc}",
         r"\hline",
         r"Component & Metric & Interaction & Test statistic & df & $p$ & Status \\",
@@ -726,19 +698,26 @@ def render_three_way_sensitivity_table(
             statistic = "--"
             df = f"{int(row['added_rank'])}/{int(row['added_columns'])}"
             p_value = "--"
+        component = str(row["component"]).replace(
+            "Conditional performance", "Cond. Perf."
+        )
+        status = str(row["status"]).replace(
+            "reported on observed support", "reported on obs. support"
+        )
         lines.append(
-            f"{row['component']} & {row['metric']} & {interaction} & "
-            f"{statistic} & {df} & {p_value} & {row['status']} \\\\"
+            f"{component} & {row['metric']} & {interaction} & "
+            f"{statistic} & {df} & {p_value} & {status} \\\\"
         )
     lines.extend(
         [
             r"\hline",
             r"\end{tabular}",
+            r"}",
             r"\vspace{1mm}",
-            r"\parbox{\textwidth}{\TableFont Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests for the added highest-order term. When empty positive-service cells reduce nominal rank, df is shown as supported rank over nominal columns; no empty cell is imputed."
+            r"\parbox{\linewidth}{\TableFont Outcome rows report likelihood-ratio $\chi^2$ deletion tests comparing the two-way model with the targeted three-way augmentation. Conditional-performance rows report HC3 Type-II $F$ tests for the added highest-order term. When empty positive-service cells reduce nominal rank, df is shown as supported rank over nominal columns; no empty cell is imputed."
             + outcome_caution_note
             + "}",
-            r"\end{table*}",
+            r"\end{table}",
             "",
         ]
     )

@@ -52,9 +52,10 @@ class ICCModelTests(unittest.TestCase):
             ]
         )
         latex = render_icc_table(table, repetitions=10)
-        self.assertIn(r"\setlength{\tabcolsep}{2pt}", latex)
+        self.assertIn(r"\setlength{\tabcolsep}{1pt}", latex)
         self.assertIn(r"\begin{tabular}{lrrr}", latex)
-        self.assertNotIn(r"\resizebox", latex)
+        self.assertIn(r"\resizebox{\columnwidth}{!}{%", latex)
+        self.assertIn(r"\begin{table}[t]", latex)
         self.assertNotIn(r"\color{olive}", latex)
         self.assertEqual(latex.count(r"\vd{"), 1)
         self.assertIn(r"\caption{\vd{R2.4:", latex)

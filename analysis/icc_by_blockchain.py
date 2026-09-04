@@ -148,12 +148,13 @@ def bootstrap_job(args: tuple[object, ...]) -> dict[str, object]:
 
 def render_icc_table(table: pd.DataFrame, repetitions: int) -> str:
     lines = [
-        r"\begin{table*}[t]",
+        r"\begin{table}[t]",
         r"\centering",
         r"\caption{\vd{R2.4: Within-blockchain log-scale random-intercept ICC estimates. Brackets give 95\% configuration-cluster bootstrap intervals.}}",
         r"\label{tab:icc_by_blockchain}",
         r"\TableFont",
-        r"\setlength{\tabcolsep}{2pt}",
+        r"\setlength{\tabcolsep}{1pt}",
+        r"\resizebox{\columnwidth}{!}{%",
         r"\begin{tabular}{lrrr}",
         r"\hline",
         r"Blockchain & TPS ICC [95\% CI] & Latency ICC [95\% CI] & Energy ICC [95\% CI] \\",
@@ -173,8 +174,9 @@ def render_icc_table(table: pd.DataFrame, repetitions: int) -> str:
         [
             r"\hline",
             r"\end{tabular}",
-            rf"\parbox{{\textwidth}}{{\TableFont REML random-intercept models use configuration as the grouping factor and positive-service observations on the natural-log scale. Intervals use {repetitions:,} cluster-bootstrap replicates.}}",
-            r"\end{table*}",
+            r"}",
+            rf"\parbox{{\linewidth}}{{\TableFont REML random-intercept models use configuration as the grouping factor and positive-service observations on the natural-log scale. Intervals use {repetitions:,} cluster-bootstrap replicates.}}",
+            r"\end{table}",
             "",
         ]
     )
