@@ -75,8 +75,10 @@ class BootstrapDispersionTableTests(unittest.TestCase):
             self.assertIn(r"\begin{tabular}{ll*{3}{rrrrrrr}}", latex)
             self.assertNotIn(r"\adjustbox", latex)
             self.assertIn(r"\multicolumn{7}{c}{\textbf{TPS}}", latex)
-            self.assertIn(r"\multicolumn{7}{c}{\textbf{Latency}}", latex)
-            self.assertIn(r"\multicolumn{7}{c}{\textbf{Energy}}", latex)
+            self.assertIn(r"\multicolumn{7}{c}{\textbf{Latency (s)}}", latex)
+            self.assertIn(r"\multicolumn{7}{c}{\textbf{Energy (kWh)}}", latex)
+            self.assertIn("Each metric block reports", latex)
+            self.assertNotIn("Conventions are as in", latex)
             self.assertGreater(latex.count(r"\hlcell{best}"), 0)
             self.assertGreater(latex.count(r"\hlcell{worst}"), 0)
             self.assertNotIn("green and bold (best)", latex)
@@ -97,6 +99,14 @@ class BootstrapDispersionTableTests(unittest.TestCase):
             scaling_latex = (
                 output / "six_workloads" / "table_scaling.tex"
             ).read_text(encoding="utf-8")
+            workload_latex = (
+                output / "six_workloads" / "table_workload.tex"
+            ).read_text(encoding="utf-8")
+            self.assertIn(
+                r"Conventions are as in Table~\ref{tab:repeatability_topology}",
+                workload_latex,
+            )
+            self.assertNotIn("Each metric block reports", workload_latex)
             self.assertIn(r"$^{\dagger}$", scaling_latex)
             self.assertIn("need not contain", scaling_latex)
 
