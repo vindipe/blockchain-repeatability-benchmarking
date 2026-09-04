@@ -81,7 +81,7 @@
     "panel_decision": "use one full-width six-workload PDF per metric, with vertically stacked 10- and 40-node panels, one shared legend, absolute deviations on the left, relative deviations on the right, and node-specific titles below each panel",
     "pdf_fonttype": 42,
     "recommended_manuscript_width_fraction": 1.0,
-    "source_minimum_text_pt": 5.2
+    "source_minimum_text_pt": 5.6
   },
   "manifest_rows": 9368,
   "manuscript_caption_replacements": "outputs/revision/m1_figures/m5_figure_caption_replacements.tex",

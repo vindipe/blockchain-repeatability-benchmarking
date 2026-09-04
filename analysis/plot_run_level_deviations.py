@@ -77,7 +77,7 @@ RUN_ID = ["dataset", "run", "hash"]
 JITTER_HALF_WIDTH = 0.18
 DEVIATION_FIGURE_SIZE = (10.8, 13.5)
 FINAL_PLACEMENT_FRACTION = 1.0
-SOURCE_MINIMUM_TEXT_PT = 5.2
+SOURCE_MINIMUM_TEXT_PT = 5.6
 MEAN_LABEL_TEXT_PT = SOURCE_MINIMUM_TEXT_PT
 matplotlib.rcParams.update(
     {
@@ -85,8 +85,8 @@ matplotlib.rcParams.update(
         "font.size": 8.5,
         "axes.titlesize": 8.5,
         "axes.labelsize": 9.5,
-        "xtick.labelsize": 7.5,
-        "ytick.labelsize": 7.5,
+        "xtick.labelsize": 9.0,
+        "ytick.labelsize": 8.0,
         "legend.fontsize": 8.0,
     }
 )
@@ -168,9 +168,10 @@ def annotate_configuration_means(
             ha="center",
             va="bottom" if above else "top",
             fontsize=MEAN_LABEL_TEXT_PT,
-            color="#333333",
-            alpha=0.72,
-            zorder=2,
+            fontweight="semibold",
+            color="#202020",
+            alpha=0.95,
+            zorder=4,
             clip_on=True,
         )
 
@@ -276,7 +277,8 @@ def plot_metric(
                     axis.axvline(boundary - 0.5, color="#BBBBBB", linewidth=0.45)
                 axis.grid(axis="y", alpha=0.20, linewidth=0.45)
                 axis.set_xlim(-0.8, 28.8)
-                axis.tick_params(axis="both", labelsize=7.5, pad=1.5)
+                axis.tick_params(axis="x", labelsize=9.0, pad=1.5)
+                axis.tick_params(axis="y", labelsize=8.0, pad=1.5)
                 if measure == "relative_deviation":
                     axis.set_ylim(-105, 105)
                     axis.set_yticks([-100, 0, 100])
@@ -370,7 +372,7 @@ def plot_metric(
             rotation=90,
             ha="center",
             va="center",
-            fontsize=10.5,
+            fontsize=11.0,
         )
         fig.text(
             0.986,
@@ -379,7 +381,7 @@ def plot_metric(
             rotation=90,
             ha="center",
             va="center",
-            fontsize=10.5,
+            fontsize=11.0,
         )
     output_dir.mkdir(parents=True, exist_ok=True)
     stem = f"{metric_key}_six_workloads"
