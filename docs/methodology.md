@@ -207,9 +207,10 @@ metric-eligible observations to contribute a dispersion estimate. Every table
 row reports the number of contributing configuration cells, their total metric
 observations, and the minimum--maximum metric-specific count.
 
-The script produces separate topology-, workload-, and validator-set tables for
-TPS, latency, and all-observed energy. It writes one complete set for all six
-workloads and a second diagnostic set for the legacy GAFAM/PayPal/VISA subset.
+The script produces one topology, one workload, and one validator-set table,
+each grouping TPS, latency, and all-observed energy in adjacent column blocks.
+It writes one complete set for all six workloads and a second diagnostic set
+for the legacy GAFAM/PayPal/VISA subset.
 Each `.tex` file is a complete, generated `table*` environment intended for
 manuscript inclusion through `\input`; numerical entries are never maintained
 manually in the paper source. Machine-readable outputs remain below

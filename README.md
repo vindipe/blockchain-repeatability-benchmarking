@@ -283,8 +283,10 @@ unweighted mean and median across cells. It reports 95% percentile intervals,
 the number of contributing configuration cells, total metric observations, and
 the metric-specific run-count range. Cells with fewer than two eligible values
 do not contribute a dispersion estimate. The script writes machine-readable
-CSV files and 18 standalone LaTeX tables: nine for the six-workload corpus and
-nine for the legacy three-workload subset. The current generated versions are
+CSV files and six standalone LaTeX tables: one topology, workload, and
+validator-set table for both the six-workload corpus and the legacy
+three-workload subset. Each table groups TPS, latency, and energy side by side.
+The current generated versions are
 tracked under `paper_tables/` so that the manuscript consumes exact script
 output rather than manually transcribed values; rerunning the script replaces
 those files deterministically.

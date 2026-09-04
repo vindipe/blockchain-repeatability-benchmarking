@@ -38,7 +38,7 @@ class BootstrapDispersionTableTests(unittest.TestCase):
         self.assertTrue(np.isnan(result["iqr_pct"]).all())
         self.assertTrue(np.isnan(result["sample_std_pct"]).all())
 
-    def test_end_to_end_run_generates_independent_latex_tables(self) -> None:
+    def test_end_to_end_run_generates_combined_latex_tables(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary)
             summary = run_bootstrap(
@@ -46,12 +46,12 @@ class BootstrapDispersionTableTests(unittest.TestCase):
             )
             self.assertEqual(summary["method"]["interval"], "percentile")
             self.assertEqual(summary["method"]["repetitions"], 5)
-            self.assertEqual(len(summary["generated_latex_tables"]), 18)
+            self.assertEqual(len(summary["generated_latex_tables"]), 6)
 
             table_path = (
                 output
                 / "six_workloads"
-                / "table_topology_tps.tex"
+                / "table_topology.tex"
             )
             latex = table_path.read_text(encoding="utf-8")
             self.assertIn("Auto-generated", latex)
@@ -63,19 +63,26 @@ class BootstrapDispersionTableTests(unittest.TestCase):
             self.assertNotIn(r"\footnotesize", latex)
             self.assertNotIn(r"\scriptsize", latex)
             self.assertIn(r"\setlength{\tabcolsep}{2pt}", latex)
+            self.assertIn(r"\resizebox{\textwidth}{!}{%", latex)
             self.assertNotIn(r"\adjustbox", latex)
+            self.assertIn(r"\multicolumn{7}{c}{\textbf{TPS}}", latex)
+            self.assertIn(r"\multicolumn{7}{c}{\textbf{Latency}}", latex)
+            self.assertIn(r"\multicolumn{7}{c}{\textbf{Energy}}", latex)
             self.assertGreater(latex.count(r"\hlcell{best}"), 0)
             self.assertGreater(latex.count(r"\hlcell{worst}"), 0)
             self.assertNotIn("green and bold (best)", latex)
             self.assertNotIn("orange and italics (worst)", latex)
-            self.assertIn(r"\label{tab:repeatability_topology_tps}", latex)
+            self.assertIn(r"\label{tab:repeatability_topology}", latex)
+            self.assertFalse(
+                (output / "six_workloads" / "table_topology_tps.tex").exists()
+            )
             legacy_latex = (
                 output
                 / "legacy_three_workloads"
-                / "table_topology_tps.tex"
+                / "table_topology.tex"
             ).read_text(encoding="utf-8")
             self.assertIn(
-                r"\label{tab:repeatability_topology_tps}", legacy_latex
+                r"\label{tab:repeatability_topology}", legacy_latex
             )
 
             factor = pd.read_csv(output / "factor_bootstrap_summary.csv")

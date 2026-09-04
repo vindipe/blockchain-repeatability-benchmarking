@@ -1,24 +1,12 @@
 {
   "configuration_cells": 300,
   "generated_latex_tables": [
-    "paper_tables/six_workloads/table_topology_tps.tex",
-    "paper_tables/six_workloads/table_topology_latency.tex",
-    "paper_tables/six_workloads/table_topology_energy.tex",
-    "paper_tables/six_workloads/table_workload_tps.tex",
-    "paper_tables/six_workloads/table_workload_latency.tex",
-    "paper_tables/six_workloads/table_workload_energy.tex",
-    "paper_tables/six_workloads/table_scaling_tps.tex",
-    "paper_tables/six_workloads/table_scaling_latency.tex",
-    "paper_tables/six_workloads/table_scaling_energy.tex",
-    "paper_tables/legacy_three_workloads/table_topology_tps.tex",
-    "paper_tables/legacy_three_workloads/table_topology_latency.tex",
-    "paper_tables/legacy_three_workloads/table_topology_energy.tex",
-    "paper_tables/legacy_three_workloads/table_workload_tps.tex",
-    "paper_tables/legacy_three_workloads/table_workload_latency.tex",
-    "paper_tables/legacy_three_workloads/table_workload_energy.tex",
-    "paper_tables/legacy_three_workloads/table_scaling_tps.tex",
-    "paper_tables/legacy_three_workloads/table_scaling_latency.tex",
-    "paper_tables/legacy_three_workloads/table_scaling_energy.tex"
+    "paper_tables/six_workloads/table_topology.tex",
+    "paper_tables/six_workloads/table_workload.tex",
+    "paper_tables/six_workloads/table_scaling.tex",
+    "paper_tables/legacy_three_workloads/table_topology.tex",
+    "paper_tables/legacy_three_workloads/table_workload.tex",
+    "paper_tables/legacy_three_workloads/table_scaling.tex"
   ],
   "method": {
     "bootstrap_unit": "metric-eligible observed execution within configuration",
