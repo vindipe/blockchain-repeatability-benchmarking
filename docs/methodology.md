@@ -386,8 +386,11 @@ configuration mean. A deterministic horizontal offset in the interval
 `[-0.18, 0.18]` separates executions that belong to the same configuration;
 it has no statistical meaning and does not change factor assignment. The
 generated `plotted_execution_manifest.csv` provides a row-by-row audit from
-the source execution identifiers to every plotted coordinate. Zero-commit and
-no-submission executions do not receive artificial TPS or latency coordinates;
+the source execution identifiers to every plotted coordinate. A vertical
+`m=...` label at each populated absolute-panel position reports the underlying
+configuration mean; the paired percentage panel uses that same mean as its
+zero reference without repeating the label. Zero-commit and no-submission
+executions do not receive artificial TPS or latency coordinates;
 their configuration regimes and aggregate outcome counts are instead reported
 in `table_outcome_accounting.tex`. All remaining figure PDFs are vector output
 with embedded TrueType fonts, and `summary.json` records

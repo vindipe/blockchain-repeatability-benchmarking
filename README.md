@@ -126,7 +126,9 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
   same metric-specific eligibility masks as the numerical analysis. Each
   colored circular marker is one eligible positive-service execution; a
   deterministic small horizontal offset separates executions within a
-  configuration without changing their factor assignment. R2.6 additionally
+  configuration without changing their factor assignment. Vertical labels on
+  the absolute panels report configuration means, which also define zero in
+  the paired percentage panels. R2.6 additionally
   merges configuration-regime counts, execution outcomes, and metric-validity
   counts into one compact LaTeX summary table, with an execution-level
   plotting manifest and exact figure captions

@@ -1,5 +1,7 @@
 import unittest
 
+import numpy as np
+
 from analysis.audit_observed_runs import DEFAULT_INPUT, load_runs
 from analysis.derive_run_outcomes import derive_outcomes, prepare_selected_runs
 from analysis.plot_run_level_deviations import (
@@ -8,9 +10,11 @@ from analysis.plot_run_level_deviations import (
     JITTER_HALF_WIDTH,
     SOURCE_MINIMUM_TEXT_PT,
     deviation_frame,
+    format_configuration_mean,
     outcome_table_frame,
     render_caption_replacements,
     render_outcome_table,
+    symmetric_limits,
 )
 
 
@@ -65,6 +69,7 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
         self.assertEqual(captions.count(r"\vd{R1.5/R2.6:"), 3)
         self.assertIn("across all six workloads", captions)
         self.assertIn("one point-valued positive-service TPS execution", captions)
+        self.assertIn("Vertical $m$ labels report configuration means", captions)
         self.assertIn(r"Table~\ref{tab:r26_outcome_accounting}", captions)
 
     def test_outcome_table_source_has_one_exact_row_per_configuration(self):
@@ -117,6 +122,15 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
         self.assertEqual(DEVIATION_FIGURE_SIZE, (10.8, 13.5))
         self.assertEqual(FINAL_PLACEMENT_FRACTION, 1.0)
         self.assertEqual(SOURCE_MINIMUM_TEXT_PT, 7.5)
+
+    def test_absolute_axis_limits_are_symmetric(self):
+        low, high = symmetric_limits(np.array([-31.0, 72.0]))
+        self.assertEqual(low, -high)
+        self.assertGreaterEqual(high, 72.0)
+
+    def test_configuration_mean_labels_are_compact(self):
+        self.assertEqual(format_configuration_mean("tps", 154.28), "154")
+        self.assertEqual(format_configuration_mean("latency", 4.28), "4.3")
 
 
 if __name__ == "__main__":

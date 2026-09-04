@@ -78,6 +78,7 @@ JITTER_HALF_WIDTH = 0.18
 DEVIATION_FIGURE_SIZE = (10.8, 13.5)
 FINAL_PLACEMENT_FRACTION = 1.0
 SOURCE_MINIMUM_TEXT_PT = 7.5
+MEAN_LABEL_TEXT_PT = 5.2
 matplotlib.rcParams.update(
     {
         "pdf.fonttype": 42,
@@ -127,6 +128,53 @@ def configuration_position(blockchain: str, topology: str) -> float:
     return float(BLOCKCHAINS.index(blockchain) * 6 + TOPOLOGIES.index(topology))
 
 
+def symmetric_limits(values: np.ndarray) -> tuple[float, float]:
+    finite = np.asarray(values, dtype=float)
+    finite = finite[np.isfinite(finite)]
+    raw_bound = float(np.abs(finite).max()) if len(finite) else 1.0
+    raw_bound = max(raw_bound * 1.04, 1e-9)
+    ticks = MaxNLocator(nbins=4, symmetric=True).tick_values(
+        -raw_bound, raw_bound
+    )
+    bound = float(np.abs(ticks).max())
+    return -bound, bound
+
+
+def format_configuration_mean(metric_key: str, value: float) -> str:
+    if metric_key == "tps":
+        return f"{value:.1f}" if abs(value) < 10 else f"{value:.0f}"
+    return f"{value:.1f}"
+
+
+def annotate_configuration_means(
+    axis: plt.Axes, eligible: pd.DataFrame, metric_key: str
+) -> None:
+    means = (
+        eligible.groupby(["blockchain", "mode"], observed=True)[
+            "configuration_mean"
+        ]
+        .first()
+        .reset_index()
+    )
+    for item in means.itertuples(index=False):
+        topology_index = TOPOLOGIES.index(str(item.mode))
+        above = topology_index % 2 == 0
+        axis.annotate(
+            f"m={format_configuration_mean(metric_key, float(item.configuration_mean))}",
+            xy=(configuration_position(str(item.blockchain), str(item.mode)), 0),
+            xytext=(0, 1.5 if above else -1.5),
+            textcoords="offset points",
+            rotation=90,
+            ha="center",
+            va="bottom" if above else "top",
+            fontsize=MEAN_LABEL_TEXT_PT,
+            color="#333333",
+            alpha=0.72,
+            zorder=2,
+            clip_on=True,
+        )
+
+
 def plot_metric(
     derived: pd.DataFrame,
     deviations: pd.DataFrame,
@@ -141,10 +189,10 @@ def plot_metric(
         height_ratios=[1.0] * 6 + [0.72] + [1.0] * 6 + [0.72],
         left=0.080,
         right=0.920,
-        top=0.944,
+        top=0.952,
         bottom=0.018,
         hspace=0.22,
-        wspace=0.10,
+        wspace=0.015,
     )
     empty_cells = 0
     plotted_points = 0
@@ -180,6 +228,7 @@ def plot_metric(
                             alpha=0.55,
                             color=TOPOLOGY_COLORS[topology],
                             linewidths=0,
+                            zorder=3,
                         )
                         axis.scatter(
                             x[overflow],
@@ -189,6 +238,7 @@ def plot_metric(
                             color=TOPOLOGY_COLORS[topology],
                             marker="^",
                             linewidths=0,
+                            zorder=3,
                         )
                     else:
                         axis.scatter(
@@ -198,6 +248,7 @@ def plot_metric(
                             alpha=0.55,
                             color=TOPOLOGY_COLORS[topology],
                             linewidths=0,
+                            zorder=3,
                         )
                 for blockchain in BLOCKCHAINS:
                     for topology in TOPOLOGIES:
@@ -232,13 +283,17 @@ def plot_metric(
                     axis.yaxis.tick_right()
                     axis.yaxis.set_label_position("right")
                 else:
-                    axis.yaxis.set_major_locator(MaxNLocator(nbins=3))
+                    axis.set_ylim(*symmetric_limits(eligible[measure].to_numpy(float)))
+                    axis.yaxis.set_major_locator(
+                        MaxNLocator(nbins=4, symmetric=True)
+                    )
                     axis.yaxis.tick_left()
                     axis.yaxis.set_label_position("left")
+                    annotate_configuration_means(axis, eligible, metric_key)
                     axis.set_title(
                         workload,
                         loc="left",
-                        fontsize=8.5,
+                        fontsize=9.0,
                         fontweight="semibold",
                         pad=1.0,
                     )
@@ -263,7 +318,7 @@ def plot_metric(
             rf"{network_size}, six workloads",
             ha="center",
             va="center",
-            fontsize=10.5,
+            fontsize=11.0,
         )
     handles = [
         plt.Line2D(
@@ -301,7 +356,7 @@ def plot_metric(
     fig.legend(
         handles=handles,
         loc="upper center",
-        bbox_to_anchor=(0.5, 0.995),
+        bbox_to_anchor=(0.5, 0.980),
         ncol=len(handles),
         frameon=False,
         handletextpad=0.35,
@@ -315,16 +370,16 @@ def plot_metric(
             rotation=90,
             ha="center",
             va="center",
-            fontsize=9.5,
+            fontsize=10.5,
         )
         fig.text(
             0.986,
             center,
-            r"$\Delta$ Percentage (\%)",
+            r"$\Delta$ Percentage (%)",
             rotation=90,
             ha="center",
             va="center",
-            fontsize=9.5,
+            fontsize=10.5,
         )
     output_dir.mkdir(parents=True, exist_ok=True)
     stem = f"{metric_key}_six_workloads"
@@ -499,6 +554,11 @@ def run(input_path: Path, output_dir: Path) -> dict[str, object]:
         "png_count": 0,
         "plot_semantics": {
             "deviation_figures": "one circular marker per metric-eligible positive-service execution",
+            "mean_labels": (
+                "one vertical configuration-mean label on each populated "
+                "absolute panel position; the same mean defines zero in the "
+                "paired relative panel"
+            ),
             "outcome_table": (
                 "configuration-regime, execution-outcome, and metric-valid "
                 "counts aggregated by blockchain and validator-set size"
@@ -542,7 +602,7 @@ def render_caption_replacements() -> str:
         [
             r"% Exact R1.5/R2.6 caption replacements for IEEE Access/4_Measurement_Results.tex",
             r"% fig:tps-deviations",
-            r"\caption{\vd{R1.5/R2.6: Run-level throughput deviations across all six workloads at 10 and 40 nodes. Each colored circle is one point-valued positive-service TPS execution; deterministic horizontal offsets separate runs without changing their configuration. Left and right panels report $\Delta$ TPS and $\Delta$ Percentage, respectively; triangles mark relative deviations beyond $\pm100\%$, and $\times$ marks a configuration with no point-valued TPS execution. Non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
+            r"\caption{\vd{R1.5/R2.6: Run-level throughput deviations across all six workloads at 10 and 40 nodes. Each colored circle is one point-valued positive-service TPS execution; deterministic horizontal offsets separate runs without changing their configuration. Left and right panels report $\Delta$ TPS and $\Delta$ Percentage, respectively. Vertical $m$ labels report configuration means and also define zero in the paired relative panels; triangles mark relative deviations beyond $\pm100\%$, and $\times$ marks a configuration with no point-valued TPS execution. Non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
             r"% fig:latency-deviations",
             r"\caption{\vd{R1.5/R2.6: Run-level block-latency deviations across all six workloads at 10 and 40 nodes. Each colored circle is one metric-eligible positive-service execution; plotting conventions are as in Figure~\ref{fig:tps-deviations}, with left panels reporting $\Delta$ Block latency (s). Non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
             r"% fig:energy-deviations",
