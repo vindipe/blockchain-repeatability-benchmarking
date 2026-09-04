@@ -146,7 +146,7 @@ def bootstrap_job(args: tuple[object, ...]) -> dict[str, object]:
     }
 
 
-def render_icc_table(table: pd.DataFrame, repetitions: int, seed: int) -> str:
+def render_icc_table(table: pd.DataFrame, repetitions: int) -> str:
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
@@ -173,7 +173,7 @@ def render_icc_table(table: pd.DataFrame, repetitions: int, seed: int) -> str:
         [
             r"\hline",
             r"\end{tabular}",
-            rf"\parbox{{\textwidth}}{{\TableFont REML random-intercept models use configuration as the grouping factor and positive-service observations on the natural-log scale. Intervals use {repetitions:,} cluster-bootstrap replicates from deterministic streams beginning at seed {seed}.}}",
+            rf"\parbox{{\textwidth}}{{\TableFont REML random-intercept models use configuration as the grouping factor and positive-service observations on the natural-log scale. Intervals use {repetitions:,} cluster-bootstrap replicates.}}",
             r"\end{table*}",
             "",
         ]
@@ -207,7 +207,7 @@ def render_tables_from_results(output_dir: Path, table_dir: Path) -> dict[str, o
         scope_tables.mkdir(parents=True, exist_ok=True)
         scope_seed = int(selected["seed"].min())
         (scope_tables / "table_icc_by_blockchain.tex").write_text(
-            render_icc_table(selected, int(repetitions[0]), scope_seed),
+            render_icc_table(selected, int(repetitions[0])),
             encoding="utf-8",
         )
         rendered["scopes"][scope] = {
@@ -276,7 +276,7 @@ def run_icc(
         scope_tables.mkdir(parents=True, exist_ok=True)
         scope_seed = int(selected["seed"].min())
         (scope_tables / "table_icc_by_blockchain.tex").write_text(
-            render_icc_table(selected, repetitions, scope_seed), encoding="utf-8"
+            render_icc_table(selected, repetitions), encoding="utf-8"
         )
     summary = {
         "method": "REML intercept-only mixed model on log metric",

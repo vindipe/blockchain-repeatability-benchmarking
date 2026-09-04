@@ -10,6 +10,7 @@ import pandas as pd
 from analysis.bootstrap_dispersion_tables import (
     DEFAULT_SEED,
     bootstrap_cell_dispersion,
+    latex_estimate,
     run_bootstrap,
 )
 
@@ -38,6 +39,12 @@ class BootstrapDispersionTableTests(unittest.TestCase):
         self.assertTrue(np.isnan(result["iqr_pct"]).all())
         self.assertTrue(np.isnan(result["sample_std_pct"]).all())
 
+    def test_percentile_interval_outlier_receives_dagger(self) -> None:
+        row = pd.Series(
+            {"point_estimate": 12.93, "ci_lower": 6.73, "ci_upper": 12.82}
+        )
+        self.assertEqual(latex_estimate(row), r"12.93$^{\dagger}$ [6.73, 12.82]")
+
     def test_end_to_end_run_generates_combined_latex_tables(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary)
@@ -59,6 +66,7 @@ class BootstrapDispersionTableTests(unittest.TestCase):
             self.assertNotIn(r"\color{olive}", latex)
             self.assertEqual(latex.count(r"\vd{"), 1)
             self.assertIn(r"\caption{\vd{R1.1-3-4-7:", latex)
+            self.assertNotIn("seed", latex.lower())
             self.assertIn(r"\TableFont", latex)
             self.assertNotIn(r"\footnotesize", latex)
             self.assertNotIn(r"\scriptsize", latex)
@@ -85,6 +93,12 @@ class BootstrapDispersionTableTests(unittest.TestCase):
             self.assertIn(
                 r"\label{tab:repeatability_topology}", legacy_latex
             )
+
+            scaling_latex = (
+                output / "six_workloads" / "table_scaling.tex"
+            ).read_text(encoding="utf-8")
+            self.assertIn(r"$^{\dagger}$", scaling_latex)
+            self.assertIn("need not contain", scaling_latex)
 
             factor = pd.read_csv(output / "factor_bootstrap_summary.csv")
             defined = factor["contributing_configuration_cells"] > 0

@@ -51,7 +51,7 @@ class ICCModelTests(unittest.TestCase):
                 for metric in ("TPS", "Latency", "Energy")
             ]
         )
-        latex = render_icc_table(table, repetitions=10, seed=1)
+        latex = render_icc_table(table, repetitions=10)
         self.assertIn(r"\setlength{\tabcolsep}{2pt}", latex)
         self.assertIn(r"\begin{tabular}{lrrr}", latex)
         self.assertNotIn(r"\resizebox", latex)
@@ -59,6 +59,7 @@ class ICCModelTests(unittest.TestCase):
         self.assertEqual(latex.count(r"\vd{"), 1)
         self.assertIn(r"\caption{\vd{R2.4:", latex)
         self.assertIn(r"\TableFont", latex)
+        self.assertNotIn("seed", latex.lower())
 
     def test_tables_can_be_rebuilt_from_completed_results(self):
         rows = []
