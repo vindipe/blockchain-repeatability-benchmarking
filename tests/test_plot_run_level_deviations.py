@@ -121,7 +121,7 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
     def test_final_layout_uses_readable_source_typography(self):
         self.assertEqual(DEVIATION_FIGURE_SIZE, (10.8, 13.5))
         self.assertEqual(FINAL_PLACEMENT_FRACTION, 1.0)
-        self.assertEqual(SOURCE_MINIMUM_TEXT_PT, 7.5)
+        self.assertEqual(SOURCE_MINIMUM_TEXT_PT, 5.2)
 
     def test_absolute_axis_limits_are_symmetric(self):
         low, high = symmetric_limits(np.array([-31.0, 72.0]))
