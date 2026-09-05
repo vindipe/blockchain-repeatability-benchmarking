@@ -343,7 +343,7 @@ def render_latex_table(
         rf"\label{{{label}}}",
         r"\setlength{\tabcolsep}{1.5pt}",
         r"\resizebox{\textwidth}{!}{%",
-        r"\begin{tabular}{ll*{3}{rrrrr}}",
+        r"\begin{tabular}{ll*{3}{rrrll}}",
         r"\toprule",
         (
             rf"\textbf{{Blockchain}} & \textbf{{{factor_display}}} & "
@@ -431,7 +431,7 @@ def render_latex_table(
             mean = cell(metric_name, statistic, "mean")
             median = cell(metric_name, statistic, "median")
             return (
-                rf"\makecell[r]{{$\mu$ {mean}\\"
+                rf"\makecell[l]{{$\mu$ {mean}\\"
                 rf"$\widetilde{{x}}$ {median}}}"
             )
 
@@ -617,3 +617,4 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
