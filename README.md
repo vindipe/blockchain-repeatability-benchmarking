@@ -109,7 +109,7 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
   attaches configuration-cluster bootstrap intervals.
 - `analysis/workload_catalog.py` generates the six-workload definition and
   outcome-accounting table used for M1/M2; its generated caption and note
-  already carry the manuscript's `\vd{...}` revision marking.
+  already carry the manuscript's `\vd[Rx]{...}` revision marking.
 - `analysis/audit_gafam_trace.py` verifies the mirrored GAFAM input checksum,
   schedule, units, source revision, raw-to-display label mapping, and its link
   to the 668 selected GAFAM observations.
@@ -119,8 +119,9 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
   variance nor generates a manuscript table.
 - `analysis/generate_study_delta.py` records the M8/R2.5 row-by-row
   ACM-DLT-versus-IEEE comparison as CSV and JSON audit outputs and validates
-  every quantitative IEEE claim against the completed revision outputs. It no
-  longer generates a manuscript table.
+  every quantitative IEEE claim against the completed revision outputs. It
+  never creates `table_acm_ieee_delta.tex`: that manually curated table belongs
+  only to the paper repository.
 - `analysis/plot_run_level_deviations.py` generates corrected vector-PDF
   absolute and relative deviation figures for all six workloads, using the
   same metric-specific eligibility masks as the numerical analysis. Each
@@ -132,7 +133,7 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
   merges configuration-regime counts, execution outcomes, and metric-validity
   counts into one compact LaTeX summary table, with an execution-level
   plotting manifest and exact figure captions
-  marked `\vd{R1.5/R2.6: ...}`. The remaining figure PDFs use embedded TrueType
+  marked `\vd[R1.5/R2.6]{...}`. The remaining figure PDFs use embedded TrueType
   fonts and record the final panel/placement decision in the figure summary.
 - `outputs/revision/` contains the definitive versioned CSV, JSON, diagnostic
   PDF, and generated-table outputs from the completed revision analyses. A
@@ -141,7 +142,7 @@ diagnostics, targeted three-way sensitivity tests, and standalone LaTeX tables.
   files.
 
 All generated manuscript tables carry their revision marking internally in the
-caption through `\vd{review point: ...}` with the relevant review identifiers.
+caption through `\vd[review point]{...}` with the relevant review identifiers.
 Table headings, values, and notes remain uncoloured. Copying a generated `.tex`
 file into the manuscript is therefore sufficient; no manual highlighting edit
 is required.

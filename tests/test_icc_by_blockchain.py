@@ -57,8 +57,8 @@ class ICCModelTests(unittest.TestCase):
         self.assertIn(r"\resizebox{\columnwidth}{!}{%", latex)
         self.assertIn(r"\begin{table}[t]", latex)
         self.assertNotIn(r"\color{olive}", latex)
-        self.assertEqual(latex.count(r"\vd{"), 1)
-        self.assertIn(r"\caption{\vd{R2.4:", latex)
+        self.assertEqual(latex.count(r"\vd["), 1)
+        self.assertIn(r"\caption{\vd[R2.4]{", latex)
         self.assertIn(r"\TableFont", latex)
         self.assertNotIn("seed", latex.lower())
 

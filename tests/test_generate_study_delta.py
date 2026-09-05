@@ -30,7 +30,7 @@ class StudyDeltaTests(unittest.TestCase):
             self.assertEqual(result["comparison_rows"], 7)
             self.assertTrue((root / "outputs/acm_ieee_delta.csv").is_file())
             self.assertTrue((root / "outputs/study_delta.json").is_file())
-            self.assertFalse((root / "table_acm_ieee_delta.tex").exists())
+            self.assertEqual(list(root.rglob("*.tex")), [])
 
 
 if __name__ == "__main__":

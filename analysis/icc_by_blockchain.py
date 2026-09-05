@@ -150,7 +150,7 @@ def render_icc_table(table: pd.DataFrame, repetitions: int) -> str:
     lines = [
         r"\begin{table}[t]",
         r"\centering",
-        r"\caption{\vd{R2.4: Within-blockchain log-scale random-intercept ICC estimates. Brackets give 95\% configuration-cluster bootstrap intervals.}}",
+        r"\caption{\vd[R2.4]{Within-blockchain log-scale random-intercept ICC estimates. Brackets give 95\% configuration-cluster bootstrap intervals.}}",
         r"\label{tab:icc_by_blockchain}",
         r"\TableFont",
         r"\setlength{\tabcolsep}{1pt}",

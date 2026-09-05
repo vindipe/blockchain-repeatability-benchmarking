@@ -146,14 +146,27 @@
     }
   ],
   "provenance": {
+    "commands": [
+      "python3 scripts/gen_topo.py --secondaries 10 --nodes 1 --bandwidth 1 --type fat-tree-l --strategy hop --dataset diablo --dynamic 0 --blockchain poa",
+      "python3 scripts/gen_topo.py --secondaries 10 --nodes 4 --bandwidth 1 --type fat-tree-l --strategy hop --dataset diablo --dynamic 0 --blockchain poa",
+      "python3 scripts/gen_topo.py --secondaries 10 --nodes 1 --bandwidth 1 --type full-mesh --strategy hop --dataset diablo --dynamic 0 --blockchain poa",
+      "python3 scripts/gen_topo.py --secondaries 10 --nodes 4 --bandwidth 1 --type full-mesh --strategy hop --dataset diablo --dynamic 0 --blockchain poa",
+      "python3 scripts/gen_topo.py --secondaries 10 --nodes 1 --bandwidth 1 --type hypercube --strategy hop --dataset diablo --dynamic 0 --blockchain poa",
+      "python3 scripts/gen_topo.py --secondaries 10 --nodes 4 --bandwidth 1 --type hypercube --strategy hop --dataset diablo --dynamic 0 --blockchain poa",
+      "python3 scripts/gen_topo.py --secondaries 10 --nodes 1 --bandwidth 1 --type scale-free-l --strategy hop --dataset diablo --dynamic 0 --blockchain poa",
+      "python3 scripts/gen_topo.py --secondaries 10 --nodes 4 --bandwidth 1 --type scale-free-l --strategy hop --dataset diablo --dynamic 0 --blockchain poa",
+      "python3 scripts/gen_topo.py --secondaries 10 --nodes 1 --bandwidth 1 --type torus-l --strategy hop --dataset diablo --dynamic 0 --blockchain poa",
+      "python3 scripts/gen_topo.py --secondaries 10 --nodes 4 --bandwidth 1 --type torus-l --strategy hop --dataset diablo --dynamic 0 --blockchain poa"
+    ],
     "generator_path": "scripts/gen_topo.py",
-    "generator_sha256": "e9c23f7b923867648b8401ccdc09f4a0e7de62c8a685e5eff0b15e73a1779ada",
+    "generator_sha256": "7c4a494135fb5d1072ce57dcadb63755224bb09f7a3c31af22eb7b59f0b08ac7",
     "lilith_commit": "dd1d457c6079661b158f601cdf70817cbe2a5f2a",
     "lilith_repository": "https://github.com/vindipe/lilith",
-    "regeneration": "deterministic regeneration from the frozen source revision and input",
+    "regeneration": "byte-identical regeneration from the frozen source revision and inputs",
     "template_path": "misc/sample-topology.xml",
     "template_sha256": "62bd7fedfd311482a376049a6e1e4b661fb8f25165ddeb263830f70a397b3816",
     "trace_path": "misc/diablo-aws.csv",
-    "trace_sha256": "c7f384cf276666293d275d4c5056dface1d6271f54e449fd9629024b7ab1b7d3"
+    "trace_sha256": "c7f384cf276666293d275d4c5056dface1d6271f54e449fd9629024b7ab1b7d3",
+    "verified_instances": 10
   }
 }

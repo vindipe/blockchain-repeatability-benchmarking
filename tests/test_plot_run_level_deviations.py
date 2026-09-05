@@ -66,7 +66,7 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
     def test_generated_r1_5_captions_are_revision_marked(self):
         captions = render_caption_replacements()
         self.assertEqual(captions.count(r"\caption{"), 3)
-        self.assertEqual(captions.count(r"\vd{R1.5/R2.6:"), 3)
+        self.assertEqual(captions.count(r"\vd[R1.5/R2.6]{"), 3)
         self.assertIn("across all six workloads", captions)
         self.assertIn("one point-valued positive-service TPS execution", captions)
         self.assertIn("Vertical $m$ labels report configuration means", captions)
@@ -100,7 +100,7 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
 
     def test_outcome_table_reconciles_outcomes_and_metric_validity(self):
         table = render_outcome_table(outcome_table_frame(self.derived))
-        self.assertIn(r"\caption{\vd{R1.5/R2.6:", table)
+        self.assertIn(r"\caption{\vd[R1.5/R2.6]{", table)
         self.assertIn(r"\TableFont", table)
         self.assertIn(
             r"\textbf{Total} & -- & 300 & 205 & 46 & 49 & 4080 & 4078 & "

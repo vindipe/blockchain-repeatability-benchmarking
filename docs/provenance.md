@@ -74,13 +74,23 @@ It is mirrored under `inputs/topologies/`. This label is independent of
 8 August 2025.
 
 Lilith creates `topology.xml` at runtime and does not version generated XMLs.
-The ten files under `inputs/topologies/` are therefore deterministic
-regenerations, not unverified claims about preserved runtime logs. They use the
-frozen Lilith commit, `scripts/gen_topo.py` (SHA-256
-`e9c23f7b923867648b8401ccdc09f4a0e7de62c8a685e5eff0b15e73a1779ada`),
+The ten files under `inputs/topologies/` were regenerated with the versioned
+generator at the frozen Lilith commit, `scripts/gen_topo.py` (SHA-256
+`7c4a494135fb5d1072ce57dcadb63755224bb09f7a3c31af22eb7b59f0b08ac7`),
 the frozen trace above, and `misc/sample-topology.xml` (SHA-256
 `62bd7fedfd311482a376049a6e1e4b661fb8f25165ddeb263830f70a397b3816`).
-Each generated XML checksum and the contraction rule are recorded in
+For each topology type (`fat-tree-l`, `full-mesh`, `hypercube`, `scale-free-l`,
+and `torus-l`) and each `--nodes` value (`1` and `4`), regeneration used:
+
+```text
+python3 scripts/gen_topo.py --secondaries 10 --nodes <1|4> --bandwidth 1 \
+  --type <topology> --strategy hop --dataset diablo --dynamic 0 \
+  --blockchain poa
+```
+
+The ten resulting `kollaps/examples/topology.xml` files are byte-identical to
+the frozen XMLs. Their checksums, the exact command lines, the verified instance
+count, and the contraction rule are recorded in
 `outputs/revision/m9_topology_audit/topology_audit.json`.
 
 ## Validation

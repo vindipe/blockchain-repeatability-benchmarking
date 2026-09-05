@@ -590,7 +590,7 @@ def render_term_table(
     lines = [
         r"\begin{table}[t]",
         r"\centering",
-        r"\caption{\vd{R1.9-10: Two-part factorial analysis. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance ANOVAs report Type-II HC3 $F$ tests and partial $\eta^2$. $B$, $T$, $W$, and $S$ denote blockchain, topology, workload, and validator-set size; main-factor rows are omnibus tests.}}",
+        r"\caption{\vd[R1.9-10]{Two-part factorial analysis. The outcome component reports likelihood-ratio $\chi^2$ tests; conditional log-performance ANOVAs report Type-II HC3 $F$ tests and partial $\eta^2$. $B$, $T$, $W$, and $S$ denote blockchain, topology, workload, and validator-set size; main-factor rows are omnibus tests.}}",
         r"\label{tab:two_part_factorial_models}",
         r"\TableFont",
         r"\setlength{\tabcolsep}{1pt}",
@@ -639,7 +639,7 @@ def render_estimability_table(table: pd.DataFrame) -> str:
     lines = [
         r"\begin{table}[t]",
         r"\centering",
-        r"\caption{\vd{R1.11: Design-matrix audit for targeted three-way interaction sensitivities. Added rank gives the supported degrees of freedom; a term can be tested on observed support even when empty positive-service cells reduce its nominal rank.}}",
+        r"\caption{\vd[R1.11]{Design-matrix audit for targeted three-way interaction sensitivities. Added rank gives the supported degrees of freedom; a term can be tested on observed support even when empty positive-service cells reduce its nominal rank.}}",
         r"\label{tab:three_way_estimability}",
         r"\TableFont",
         r"\begin{tabular}{llrrc}",
@@ -672,7 +672,7 @@ def render_three_way_sensitivity_table(
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
-        r"\caption{\vd{R1.11: Targeted three-way interaction sensitivity tests. Conditional-performance terms are tested on their estimable observed-support basis; added rank over nominal columns is shown when empty positive-service cells reduce rank.}}",
+        r"\caption{\vd[R1.11]{Targeted three-way interaction sensitivity tests. Conditional-performance terms are tested on their estimable observed-support basis; added rank over nominal columns is shown when empty positive-service cells reduce rank.}}",
         r"\label{tab:three_way_sensitivity}",
         r"\TableFont",
         r"\setlength{\tabcolsep}{1pt}",

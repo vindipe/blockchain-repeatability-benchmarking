@@ -336,7 +336,7 @@ def render_latex_table(
         r"\centering",
         r"\TableFont",
         (
-            rf"\caption{{\vd{{R1.1-3-4-7: {factor_display}-conditioned TPS, latency, "
+            rf"\caption{{\vd[R1.1-3-4-7]{{{factor_display}-conditioned TPS, latency, "
             rf"and energy dispersion across {workload_text}.{convention_text}"
             rf"{interval_note}}}}}"
         ),

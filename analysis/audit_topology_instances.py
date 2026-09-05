@@ -1,7 +1,7 @@
 """Audit the exact Lilith XML topology instances used by the study (R1.16).
 
-The XML files are deterministic regenerations from Lilith commit
-``dd1d457c6079661b158f601cdf70817cbe2a5f2a`` and its versioned
+The XML files were verified byte-identical to outputs regenerated from Lilith
+commit ``dd1d457c6079661b158f601cdf70817cbe2a5f2a`` and its versioned
 ``diablo-aws.csv`` input.  Workload services are endpoint leaves, while
 numbered ``s<N>`` bridges are hop-emulation nodes inserted along one logical
 edge.  This audit removes the former and contracts the latter.  Structural
@@ -32,7 +32,7 @@ DEFAULT_PAPER_TABLE = (
 )
 
 LILITH_COMMIT = "dd1d457c6079661b158f601cdf70817cbe2a5f2a"
-GENERATOR_SHA256 = "e9c23f7b923867648b8401ccdc09f4a0e7de62c8a685e5eff0b15e73a1779ada"
+GENERATOR_SHA256 = "7c4a494135fb5d1072ce57dcadb63755224bb09f7a3c31af22eb7b59f0b08ac7"
 TRACE_SHA256 = "c7f384cf276666293d275d4c5056dface1d6271f54e449fd9629024b7ab1b7d3"
 TEMPLATE_SHA256 = "62bd7fedfd311482a376049a6e1e4b661fb8f25165ddeb263830f70a397b3816"
 
@@ -46,6 +46,20 @@ TOPOLOGIES = {
 SIZE_CODES = {1: 10, 4: 40}
 HOP_BRIDGE = re.compile(r"s\d+")
 VALIDATOR_SERVICE = re.compile(r".+-n\d+")
+
+
+def regeneration_commands() -> list[str]:
+    """Return the exact Lilith commands used to reconstruct the ten XMLs."""
+
+    commands = []
+    for topology in TOPOLOGIES:
+        for size_code in SIZE_CODES:
+            commands.append(
+                "python3 scripts/gen_topo.py --secondaries 10 "
+                f"--nodes {size_code} --bandwidth 1 --type {topology} "
+                "--strategy hop --dataset diablo --dynamic 0 --blockchain poa"
+            )
+    return commands
 
 
 def sha256_file(path: Path) -> str:
@@ -242,7 +256,7 @@ def format_number(value: float) -> str:
 def latex_table(rows: Iterable[TopologyMetrics]) -> str:
     lines = [
         r"\begin{table}[t]",
-        r"\caption{\vd{R1.16: Numerical audit of the instantiated topology XMLs. $V/E$: vertices/undirected edges; degree: min/median/max; $\bar{\ell}$: average shortest-path length; $\lambda$: global edge connectivity; $\bar{p}_{e}$: mean pairwise edge-disjoint paths. Workload leaves are excluded and numbered hop bridges contracted. Both validator sizes yield the same overlay; only endpoint replication differs.}}",
+        r"\caption{\vd[R1.16]{Numerical audit of the instantiated topology XMLs. $V/E$: vertices/undirected edges; degree: min/median/max; $\bar{\ell}$: average shortest-path length; $\lambda$: global edge connectivity; $\bar{p}_{e}$: mean pairwise edge-disjoint paths. Workload leaves are excluded and numbered hop bridges contracted. Both validator sizes yield the same overlay; only endpoint replication differs.}}",
         r"\label{tab:topology_numeric_audit}",
         r"\centering",
         r"\TableFont",
@@ -320,7 +334,9 @@ def audit(input_dir: Path) -> tuple[list[TopologyMetrics], dict[str, object]]:
             "trace_sha256": TRACE_SHA256,
             "template_path": "misc/sample-topology.xml",
             "template_sha256": TEMPLATE_SHA256,
-            "regeneration": "deterministic regeneration from the frozen source revision and input",
+            "regeneration": "byte-identical regeneration from the frozen source revision and inputs",
+            "commands": regeneration_commands(),
+            "verified_instances": 10,
         },
         "files": files,
         "metrics": [asdict(row) for row in metrics],

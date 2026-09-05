@@ -97,10 +97,10 @@ The source does not record a more precise collection day for the 2023 trace.
 ## Instantiated-topology audit (M9)
 
 `analysis/audit_topology_instances.py` parses ten frozen XML instances: five
-topologies at the 10- and 40-validator sizes. These XMLs are deterministic
-regenerations from the exact public Lilith revision, generator, 2023 trace
-input, and XML template recorded in
-`outputs/revision/m9_topology_audit/topology_audit.json`. The parser excludes
+topologies at the 10- and 40-validator sizes. Each frozen XML is byte-identical
+to output regenerated with the versioned generator at the exact public Lilith
+revision and the parameters, 2023 trace input, and XML template recorded in
+`docs/provenance.md` and the audit manifest. The parser excludes
 workload-service endpoint leaves and contracts only numbered `s<N>` bridges
 inserted to emulate hops. Regional vertices and structural branching bridges,
 including fat-tree gates, remain in the measured undirected overlay.
