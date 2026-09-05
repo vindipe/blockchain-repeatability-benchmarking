@@ -637,7 +637,7 @@ def render_term_table(
 
 def render_estimability_table(table: pd.DataFrame) -> str:
     lines = [
-        r"\begin{table}[t]",
+        r"\begin{table*}[t]",
         r"\centering",
         r"\caption{\vd[R1.11]{Design-matrix audit for targeted three-way interaction sensitivities. Added rank gives the supported degrees of freedom; a term can be tested on observed support even when empty positive-service cells reduce its nominal rank.}}",
         r"\label{tab:three_way_estimability}",
@@ -670,7 +670,7 @@ def render_three_way_sensitivity_table(
         else ""
     )
     lines = [
-        r"\begin{table*}[t]",
+        r"\begin{table}[t]",
         r"\centering",
         r"\caption{\vd[R1.11]{Targeted three-way interaction sensitivity tests. Conditional-performance terms are tested on their estimable observed-support basis; added rank over nominal columns is shown when empty positive-service cells reduce rank.}}",
         r"\label{tab:three_way_sensitivity}",
