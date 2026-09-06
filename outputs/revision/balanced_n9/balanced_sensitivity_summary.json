@@ -1,0 +1,69 @@
+{
+  "eligibility": {
+    "legacy_three_workloads": {
+      "energy_observed": {
+        "configurations": 150,
+        "configurations_with_at_least_9_metric_values": 150,
+        "maximum_metric_count": 26,
+        "minimum_metric_count": 9
+      },
+      "energy_positive_commit": {
+        "configurations": 150,
+        "configurations_with_at_least_9_metric_values": 129,
+        "maximum_metric_count": 23,
+        "minimum_metric_count": 0
+      },
+      "latency_positive_commit": {
+        "configurations": 150,
+        "configurations_with_at_least_9_metric_values": 129,
+        "maximum_metric_count": 23,
+        "minimum_metric_count": 0
+      },
+      "tps_positive_commit": {
+        "configurations": 150,
+        "configurations_with_at_least_9_metric_values": 128,
+        "maximum_metric_count": 23,
+        "minimum_metric_count": 0
+      }
+    },
+    "six_workloads": {
+      "energy_observed": {
+        "configurations": 300,
+        "configurations_with_at_least_9_metric_values": 300,
+        "maximum_metric_count": 26,
+        "minimum_metric_count": 9
+      },
+      "energy_positive_commit": {
+        "configurations": 300,
+        "configurations_with_at_least_9_metric_values": 231,
+        "maximum_metric_count": 25,
+        "minimum_metric_count": 0
+      },
+      "latency_positive_commit": {
+        "configurations": 300,
+        "configurations_with_at_least_9_metric_values": 231,
+        "maximum_metric_count": 25,
+        "minimum_metric_count": 0
+      },
+      "tps_positive_commit": {
+        "configurations": 300,
+        "configurations_with_at_least_9_metric_values": 230,
+        "maximum_metric_count": 25,
+        "minimum_metric_count": 0
+      }
+    }
+  },
+  "maximum_observed_executions": 26,
+  "method": {
+    "analysis": "balanced observed-run sensitivity",
+    "repetitions": 5000,
+    "sample_size_per_configuration": 9,
+    "sampling_before_outcome_and_metric_eligibility": true,
+    "sampling_unit": "observed execution within configuration",
+    "seed": 20260830,
+    "synthetic_rows": 0,
+    "without_replacement": true
+  },
+  "minimum_observed_executions": 9,
+  "selected_configurations": 300
+}

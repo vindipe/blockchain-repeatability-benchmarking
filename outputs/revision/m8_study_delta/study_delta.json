@@ -1,0 +1,26 @@
+{
+  "comparison_rows": 7,
+  "evidence": {
+    "balanced_bootstrap_repetitions": 5000,
+    "balanced_runs_per_configuration": 9,
+    "configuration_cells": 300,
+    "icc_bootstrap_repetitions": 1000,
+    "maximum_observed_per_cell": 26,
+    "minimum_observed_per_cell": 9,
+    "observed_executions": 4080,
+    "workloads": 6
+  },
+  "novelty_exclusions": [
+    "Lilith/Diablo/Kollaps framework",
+    "released corpus and experimental design",
+    "P0--P3 evidence ladder",
+    "IQR%, Std%, and WCD definitions",
+    "factorial ANOVA and ICC as previously reported",
+    "previously published aggregate headlines"
+  ],
+  "published_article_doi": "10.1145/3828757",
+  "review_points": [
+    "R1.8",
+    "R2.5"
+  ]
+}

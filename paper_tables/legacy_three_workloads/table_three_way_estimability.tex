@@ -1,0 +1,18 @@
+\begin{table*}[t]
+\centering
+\caption{\vd[R1.11]{Design-matrix audit for targeted three-way interaction sensitivities. Added rank gives the supported degrees of freedom; a term can be tested on observed support even when empty positive-service cells reduce its nominal rank.}}
+\label{tab:three_way_estimability}
+\TableFont
+\begin{tabular}{llrrc}
+\hline
+Metric & Interaction & Added columns & Added rank & Full nominal rank \\
+\hline
+TPS & B $\times$ T $\times$ W & 32 & 32 & yes \\
+TPS & B $\times$ W $\times$ S & 8 & 8 & yes \\
+Latency & B $\times$ T $\times$ W & 32 & 32 & yes \\
+Latency & B $\times$ W $\times$ S & 8 & 8 & yes \\
+Energy & B $\times$ T $\times$ W & 32 & 32 & yes \\
+Energy & B $\times$ W $\times$ S & 8 & 8 & yes \\
+\hline
+\end{tabular}
+\end{table*}

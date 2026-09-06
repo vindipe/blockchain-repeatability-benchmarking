@@ -1,0 +1,102 @@
+{
+  "configuration_outcome_rows": 300,
+  "figure_count": 3,
+  "figures": [
+    {
+      "eligible_points": 3118,
+      "empty_metric_cells": 49,
+      "metric": "tps",
+      "network_sizes": [
+        "10 nodes",
+        "40 nodes"
+      ],
+      "pdf": "outputs/revision/m1_figures/tps_six_workloads.pdf",
+      "relative_overflow_points": 46,
+      "source_figure_inches": [
+        10.8,
+        13.5
+      ],
+      "workloads": [
+        "DDoS",
+        "FIFA",
+        "Gaming",
+        "GAFAM",
+        "PayPal",
+        "VISA"
+      ]
+    },
+    {
+      "eligible_points": 3125,
+      "empty_metric_cells": 49,
+      "metric": "latency",
+      "network_sizes": [
+        "10 nodes",
+        "40 nodes"
+      ],
+      "pdf": "outputs/revision/m1_figures/latency_six_workloads.pdf",
+      "relative_overflow_points": 28,
+      "source_figure_inches": [
+        10.8,
+        13.5
+      ],
+      "workloads": [
+        "DDoS",
+        "FIFA",
+        "Gaming",
+        "GAFAM",
+        "PayPal",
+        "VISA"
+      ]
+    },
+    {
+      "eligible_points": 3125,
+      "empty_metric_cells": 49,
+      "metric": "energy",
+      "network_sizes": [
+        "10 nodes",
+        "40 nodes"
+      ],
+      "pdf": "outputs/revision/m1_figures/energy_six_workloads.pdf",
+      "relative_overflow_points": 0,
+      "source_figure_inches": [
+        10.8,
+        13.5
+      ],
+      "workloads": [
+        "DDoS",
+        "FIFA",
+        "Gaming",
+        "GAFAM",
+        "PayPal",
+        "VISA"
+      ]
+    }
+  ],
+  "horizontal_offset": "deterministic within-configuration offset in [-0.18, 0.18]; visual separation only",
+  "layout_verification": {
+    "deviation_source_inches": [
+      10.8,
+      13.5
+    ],
+    "panel_decision": "use one full-width six-workload PDF per metric, with vertically stacked 10- and 40-node panels, one shared legend, absolute deviations on the left, relative deviations on the right, and node-specific titles below each panel",
+    "pdf_fonttype": 42,
+    "recommended_manuscript_width_fraction": 1.0,
+    "source_minimum_text_pt": 5.6
+  },
+  "manifest_rows": 9368,
+  "manuscript_caption_replacements": "outputs/revision/m1_figures/m5_figure_caption_replacements.tex",
+  "manuscript_outcome_table": "paper_tables/r2_6/table_outcome_accounting.tex",
+  "metric_eligible_rows": {
+    "energy": 3125,
+    "latency": 3125,
+    "tps": 3118
+  },
+  "pdf_count": 3,
+  "plot_semantics": {
+    "deviation_figures": "one circular marker per metric-eligible positive-service execution",
+    "mean_labels": "one vertical configuration-mean label on each populated absolute panel position; the same mean defines zero in the paired relative panel",
+    "outcome_table": "configuration-regime, execution-outcome, and metric-valid counts aggregated by blockchain and validator-set size"
+  },
+  "plotted_execution_manifest": "outputs/revision/m1_figures/plotted_execution_manifest.csv",
+  "png_count": 0
+}
