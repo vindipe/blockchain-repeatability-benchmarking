@@ -1,0 +1,116 @@
+{
+  "all_nominal_two_way_designs_full_rank": false,
+  "all_targeted_three_way_models_fully_estimable": false,
+  "all_two_way_models_full_rank": true,
+  "conditional_models": {
+    "Energy": {
+      "adjusted_r_squared": 0.8524713361894993,
+      "aliased_columns": [
+        "C(blockchain, Sum)[S.Quorum]:C(workload, Sum)[S.FIFA]",
+        "C(blockchain, Sum)[S.Quorum]:C(workload, Sum)[S.Gaming]"
+      ],
+      "breusch_pagan_lm": 128.551449648244,
+      "breusch_pagan_p_value": 0.0006094294276163895,
+      "candidate_design_columns": 84,
+      "candidate_design_rank": 82,
+      "candidate_rank_deficiency": 2,
+      "columns": 82,
+      "condition_number": 50.546544137633475,
+      "empty_positive_service_blockchain_workload_cells": [
+        "Quorum / FIFA",
+        "Quorum / Gaming"
+      ],
+      "full_rank": true,
+      "jarque_bera": 96.02609992519757,
+      "jarque_bera_p_value": 1.406686572401731e-21,
+      "observations": 3125,
+      "r_squared": 0.8562965032089137,
+      "rank": 82,
+      "rank_deficiency": 0,
+      "sparse_positive_service_blockchain_workload_cells": [
+        "Quorum / DDoS: n=1"
+      ],
+      "support_adjusted": true,
+      "warnings": []
+    },
+    "Latency": {
+      "adjusted_r_squared": 0.8376019255280657,
+      "aliased_columns": [
+        "C(blockchain, Sum)[S.Quorum]:C(workload, Sum)[S.FIFA]",
+        "C(blockchain, Sum)[S.Quorum]:C(workload, Sum)[S.Gaming]"
+      ],
+      "breusch_pagan_lm": 746.7554057622359,
+      "breusch_pagan_p_value": 2.4162126059109365e-108,
+      "candidate_design_columns": 84,
+      "candidate_design_rank": 82,
+      "candidate_rank_deficiency": 2,
+      "columns": 82,
+      "condition_number": 50.546544137633475,
+      "empty_positive_service_blockchain_workload_cells": [
+        "Quorum / FIFA",
+        "Quorum / Gaming"
+      ],
+      "full_rank": true,
+      "jarque_bera": 15191.945069176243,
+      "jarque_bera_p_value": 0.0,
+      "observations": 3125,
+      "r_squared": 0.8418126310441434,
+      "rank": 82,
+      "rank_deficiency": 0,
+      "sparse_positive_service_blockchain_workload_cells": [
+        "Quorum / DDoS: n=1"
+      ],
+      "support_adjusted": true,
+      "warnings": []
+    },
+    "TPS": {
+      "adjusted_r_squared": 0.9112684159703454,
+      "aliased_columns": [
+        "C(blockchain, Sum)[S.Quorum]:C(workload, Sum)[S.FIFA]",
+        "C(blockchain, Sum)[S.Quorum]:C(workload, Sum)[S.Gaming]"
+      ],
+      "breusch_pagan_lm": 461.2546981396139,
+      "breusch_pagan_p_value": 1.4017103577509907e-54,
+      "candidate_design_columns": 84,
+      "candidate_design_rank": 82,
+      "candidate_rank_deficiency": 2,
+      "columns": 82,
+      "condition_number": 50.503332863461395,
+      "empty_positive_service_blockchain_workload_cells": [
+        "Quorum / FIFA",
+        "Quorum / Gaming"
+      ],
+      "full_rank": true,
+      "jarque_bera": 31223.694255465547,
+      "jarque_bera_p_value": 0.0,
+      "observations": 3118,
+      "r_squared": 0.9135742415418571,
+      "rank": 82,
+      "rank_deficiency": 0,
+      "sparse_positive_service_blockchain_workload_cells": [
+        "Quorum / DDoS: n=1"
+      ],
+      "support_adjusted": true,
+      "warnings": []
+    }
+  },
+  "outcome_model": {
+    "auc": 0.9893915811518325,
+    "brier_score": 0.03346702940324274,
+    "columns": 84,
+    "condition_number": 6.200295226007565,
+    "configuration_cells_with_single_observed_outcome": 254,
+    "converged": true,
+    "deviance": 882.7923731025011,
+    "full_rank": true,
+    "iterations": 28,
+    "maximum_absolute_coefficient": 35.788918165546164,
+    "mcfadden_pseudo_r2": 0.8011832362825747,
+    "observations": 4080,
+    "pearson_chi2_per_residual_df": 0.7193939902217966,
+    "quasi_separation_warning": true,
+    "rank": 84,
+    "rank_deficiency": 0
+  },
+  "rows": 4080
+}

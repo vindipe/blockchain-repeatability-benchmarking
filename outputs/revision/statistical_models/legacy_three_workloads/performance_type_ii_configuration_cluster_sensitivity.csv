@@ -1,0 +1,31 @@
+metric,term,term_formula,test,statistic,df,nominal_df,residual_df,p_value,configuration_clusters,support_adjusted
+TPS,Blockchain,"C(blockchain, Sum)",configuration-cluster Type-II F sensitivity,3358.2231909692414,4.0,4.0,143.0,2.9470607130876213e-140,144,False
+TPS,Topology,"C(mode, Sum)",configuration-cluster Type-II F sensitivity,4.884055244200023,4.0,4.0,143.0,0.0010129571461597996,144,False
+TPS,Workload,"C(workload, Sum)",configuration-cluster Type-II F sensitivity,204.25902418724598,2.0,2.0,143.0,1.2162029069744772e-42,144,False
+TPS,Size,"C(network_size, Sum)",configuration-cluster Type-II F sensitivity,40.14921434584879,1.0,1.0,143.0,2.8770874826801156e-09,144,False
+TPS,Blockchain $\times$ topology,"C(blockchain, Sum):C(mode, Sum)",configuration-cluster Type-II F sensitivity,2.4700165475162463,16.0,16.0,143.0,0.0024247483651288807,144,False
+TPS,Blockchain $\times$ workload,"C(blockchain, Sum):C(workload, Sum)",configuration-cluster Type-II F sensitivity,69.51057037283223,8.0,8.0,143.0,1.7772354946550004e-45,144,False
+TPS,Blockchain $\times$ size,"C(blockchain, Sum):C(network_size, Sum)",configuration-cluster Type-II F sensitivity,13.519468118886806,4.0,4.0,143.0,2.260462405084197e-09,144,False
+TPS,Topology $\times$ workload,"C(mode, Sum):C(workload, Sum)",configuration-cluster Type-II F sensitivity,0.6611222679413085,8.0,8.0,143.0,0.7249166223427987,144,False
+TPS,Topology $\times$ size,"C(mode, Sum):C(network_size, Sum)",configuration-cluster Type-II F sensitivity,0.21050719574571855,4.0,4.0,143.0,0.9322590110802852,144,False
+TPS,Workload $\times$ size,"C(workload, Sum):C(network_size, Sum)",configuration-cluster Type-II F sensitivity,8.279863204714006,2.0,2.0,143.0,0.0003958329530101248,144,False
+Latency,Blockchain,"C(blockchain, Sum)",configuration-cluster Type-II F sensitivity,1651.4751386551595,4.0,4.0,143.0,1.470726033383909e-118,144,False
+Latency,Topology,"C(mode, Sum)",configuration-cluster Type-II F sensitivity,4.996934678084881,4.0,4.0,143.0,0.0008457992443075915,144,False
+Latency,Workload,"C(workload, Sum)",configuration-cluster Type-II F sensitivity,241.54993158910662,2.0,2.0,143.0,1.401227473831902e-46,144,False
+Latency,Size,"C(network_size, Sum)",configuration-cluster Type-II F sensitivity,19.038747751830634,1.0,1.0,143.0,2.43845912388213e-05,144,False
+Latency,Blockchain $\times$ topology,"C(blockchain, Sum):C(mode, Sum)",configuration-cluster Type-II F sensitivity,4.81141856996905,16.0,16.0,143.0,9.094989041042088e-08,144,False
+Latency,Blockchain $\times$ workload,"C(blockchain, Sum):C(workload, Sum)",configuration-cluster Type-II F sensitivity,111.41089155960016,8.0,8.0,143.0,1.546438554461049e-57,144,False
+Latency,Blockchain $\times$ size,"C(blockchain, Sum):C(network_size, Sum)",configuration-cluster Type-II F sensitivity,35.87937890759036,4.0,4.0,143.0,9.688070769783918e-21,144,False
+Latency,Topology $\times$ workload,"C(mode, Sum):C(workload, Sum)",configuration-cluster Type-II F sensitivity,1.236150267072831,8.0,8.0,143.0,0.28223306861021646,144,False
+Latency,Topology $\times$ size,"C(mode, Sum):C(network_size, Sum)",configuration-cluster Type-II F sensitivity,3.221007481868084,4.0,4.0,143.0,0.01447643943726398,144,False
+Latency,Workload $\times$ size,"C(workload, Sum):C(network_size, Sum)",configuration-cluster Type-II F sensitivity,2.3978453658144367,2.0,2.0,143.0,0.09456055508187648,144,False
+Energy,Blockchain,"C(blockchain, Sum)",configuration-cluster Type-II F sensitivity,1.7286361754503488,4.0,4.0,143.0,0.1468738581822592,144,False
+Energy,Topology,"C(mode, Sum)",configuration-cluster Type-II F sensitivity,6.608230813829946,4.0,4.0,143.0,6.575425357318791e-05,144,False
+Energy,Workload,"C(workload, Sum)",configuration-cluster Type-II F sensitivity,5253.453463943883,2.0,2.0,143.0,1.4167756794539034e-134,144,False
+Energy,Size,"C(network_size, Sum)",configuration-cluster Type-II F sensitivity,3.3513423736680803,1.0,1.0,143.0,0.06923206072445129,144,False
+Energy,Blockchain $\times$ topology,"C(blockchain, Sum):C(mode, Sum)",configuration-cluster Type-II F sensitivity,0.82590306875324,16.0,16.0,143.0,0.6546180137641111,144,False
+Energy,Blockchain $\times$ workload,"C(blockchain, Sum):C(workload, Sum)",configuration-cluster Type-II F sensitivity,1.5111824215151395,8.0,8.0,143.0,0.15821044926579383,144,False
+Energy,Blockchain $\times$ size,"C(blockchain, Sum):C(network_size, Sum)",configuration-cluster Type-II F sensitivity,0.8860783612401681,4.0,4.0,143.0,0.47401908673669757,144,False
+Energy,Topology $\times$ workload,"C(mode, Sum):C(workload, Sum)",configuration-cluster Type-II F sensitivity,3.131788492334075,8.0,8.0,143.0,0.002713580587312977,144,False
+Energy,Topology $\times$ size,"C(mode, Sum):C(network_size, Sum)",configuration-cluster Type-II F sensitivity,0.38408870588177396,4.0,4.0,143.0,0.8197469918312297,144,False
+Energy,Workload $\times$ size,"C(workload, Sum):C(network_size, Sum)",configuration-cluster Type-II F sensitivity,1.2472120151866597,2.0,2.0,143.0,0.2904107451987605,144,False

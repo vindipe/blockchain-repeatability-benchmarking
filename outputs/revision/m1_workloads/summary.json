@@ -1,0 +1,10 @@
+{
+  "configuration_cells": 300,
+  "maximum_observed_per_cell": 26,
+  "minimum_observed_per_cell": 9,
+  "no_submission": 2,
+  "observed_executions": 4080,
+  "positive_commit": 3125,
+  "workloads": 6,
+  "zero_commit": 953
+}

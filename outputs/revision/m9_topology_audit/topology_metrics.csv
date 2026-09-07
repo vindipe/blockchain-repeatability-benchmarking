@@ -1,0 +1,6 @@
+topology,validator_sizes,vertices,edges,degree_min,degree_median,degree_max,diameter,average_shortest_path,edge_connectivity,average_pairwise_edge_disjoint_paths
+Fat-tree,10/40,17,18,1,1.0,4,6,2.9558823529411766,1,1.0808823529411764
+Full mesh,10/40,10,45,9,9.0,9,1,1.0,9,9.0
+Hypercube,10/40,10,25,4,5.0,6,2,1.4444444444444444,4,4.644444444444445
+Scale-free,10/40,10,9,1,1.5,3,5,2.7111111111111112,1,1.0
+Torus,10/40,10,19,2,3.5,7,3,1.6444444444444444,2,3.0444444444444443

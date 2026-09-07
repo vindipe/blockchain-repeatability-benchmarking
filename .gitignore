@@ -1,6 +1,9 @@
 .DS_Store
 outputs/*
 !outputs/.gitkeep
+!outputs/revision/
+!outputs/revision/**
+outputs/revision/clean_room_manifest.json
 __pycache__/
 *.py[cod]
 .venv/

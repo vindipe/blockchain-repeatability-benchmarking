@@ -1,0 +1,11 @@
+term,term_formula,test,statistic,df,p_value
+Blockchain (omnibus),"C(blockchain, Sum)",hierarchical likelihood-ratio chi-square,3166.7521459687187,44,0.0
+Topology (omnibus),"C(mode, Sum)",hierarchical likelihood-ratio chi-square,190.12179329825778,44,4.4882897829132433e-20
+Workload (omnibus),"C(workload, Sum)",hierarchical likelihood-ratio chi-square,1030.9168651410455,50,2.8830546431746463e-183
+Size (omnibus),"C(network_size, Sum)",hierarchical likelihood-ratio chi-square,470.6558819205153,14,1.521422000901355e-91
+Blockchain $\times$ topology,"C(blockchain, Sum):C(mode, Sum)",likelihood-ratio chi-square,24.2871879145099,16,0.0834169515326053
+Blockchain $\times$ workload,"C(blockchain, Sum):C(workload, Sum)",likelihood-ratio chi-square,345.64355409271286,20,3.516916824605389e-61
+Blockchain $\times$ size,"C(blockchain, Sum):C(network_size, Sum)",likelihood-ratio chi-square,66.631967130617,4,1.1655975598232917e-13
+Topology $\times$ workload,"C(mode, Sum):C(workload, Sum)",likelihood-ratio chi-square,25.706121524232344,20,0.17573861736174934
+Topology $\times$ size,"C(mode, Sum):C(network_size, Sum)",likelihood-ratio chi-square,16.434375373096827,4,0.0024883940941965712
+Workload $\times$ size,"C(workload, Sum):C(network_size, Sum)",likelihood-ratio chi-square,40.807576230878,5,1.0261181935715942e-07

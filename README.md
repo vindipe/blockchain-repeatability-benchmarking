@@ -35,19 +35,56 @@ The archival record is available through the stable Zenodo concept DOI:
 ├── LICENSE
 ├── requirements.txt
 ├── analysis/
-│   └── plot_reproducibility.py
+│   ├── audit_observed_runs.py
+│   ├── audit_topology_instances.py
+│   ├── audit_campaign_structure.py
+│   ├── audit_gafam_trace.py
+│   ├── balanced_sensitivity.py
+│   ├── bootstrap_dispersion_tables.py
+│   ├── compute_corrected_dispersion.py
+│   ├── derive_run_outcomes.py
+│   ├── fit_two_part_models.py
+│   ├── generate_study_delta.py
+│   ├── icc_by_blockchain.py
+│   ├── plot_reproducibility.py
+│   ├── plot_run_level_deviations.py
+│   ├── run_revision_workflow.py
+│   └── workload_catalog.py
 ├── dataset/
 │   ├── README.md
 │   ├── reproducibility-dataset.csv
 │   └── reproducibility-runs.csv
+├── inputs/
+│   ├── topologies/              # frozen 10/40-validator XML instances
+│   └── workloads/
+│       └── workload-gafam-long.yaml
 ├── docs/
 │   ├── README-ACM-DLT.md
 │   ├── data_dictionary.md
+│   ├── derived_outcome_data_dictionary.md
 │   ├── methodology.md
 │   ├── provenance.md
 │   └── run_level_data_dictionary.md
-└── outputs/
-    └── .gitkeep
+├── outputs/
+│   └── revision/                 # versioned definitive analysis outputs
+├── paper_tables/
+│   ├── six_workloads/
+│   └── legacy_three_workloads/
+└── tests/
+    ├── test_audit_campaign_structure.py
+    ├── test_audit_gafam_trace.py
+    ├── test_audit_observed_runs.py
+    ├── test_audit_topology_instances.py
+    ├── test_balanced_sensitivity.py
+    ├── test_bootstrap_dispersion_tables.py
+    ├── test_compute_corrected_dispersion.py
+    ├── test_derive_run_outcomes.py
+    ├── test_fit_two_part_models.py
+    ├── test_generate_study_delta.py
+    ├── test_icc_by_blockchain.py
+    ├── test_plot_run_level_deviations.py
+    ├── test_run_revision_workflow.py
+    └── test_workload_catalog.py
 ```
 
 - `dataset/reproducibility-runs.csv` contains 4,105 repeated-execution
@@ -56,7 +93,74 @@ The archival record is available through the stable Zenodo concept DOI:
   dataset with 300 configurations and 50 columns.
 - `analysis/plot_reproducibility.py` is the analysis script used to aggregate
   the repeated observations and generate the paper tables and figures.
-- `outputs/` is populated when the analysis is run.
+- `analysis/audit_observed_runs.py` inventories the observed configuration and
+  campaign structure without classifying outcomes or computing performance
+  statistics.
+- `analysis/audit_topology_instances.py` verifies all regenerated XML
+  checksums, contracts numbered hop-emulation bridges, computes numerical graph
+  properties without assuming canonical structure from topology names, and
+  generates the R1.16 manuscript table. The selected instances use static
+  trace-derived link parameters (`dynamic=0`).
+- `analysis/derive_run_outcomes.py` derives observable execution states and
+  metric-specific validity masks without inferring failures from absent logs.
+- `analysis/compute_corrected_dispersion.py` applies those masks symmetrically
+  to means, extrema, quartiles, sample standard deviations, and signed
+  deviations.
+- `analysis/balanced_sensitivity.py` repeats the analysis after sampling nine
+  observed executions per configuration without replacement. Sampling occurs
+  before outcome and metric eligibility checks, so the corresponding
+  denominators remain explicit rather than being forced to nine.
+- `analysis/bootstrap_dispersion_tables.py` resamples metric-eligible executions
+  within configurations, propagates percentile intervals to unweighted means
+  and medians across configuration cells, and writes standalone LaTeX tables.
+- `analysis/fit_two_part_models.py` fits the binomial outcome model and the
+  log-linear conditional-performance models, audits rank and estimability,
+  computes HC3 Type-II tests, Type-III sensitivities, and a configuration-cluster
+  covariance sensitivity, and writes residual diagnostics, targeted three-way
+  sensitivity tests, and standalone LaTeX tables.
+- `analysis/icc_by_blockchain.py` replaces the pooled raw-scale ICC with REML
+  random-intercept ICCs within each blockchain on the natural-log scale and
+  attaches configuration-cluster bootstrap intervals.
+- `analysis/workload_catalog.py` generates the six-workload definition and
+  outcome-accounting table used for M1/M2; its generated caption and note
+  already carry the manuscript's `\vd[Rx]{...}` revision marking.
+- `analysis/audit_gafam_trace.py` verifies the mirrored GAFAM input checksum,
+  schedule, units, source revision, raw-to-display label mapping, and its link
+  to the 668 selected GAFAM observations.
+- `analysis/audit_campaign_structure.py` verifies that `hash` is nested within
+  configuration, `run` is reused and restarted, and `dataset` is constant. It
+  writes provenance records only: it neither estimates within-/between-campaign
+  variance nor generates a manuscript table.
+- `analysis/generate_study_delta.py` records the M8/R2.5 row-by-row
+  ACM-DLT-versus-IEEE comparison as CSV and JSON audit outputs and validates
+  every quantitative IEEE claim against the completed revision outputs. It
+  never creates `table_acm_ieee_delta.tex`: that manually curated table belongs
+  only to the paper repository.
+- `analysis/plot_run_level_deviations.py` generates corrected vector-PDF
+  absolute and relative deviation figures for all six workloads, using the
+  same metric-specific eligibility masks as the numerical analysis. Each
+  colored circular marker is one eligible positive-service execution; a
+  deterministic small horizontal offset separates executions within a
+  configuration without changing their factor assignment. Vertical labels on
+  the absolute panels report configuration means, which also define zero in
+  the paired percentage panels. R2.6 additionally
+  merges configuration-regime counts, execution outcomes, and metric-validity
+  counts into one compact LaTeX summary table, with an execution-level
+  plotting manifest and exact figure captions
+  marked `\vd[R1.5/R2.6]{...}`. The remaining figure PDFs use embedded TrueType
+  fonts and record the final panel/placement decision in the figure summary.
+- `outputs/revision/` contains the definitive versioned CSV, JSON, diagnostic
+  PDF, and generated-table outputs from the completed revision analyses. A
+  GitHub source ZIP therefore includes the executed results and does not
+  require rerunning the analysis to recover the manuscript tables or audit
+  files.
+
+All generated manuscript tables carry their revision marking internally in the
+caption through `\vd[review point]{...}` with the relevant review identifiers.
+Table headings and values remain uncoloured. The factorial and ICC generators
+also emit the degrees of freedom, variance components, and bootstrap intervals
+shown in the manuscript, so copying the generated `.tex` file requires no
+manual numerical or highlighting edit.
 
 ## Experimental matrix
 
@@ -68,31 +172,68 @@ The released measurements cover:
 - two validator-set sizes: 10 and 40 nodes;
 - throughput, latency, energy, and committed-transaction measurements.
 
-The IEEE Access analysis focuses on GAFAM, PayPal, and VISA. The script also
-retains the three additional workloads used by the broader ACM DLT artifact and
-generates separate figures for them.
+The complete six-workload corpus is the primary manuscript scope. The earlier
+GAFAM, PayPal, and VISA subset is retained only as a labelled compatibility
+and sensitivity scope so that previously reported values remain auditable.
+
+The raw `gafam` label selects `workload-gafam-long.yaml`. Its 300-second offered
+load is specified as TPS control points: 19,800 at second 0, 115 at second 1,
+25--140 at subsequent control points through second 180, 37 at second 180, and
+zero at second 300. Diablo linearly interpolates between control points. The
+mirrored input, source commit/path, and both source and packaged checksums are
+tracked under `inputs/workloads/` and `outputs/revision/m2_gafam_trace/`.
 
 ## Reproduce the analysis
 
 Python 3.12 was used for the validation recorded in this release.
 
+The complete revision workflow, including all audits, full bootstrap fits,
+figures, manuscript tables, regression tests, and a run-local integrity manifest,
+is executed with one command:
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install -r requirements.txt
-python3 analysis/plot_reproducibility.py
+python3 analysis/run_revision_workflow.py
 ```
 
-The script can be launched from any working directory because input and output
-paths are resolved relative to the repository.
+The orchestrator can be launched from any working directory because input and
+output paths are resolved relative to the repository. It always performs the
+full 1,000-repetition ICC bootstrap; `--icc-workers N` controls only parallel
+execution and never reduces the statistical workload. It fails at the first
+unsuccessful stage and writes `outputs/revision/clean_room_manifest.json` only
+after all analyses and all tests have passed. The run-local manifest records
+platform and elapsed-time metadata and is intentionally excluded from version
+control; the versioned CSV, JSON, LaTeX, and PDF outputs are the frozen results.
 
-It writes:
+Audit the observed design and run its regression tests with:
+
+```bash
+python3 analysis/audit_observed_runs.py
+python3 analysis/audit_topology_instances.py
+python3 analysis/derive_run_outcomes.py
+python3 analysis/compute_corrected_dispersion.py
+python3 analysis/balanced_sensitivity.py
+python3 analysis/bootstrap_dispersion_tables.py
+python3 analysis/fit_two_part_models.py
+python3 analysis/icc_by_blockchain.py
+python3 analysis/audit_gafam_trace.py
+python3 analysis/workload_catalog.py
+python3 analysis/plot_run_level_deviations.py
+python3 analysis/audit_campaign_structure.py
+python3 analysis/generate_study_delta.py
+python3 -m unittest discover -s tests -v
+```
+
+The legacy plotting script remains available to reproduce the earlier released
+outputs, but it is not the source of corrected M3 results. It writes:
 
 - `outputs/reproducibility-dataset.csv`;
 - six LaTeX tables, including the repeatability summaries and ANOVA/ICC table;
 - twelve figure variants, each in PNG and PDF format.
 
-## Preserved analysis behavior
+## Current analysis and observed-design audit
 
 The scientific selection and aggregation logic of the analysis script has been
 preserved. It:
@@ -106,13 +247,100 @@ preserved. It:
 5. computes counts, means, extrema, quartiles, sample standard deviations,
    IQR-based measures, directional deviations, WCD summaries, factorial ANOVA,
    and ICC;
-6. uses GAFAM, PayPal, and VISA for the primary IEEE Access summaries.
+6. uses all six observed workloads for the primary IEEE Access summaries and
+   retains GAFAM, PayPal, and VISA only as an explicitly labelled legacy scope.
 
-The raw `hash` column identifies benchmark campaigns. The published analysis
-does not use `hash` as a grouping key and does not remove CSV rows with
-`commit_number == 0` before configuration-level aggregation. These choices are
-documented here to reproduce the supplied script exactly; no new campaign
-selection or outcome-state reconstruction has been introduced in this release.
+The separate M1 audit applies the same fixed filters and verifies the design
+before any outcome or metric processing. It finds 4,080 observed executions in
+300 six-workload configurations, with configuration-level counts from 9 to 26;
+only four configurations contain exactly 10 observations. The legacy
+three-workload subset contains 2,053 observations in 150 configurations, of
+which only two contain exactly 10 observations. Because no complete scheduling
+manifest is available, the artifact reports observed rather than scheduled
+attempt counts. No observations are synthesized or discarded to force a fixed
+cell size.
+
+The raw `hash` column identifies collection batches nested within configurations. The original plotting
+script does not use `hash` as a grouping key and does not remove CSV rows with
+`commit_number == 0` before configuration-level aggregation. M2 adds a separate
+derived layer rather than overwriting that script or either released CSV. It
+classifies 3,125 positive-commit executions, 953 submitted zero-commit
+executions, and two no-submission executions. It does not label any row as a
+technical failure because deployment and execution logs are not available.
+
+Throughput and block latency are valid for conditional performance analysis
+only when a positive commit is observed. Energy and network measurements remain
+available for all 4,080 selected executions, including zero-commit and
+no-submission outcomes. Seven positive-commit rows have stored TPS equal to
+`0.0` because Diablo exported TPS with one decimal place. The released files do
+not contain Diablo's last-event time, so the exact positive value cannot be
+reconstructed. M3 retains these runs as positive-commit outcomes, labels their
+TPS as left-censored (`0 < TPS < 0.05`), and excludes only those seven TPS
+values from point-valued dispersion statistics.
+
+M3 writes a long-form table with one row per configuration and metric to
+`outputs/revision/m3_dispersion/configuration_metric_statistics.csv`. Every
+statistic in a row uses the same eligibility mask. Signed relative deviations
+are `100 * (y - mean) / mean`; the implementation verifies the `-100%` lower
+bound and the `100(n-1)%` upper bound for non-negative observations. Sample
+standard deviation is computed with `ddof=1` and is undefined when fewer than
+two metric values are available.
+
+The balanced sensitivity analysis uses all 300 configurations, each of which
+contains at least nine observed executions. It performs 5,000 repetitions with
+seed `20260830`. In every repetition it draws nine real rows per configuration
+without replacement and only then applies the derived outcome and
+metric-eligibility masks. It writes configuration-, factor-, denominator-, and
+extrema-level comparisons to `outputs/revision/balanced_n9/`. The raw datasets
+are never modified and no synthetic row is created.
+
+M4/M7 uncertainty is computed separately from the balanced sensitivity.
+`bootstrap_dispersion_tables.py` uses 5,000 within-configuration bootstrap
+replicates and seed `20260831`. For each metric/configuration cell, it resamples
+the metric-eligible executions with replacement at their original count,
+recomputes IQR% and sample-Std%, and propagates the replicates to both the
+unweighted mean and median across cells. It reports 95% percentile intervals,
+the number of contributing configuration cells, total metric observations, and
+the metric-specific run-count range. Cells with fewer than two eligible values
+do not contribute a dispersion estimate. The script writes machine-readable
+CSV files and six standalone LaTeX tables: one topology, workload, and
+validator-set table for both the six-workload corpus and the legacy
+three-workload subset. Each table groups TPS, latency, and energy side by side.
+The current generated versions are
+tracked under `paper_tables/` so that the manuscript consumes exact script
+output rather than manually transcribed values; rerunning the script replaces
+those files deterministically.
+
+S1--S3/R2.4 replace the earlier pooled raw-scale ANOVA/ICC interpretation.
+The outcome component is a binomial GLM for an observed positive commit. The
+conditional component fits natural-log TPS, latency, and energy for
+metric-eligible positive-service executions. Primary linear-model inference
+uses Type-II tests with HC3 covariance; Type-III tests under sum-to-zero
+contrasts and Type-II tests with configuration-cluster covariance are retained
+as sensitivities. The latter allows arbitrary residual dependence among
+executions from the same blockchain--topology--workload--size cell. All
+two-way interactions are fitted,
+and both targeted three-way additions are checked for design-matrix rank before
+inference. The legacy three-workload models are full rank. In the six-workload
+corpus, Quorum--FIFA and Quorum--Gaming contain no positive-service
+observations. The nominal conditional design is therefore deficient by two
+columns. The script fits the complete estimable column space on a deterministic
+full-rank basis, so the blockchain--workload test uses 18 supported degrees of
+freedom rather than 20 and no empty cell is imputed. Targeted three-way
+sensitivities are likewise tested on their observed-support rank, with
+supported and nominal degrees of freedom both reported.
+When the binomial outcome component flags quasi-separation, its likelihood-ratio
+rows are explicitly labelled in the generated tables as model-screening
+evidence for service incidence rather than finite-sample causal inference.
+
+ICC is estimated separately within each blockchain and metric using an
+intercept-only REML mixed model on the natural-log scale, with configuration as
+the random intercept. The script reports the between-configuration and
+within-configuration variance components and 95% configuration-cluster
+bootstrap intervals. The pooled global ICC is not used as evidence of
+run-to-run repeatability. A completed ICC CSV can be rendered again without
+refitting with the --render-existing-tables option; the table note records the
+first deterministic bootstrap seed actually used for its scope.
 
 ## Documentation
 
@@ -121,8 +349,10 @@ selection or outcome-state reconstruction has been introduced in this release.
   schema.
 - [`docs/run_level_data_dictionary.md`](docs/run_level_data_dictionary.md)
   documents the repeated-execution schema.
+- [`docs/derived_outcome_data_dictionary.md`](docs/derived_outcome_data_dictionary.md)
+  documents the M2 status and metric-validity fields.
 - [`docs/methodology.md`](docs/methodology.md) describes the implemented
-  selection and analysis flow.
+  selection, observed-design audit, and analysis flow.
 - [`docs/provenance.md`](docs/provenance.md) records source files and checksums.
 
 ## Repeating the experiments

@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\caption{\vd[R1.9/R2.4]{Within-blockchain REML random-intercept decomposition of log positive-service observations. $C/N$ denotes metric-eligible configurations/executions; $\hat{\tau}^2/\hat{\sigma}^2$ are between-/within-configuration variances. Brackets give 95\% intervals from 1,000 configuration-cluster bootstrap replicates.}}
+\label{tab:icc_by_blockchain}
+\TableFont
+\setlength{\tabcolsep}{1pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+Blockchain & TPS & Latency & Energy \\
+\midrule
+Algorand & \shortstack{$C/N=30/391$\\$\hat{\tau}^2=0.392$ [0.242,0.517]\\$\hat{\sigma}^2=0.065$ [0.027,0.119]\\ICC=0.857 [0.762,0.927]} & \shortstack{$C/N=30/391$\\$\hat{\tau}^2=0.190$ [0.120,0.258]\\$\hat{\sigma}^2=0.023$ [0.014,0.033]\\ICC=0.893 [0.833,0.932]} & \shortstack{$C/N=30/391$\\$\hat{\tau}^2=0.042$ [0.027,0.050]\\$\hat{\sigma}^2=0.020$ [0.017,0.023]\\ICC=0.680 [0.582,0.723]} \\
+Diem & \shortstack{$C/N=30/415$\\$\hat{\tau}^2=0.109$ [0.031,0.167]\\$\hat{\sigma}^2=0.034$ [0.011,0.064]\\ICC=0.765 [0.508,0.917]} & \shortstack{$C/N=30/415$\\$\hat{\tau}^2=1.216$ [0.669,1.621]\\$\hat{\sigma}^2=0.054$ [0.013,0.119]\\ICC=0.958 [0.893,0.990]} & \shortstack{$C/N=30/415$\\$\hat{\tau}^2=0.039$ [0.025,0.046]\\$\hat{\sigma}^2=0.020$ [0.016,0.025]\\ICC=0.660 [0.554,0.721]} \\
+Ethereum~Clique & \shortstack{$C/N=30/398$\\$\hat{\tau}^2=0.040$ [0.000,0.055]\\$\hat{\sigma}^2=0.022$ [0.014,0.032]\\ICC=0.644 [0.000,0.764]} & \shortstack{$C/N=30/398$\\$\hat{\tau}^2=0.045$ [0.030,0.054]\\$\hat{\sigma}^2=0.007$ [0.005,0.010]\\ICC=0.857 [0.788,0.892]} & \shortstack{$C/N=30/398$\\$\hat{\tau}^2=0.042$ [0.025,0.050]\\$\hat{\sigma}^2=0.023$ [0.019,0.028]\\ICC=0.642 [0.518,0.694]} \\
+Quorum~IBFT & \shortstack{$C/N=30/319$\\$\hat{\tau}^2=3.348$ [2.492,3.948]\\$\hat{\sigma}^2=0.617$ [0.373,0.908]\\ICC=0.844 [0.776,0.888]} & \shortstack{$C/N=30/325$\\$\hat{\tau}^2=1.213$ [0.571,1.528]\\$\hat{\sigma}^2=0.559$ [0.336,0.836]\\ICC=0.685 [0.474,0.810]} & \shortstack{$C/N=30/325$\\$\hat{\tau}^2=0.044$ [0.027,0.053]\\$\hat{\sigma}^2=0.021$ [0.018,0.025]\\ICC=0.678 [0.564,0.728]} \\
+Solana & \shortstack{$C/N=24/241$\\$\hat{\tau}^2=2.604$ [1.369,3.448]\\$\hat{\sigma}^2=0.255$ [0.147,0.404]\\ICC=0.911 [0.805,0.953]} & \shortstack{$C/N=24/241$\\$\hat{\tau}^2=0.230$ [0.000,0.385]\\$\hat{\sigma}^2=0.068$ [0.036,0.108]\\ICC=0.773 [0.000,0.893]} & \shortstack{$C/N=24/241$\\$\hat{\tau}^2=0.053$ [0.038,0.064]\\$\hat{\sigma}^2=0.020$ [0.015,0.024]\\ICC=0.731 [0.659,0.783]} \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

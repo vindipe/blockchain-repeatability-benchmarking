@@ -1,0 +1,23 @@
+\begin{table}[t]
+\centering
+\caption{\vd[R1.11]{Targeted three-way sensitivities: outcome rows use likelihood-ratio $\chi^2$ deletion tests and conditional-performance rows HC3 Type-II $F$ tests. For sparse positive-service support, df gives supported rank/nominal columns with no imputation; outcome tests are omnibus screening under quasi-separation.}}
+\label{tab:three_way_sensitivity}
+\TableFont
+\setlength{\tabcolsep}{1pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lllrrrc}
+\hline
+Component & Metric & Interaction & Test statistic & df & $p$ & Status \\
+\hline
+Outcome & Positive commit & B $\times$ T $\times$ W & 42.24 & 32 & 0.106 & reported \\
+Outcome & Positive commit & B $\times$ W $\times$ S & 182.34 & 8 & $<0.001$ & reported \\
+Cond. Perf. & TPS & B $\times$ T $\times$ W & 3.08 & 32 & $<0.001$ & reported \\
+Cond. Perf. & TPS & B $\times$ W $\times$ S & 30.37 & 8 & $<0.001$ & reported \\
+Cond. Perf. & Latency & B $\times$ T $\times$ W & 6.64 & 32 & $<0.001$ & reported \\
+Cond. Perf. & Latency & B $\times$ W $\times$ S & 58.86 & 8 & $<0.001$ & reported \\
+Cond. Perf. & Energy & B $\times$ T $\times$ W & 0.62 & 32 & 0.953 & reported \\
+Cond. Perf. & Energy & B $\times$ W $\times$ S & 2.17 & 8 & 0.027 & reported \\
+\hline
+\end{tabular}
+}
+\end{table}

@@ -1,0 +1,66 @@
+{
+  "classification_basis": "released_csv_fields_only",
+  "failure_inferred_without_logs": false,
+  "input": {
+    "path": "dataset/reproducibility-runs.csv",
+    "rows": 4105,
+    "sha256": "c520ec25a02f2bc7e8c719c8b2dd0524c4c6a11d1d53953d77bb361d3f96b765"
+  },
+  "legacy_three_workload_subset": {
+    "configuration_regimes": {
+      "all_positive_commit": 114,
+      "mixed_outcomes": 30,
+      "no_positive_commit": 6
+    },
+    "configurations": 150,
+    "configurations_with_at_least_9_positive_commits": 129,
+    "metric_valid_counts": {
+      "energy_valid_observed": 2053,
+      "energy_valid_positive_commit": 1770,
+      "latency_valid_positive_commit": 1770,
+      "network_valid_observed": 2053,
+      "tps_censored_positive_commit": 6,
+      "tps_point_valid_positive_commit": 1764,
+      "tps_valid_positive_commit": 1770
+    },
+    "outcome_counts": {
+      "inconsistent": 0,
+      "no_submission": 0,
+      "positive_commit": 1770,
+      "zero_commit": 283
+    },
+    "positive_commit_with_stored_tps_zero": 6,
+    "rows": 2053,
+    "workloads": [
+      "GAFAM",
+      "PayPal",
+      "VISA"
+    ]
+  },
+  "selected_six_workload_corpus": {
+    "configuration_regimes": {
+      "all_positive_commit": 205,
+      "mixed_outcomes": 46,
+      "no_positive_commit": 49
+    },
+    "configurations": 300,
+    "configurations_with_at_least_9_positive_commits": 231,
+    "metric_valid_counts": {
+      "energy_valid_observed": 4080,
+      "energy_valid_positive_commit": 3125,
+      "latency_valid_positive_commit": 3125,
+      "network_valid_observed": 4080,
+      "tps_censored_positive_commit": 7,
+      "tps_point_valid_positive_commit": 3118,
+      "tps_valid_positive_commit": 3125
+    },
+    "outcome_counts": {
+      "inconsistent": 0,
+      "no_submission": 2,
+      "positive_commit": 3125,
+      "zero_commit": 953
+    },
+    "positive_commit_with_stored_tps_zero": 7,
+    "rows": 4080
+  }
+}

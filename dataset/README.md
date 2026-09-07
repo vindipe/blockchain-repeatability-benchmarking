@@ -15,10 +15,23 @@ measurement exported by the benchmark pipeline and includes:
 - benchmark start timestamp.
 
 The file preserves all supplied rows, including rows with
-`commit_number == 0`. See
+`commit_number == 0`. Applying the fixed experimental filters selects 4,080
+observed executions across 300 configurations. Their observed cell sizes range
+from 9 to 26; they are not a balanced ten-run design. See
 [`../docs/run_level_data_dictionary.md`](../docs/run_level_data_dictionary.md)
 for the schema and [`../docs/methodology.md`](../docs/methodology.md) for the
 selection performed by the analysis script.
+
+The run-level `average_throughput` field was parsed from Diablo's textual
+statistics, which print one decimal place. Seven selected positive-commit rows
+therefore contain a stored `0.0`. The archive does not include the last-event
+time needed to reconstruct Diablo's unrounded value; M3 records these values as
+left-censored and excludes them from point-valued TPS dispersion only.
+
+The raw CSV is immutable. M2 writes a separate processed copy under
+`outputs/revision/m2_outcomes/`, adding derived outcome states and
+metric-specific validity flags documented in
+[`../docs/derived_outcome_data_dictionary.md`](../docs/derived_outcome_data_dictionary.md).
 
 ## `reproducibility-dataset.csv`
 

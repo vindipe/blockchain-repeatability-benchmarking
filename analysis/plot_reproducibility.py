@@ -1,3 +1,12 @@
+"""Legacy aggregate pipeline retained to reproduce the previously released output.
+
+This script predates the M2 outcome masks and the M3 symmetric-dispersion
+correction.  It must not be used as the source of revised IEEE Access headline
+values.  Run ``derive_run_outcomes.py`` and ``compute_corrected_dispersion.py``
+for the revision analysis; corrected tables and figures consume their outputs
+in the later M4/M5 stages.
+"""
+
 # Libraries
 import matplotlib
 matplotlib.use("Agg")
