@@ -274,6 +274,7 @@ def latex_table_topology(topo_summary: pd.DataFrame) -> str:
     lines = []
     lines.append(r"\begin{table}[t]")
     lines.append(r"\centering")
+    lines.append(r"\TableFont")
     lines.append(
         r"\caption{Repeatability per blockchain vs.\ topology "
         r"(same convention as Table~\ref{tab:repeatability_summary}), using IQR\% and Std\%.}"
@@ -399,6 +400,7 @@ def latex_table_workload(work_summary: pd.DataFrame) -> str:
     lines = []
     lines.append(r"\begin{table}[t]")
     lines.append(r"\centering")
+    lines.append(r"\TableFont")
     lines.append(
         r"\caption{Repeatability per blockchain vs.\ workload "
         r"(same convention as Table~\ref{tab:repeatability_summary}), using IQR\% and Std\%.}"
@@ -552,6 +554,7 @@ def latex_table_scaling(scale_summary: pd.DataFrame) -> str:
     lines = []
     lines.append(r"\begin{table*}[t]")
     lines.append(r"\centering")
+    lines.append(r"\TableFont")
     lines.append(
         r"\caption{Repeatability per blockchain with 10- and 40-node scaling "
         r"(same convention as Table~\ref{tab:repeatability_summary}), using IQR\% and Std\%.}"
@@ -708,6 +711,7 @@ def latex_table_blockchain_worstcase(worst_df: pd.DataFrame) -> str:
     lines = []
     lines.append(r"\begin{table*}[t]")
     lines.append(r"\centering")
+    lines.append(r"\TableFont")
     lines.append(
         r"\caption{Worst-case run-to-run swings per blockchain. "
         r"For each metric we report: the maximum observed range "
@@ -822,6 +826,7 @@ def latex_table_repeatability(blockchain_summary: pd.DataFrame) -> str:
     lines = []
     lines.append(r"\begin{table}[!t]")
     lines.append(r"\centering")
+    lines.append(r"\TableFont")
     lines.append(
         r"\caption{Overall blockchain-level variability. For each metric, "
         r"we report the median relative interquartile range (IQR\%), and the median "
@@ -1007,6 +1012,7 @@ def latex_table_anova_icc(summary: pd.DataFrame) -> str:
     lines = []
     lines.append(r"\begin{table}[t]")
     lines.append(r"\centering")
+    lines.append(r"\TableFont")
     lines.append(
         r"\caption{Variance decomposition and run-to-run reliability. "
         r"Each entry reports the percentage of variance explained by the "

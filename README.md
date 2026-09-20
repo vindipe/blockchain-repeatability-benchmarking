@@ -144,7 +144,7 @@ The archival record is available through the stable Zenodo concept DOI:
   configuration without changing their factor assignment. Vertical labels on
   the absolute panels report configuration means, which also define zero in
   the paired percentage panels. R2.6 additionally
-  merges configuration-regime counts, execution outcomes, and metric-validity
+  merges configuration-outcome-class counts, execution outcomes, and metric-validity
   counts into one compact LaTeX summary table, with an execution-level
   plotting manifest and exact figure captions
   marked `\vd[R1.5/R2.6]{...}`. The remaining figure PDFs use embedded TrueType

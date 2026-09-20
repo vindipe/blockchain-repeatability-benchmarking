@@ -382,7 +382,7 @@ python3 analysis/plot_run_level_deviations.py
 creates the m2 GAFAM trace audit, the six-workload catalog under
 `outputs/revision/m1_workloads/`, its generated LaTeX table under
 `paper_tables/six_workloads/`, three corrected six-workload run-level deviation
-PDFs, and the merged configuration-regime, execution-outcome, and
+PDFs, and the merged configuration-outcome-class, execution-outcome, and
 metric-validity table
 `paper_tables/r2_6/table_outcome_accounting.tex`. It also writes an
 execution-level plotting manifest and exact M5/R2.6 figure captions.
