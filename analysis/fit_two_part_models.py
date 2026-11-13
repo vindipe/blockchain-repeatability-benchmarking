@@ -663,7 +663,7 @@ def render_term_table(
     lines = [
         r"\begin{table}[t]",
         r"\centering",
-        r"\caption{\vd[R1.9-10/R2.4]{Two-part factorial analysis. Outcome entries report likelihood-ratio $\chi^2$ statistics with df; conditional log-performance ANOVAs report Type-II HC3 $F$ statistics with numerator/residual df and partial $\eta_p^2$. $B$, $T$, $W$, and $S$ denote blockchain, topology, workload, and validator-set size; main-factor rows are hierarchical omnibus tests.}}",
+        r"\caption{\vd[R1.9-10/R2.4]{Two-part factorial analysis. Outcome entries report likelihood-ratio $\chi^2$ statistics with df; conditional log-performance ANOVAs report Type-II HC3 $F$ statistics with numerator/residual df and partial $\eta_{\mathrm{p}}^2$. $B$, $T$, $W$, and $S$ denote blockchain, topology, workload, and validator-set size; main-factor rows are hierarchical omnibus tests.}}",
         r"\label{tab:two_part_factorial_models}",
         r"\TableFont",
         r"\setlength{\tabcolsep}{1pt}",
@@ -671,7 +671,7 @@ def render_term_table(
         r"\begin{tabular}{lrr|rrr|rrr|rrr}",
         r"\hline",
         r"& \multicolumn{2}{c|}{Outcome} & \multicolumn{3}{c|}{TPS} & \multicolumn{3}{c|}{Latency} & \multicolumn{3}{c}{Energy} \\",
-        r"Term & $\chi^2$ (df) & $p$ & $F_{\mathrm{HC3}}$ (df) & $p$ & $\eta_p^2$ & $F_{\mathrm{HC3}}$ (df) & $p$ & $\eta_p^2$ & $F_{\mathrm{HC3}}$ (df) & $p$ & $\eta_p^2$ \\",
+        r"Term & $\chi^2$ (df) & $p$ & $F_{\mathrm{HC3}}$ (df) & $p$ & $\eta_{\mathrm{p}}^2$ & $F_{\mathrm{HC3}}$ (df) & $p$ & $\eta_{\mathrm{p}}^2$ & $F_{\mathrm{HC3}}$ (df) & $p$ & $\eta_{\mathrm{p}}^2$ \\",
         r"\hline",
     ]
     for _, row in outcome.iterrows():

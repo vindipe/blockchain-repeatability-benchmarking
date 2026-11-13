@@ -256,14 +256,14 @@ def format_number(value: float) -> str:
 def latex_table(rows: Iterable[TopologyMetrics]) -> str:
     lines = [
         r"\begin{table}[t]",
-        r"\caption{\vd[R1.16]{Numerical audit of the instantiated topology XMLs. $V/E$: vertices/undirected edges; degree: min/median/max; $\bar{\ell}$: average shortest-path length; $\lambda$: global edge connectivity; $\bar{p}_{e}$: mean pairwise edge-disjoint paths. Workload leaves are excluded and numbered hop bridges contracted. Both validator sizes yield the same overlay; only endpoint replication differs.}}",
+        r"\caption{\vd[R1.16]{Numerical audit of the instantiated topology XMLs. $V/E$: vertices/undirected edges; degree: min/median/max; $\bar{\ell}$: average shortest-path length; $\lambda$: global edge connectivity; $\bar{p}_{\mathrm{e}}$: mean pairwise edge-disjoint paths. Workload leaves are excluded and numbered hop bridges contracted. Both validator sizes yield the same overlay; only endpoint replication differs.}}",
         r"\label{tab:topology_numeric_audit}",
         r"\centering",
         r"\TableFont",
         r"\setlength{\tabcolsep}{3.6pt}",
         r"\begin{tabular}{lrrrrrrr}",
         r"\toprule",
-        r"Topology & $V$ & $E$ & Degree & Diam. & $\bar{\ell}$ & $\lambda$ & $\bar{p}_{e}$ \\",
+        r"Topology & $V$ & $E$ & Degree & Diam. & $\bar{\ell}$ & $\lambda$ & $\bar{p}_{\mathrm{e}}$ \\",
         r"\midrule",
     ]
     for row in rows:

@@ -160,8 +160,9 @@ def annotate_configuration_means(
     for item in means.itertuples(index=False):
         topology_index = TOPOLOGIES.index(str(item.mode))
         above = topology_index % 2 == 0
+        mean = format_configuration_mean(metric_key, float(item.configuration_mean))
         axis.annotate(
-            f"m={format_configuration_mean(metric_key, float(item.configuration_mean))}",
+            rf"$m={mean}$",
             xy=(configuration_position(str(item.blockchain), str(item.mode)), 0),
             xytext=(0, 1.5 if above else -1.5),
             textcoords="offset points",
