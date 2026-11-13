@@ -477,7 +477,7 @@ def render_outcome_table(counts: pd.DataFrame) -> str:
         r"\toprule",
         r" & & \multicolumn{4}{c}{\textbf{Configurations}} & \multicolumn{5}{c}{\textbf{Executions}} & \multicolumn{3}{c}{\textbf{Metric-valid}} \\",
         r"\cmidrule(lr){3-6}\cmidrule(lr){7-11}\cmidrule(lr){12-14}",
-        r"\textbf{Blockchain} & \textbf{Validators} & $\mathbf{C}$ & \textbf{All pos.} & \textbf{Mixed} & \textbf{No pos.} & \textbf{Obs.} & \textbf{Sub.} & \textbf{Pos.} & \textbf{Zero} & \textbf{No-sub.} & \textbf{TPS} & \textbf{Lat.} & $\mathbf{E^+}$ \\",
+        r"\textbf{Blockchain} & \textbf{Validators} & $\boldsymbol{C}$ & \textbf{All pos.} & \textbf{Mixed} & \textbf{No pos.} & \textbf{Obs.} & \textbf{Sub.} & \textbf{Pos.} & \textbf{Zero} & \textbf{No-sub.} & \textbf{TPS} & \textbf{Lat.} & $\boldsymbol{E^+}$ \\",
         r"\midrule",
     ]
     for row_index, (_, item) in enumerate(grouped.iterrows()):

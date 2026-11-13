@@ -649,16 +649,16 @@ def render_term_table(
     outcome_quasi_separation: bool = False,
 ) -> str:
     term_labels = {
-        "Blockchain (omnibus)": "B",
-        "Topology (omnibus)": "T",
-        "Workload (omnibus)": "W",
-        "Size (omnibus)": "S",
-        "Blockchain $\\times$ topology": r"B $\times$ T",
-        "Blockchain $\\times$ workload": r"B $\times$ W",
-        "Blockchain $\\times$ size": r"B $\times$ S",
-        "Topology $\\times$ workload": r"T $\times$ W",
-        "Topology $\\times$ size": r"T $\times$ S",
-        "Workload $\\times$ size": r"W $\times$ S",
+        "Blockchain (omnibus)": r"$B$",
+        "Topology (omnibus)": r"$T$",
+        "Workload (omnibus)": r"$W$",
+        "Size (omnibus)": r"$S$",
+        "Blockchain $\\times$ topology": r"$B\times T$",
+        "Blockchain $\\times$ workload": r"$B\times W$",
+        "Blockchain $\\times$ size": r"$B\times S$",
+        "Topology $\\times$ workload": r"$T\times W$",
+        "Topology $\\times$ size": r"$T\times S$",
+        "Workload $\\times$ size": r"$W\times S$",
     }
     lines = [
         r"\begin{table}[t]",
@@ -725,6 +725,7 @@ def render_estimability_table(table: pd.DataFrame) -> str:
         interaction = str(row["interaction"]).replace("Blockchain", "B").replace(
             "topology", "T"
         ).replace("workload", "W").replace("size", "S")
+        interaction = "$" + interaction.replace(r"$\times$", r"\times").replace(" ", "").replace(r"\times", r"\times ") + "$"
         lines.append(
             f"{row['metric']} & {interaction} & {int(row['added_columns'])} & "
             f"{int(row['added_rank'])} & {'yes' if row['fully_estimable'] else 'no'} \\\\"
@@ -753,6 +754,7 @@ def render_three_way_sensitivity_table(
         interaction = str(row["interaction"]).replace("Blockchain", "B").replace(
             "topology", "T"
         ).replace("workload", "W").replace("size", "S")
+        interaction = "$" + interaction.replace(r"$\times$", r"\times").replace(" ", "").replace(r"\times", r"\times ") + "$"
         if bool(row.get("reported", row["fully_estimable"])):
             statistic = f"{row['statistic']:.2f}"
             df = (

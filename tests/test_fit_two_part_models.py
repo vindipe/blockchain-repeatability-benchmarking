@@ -64,7 +64,7 @@ class TwoPartModelTests(unittest.TestCase):
         self.assertIn("main-factor rows are hierarchical omnibus tests", latex)
         self.assertIn(r"$\chi^2$ (df)", latex)
         self.assertIn(r"$F_{\mathrm{HC3}}$ (df)", latex)
-        self.assertIn(r"B $\times$ S", latex)
+        self.assertIn(r"$B\times S$", latex)
         self.assertNotIn(r"\parbox", latex)
         self.assertNotIn("rank-deficient", latex)
 
@@ -167,7 +167,7 @@ class TwoPartModelTests(unittest.TestCase):
             parts.append(primary)
         latex = render_term_table(outcome, pd.concat(parts, ignore_index=True))
         self.assertNotIn("-- & -- & --", latex)
-        self.assertIn(r"B $\times$ W", latex)
+        self.assertIn(r"$B\times W$", latex)
 
     def test_six_workload_three_way_terms_are_reported_on_support(self):
         table = targeted_three_way_sensitivity(self.six)

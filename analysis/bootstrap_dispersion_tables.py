@@ -357,9 +357,9 @@ def render_latex_table(
             r" & & "
             + " & ".join(
                 [
-                    r"$\mathbf{C}$",
-                    r"$\mathbf{N_k}$",
-                    r"$\mathbf{n_{c,k}}$",
+                    r"$\boldsymbol{C}$",
+                    r"$\boldsymbol{N_k}$",
+                    r"$\boldsymbol{n_{c,k}}$",
                     r"\textbf{IQR\%}",
                     r"\textbf{Std\%}",
                 ]
