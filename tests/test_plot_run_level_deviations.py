@@ -63,12 +63,14 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
             ).any()
         )
 
-    def test_generated_r1_5_captions_are_revision_marked(self):
+    def test_generated_captions_describe_the_new_relative_axis(self):
         captions = render_caption_replacements()
         self.assertEqual(captions.count(r"\caption{"), 3)
-        self.assertEqual(captions.count(r"\vd[R1.5/R2.6]{"), 3)
+        self.assertEqual(captions.count(r"\vd[R3.10]{"), 1)
+        self.assertIn(r"linear within $\pm100\%$ and logarithmic beyond", captions)
+        self.assertNotIn("triangles", captions)
         self.assertIn("across all six workloads", captions)
-        self.assertIn("one point-valued positive-service TPS execution", captions)
+        self.assertIn("one point-valued TPS observation from a positive-service execution", captions)
         self.assertIn("Vertical $m$ labels report configuration means", captions)
         self.assertIn(r"Table~\ref{tab:r26_outcome_accounting}", captions)
 

@@ -1,4 +1,4 @@
-"""Generate readable run-level figures and outcome tables (R1.5/R2.6)."""
+"""Generate readable run-level figures and outcome tables (R1.5/R2.6/R3.10)."""
 
 from __future__ import annotations
 
@@ -183,6 +183,7 @@ def plot_metric(
     deviations: pd.DataFrame,
     metric_key: str,
     output_dir: Path,
+    relative_limits: tuple[float, float],
 ) -> dict[str, object]:
     spec = METRICS[metric_key]
     fig = plt.figure(figsize=DEVIATION_FIGURE_SIZE)
@@ -221,38 +222,16 @@ def plot_metric(
                     x = points["plot_x"].to_numpy(float)
                     y = points[measure].to_numpy(float)
                     if measure == "relative_deviation":
-                        overflow = np.abs(y) > 100.0
-                        overflow_points += int(overflow.sum())
-                        normal = ~overflow
-                        axis.scatter(
-                            x[normal],
-                            y[normal],
-                            s=16,
-                            alpha=0.55,
-                            color=TOPOLOGY_COLORS[topology],
-                            linewidths=0,
-                            zorder=3,
-                        )
-                        axis.scatter(
-                            x[overflow],
-                            np.clip(y[overflow], -100.0, 100.0),
-                            s=30,
-                            alpha=0.85,
-                            color=TOPOLOGY_COLORS[topology],
-                            marker="^",
-                            linewidths=0,
-                            zorder=3,
-                        )
-                    else:
-                        axis.scatter(
-                            x,
-                            y,
-                            s=16,
-                            alpha=0.55,
-                            color=TOPOLOGY_COLORS[topology],
-                            linewidths=0,
-                            zorder=3,
-                        )
+                        overflow_points += int((np.abs(y) > 100.0).sum())
+                    axis.scatter(
+                        x,
+                        y,
+                        s=16,
+                        alpha=0.55,
+                        color=TOPOLOGY_COLORS[topology],
+                        linewidths=0,
+                        zorder=3,
+                    )
                 for blockchain in BLOCKCHAINS:
                     for topology in TOPOLOGIES:
                         cell_observed = observed.loc[
@@ -282,8 +261,9 @@ def plot_metric(
                 axis.tick_params(axis="x", labelsize=9.0, pad=1.5)
                 axis.tick_params(axis="y", labelsize=8.0, pad=1.5)
                 if measure == "relative_deviation":
-                    axis.set_ylim(-105, 105)
-                    axis.set_yticks([-100, 0, 100])
+                    axis.set_yscale("symlog", linthresh=100.0)
+                    axis.set_ylim(*relative_limits)
+                    axis.set_yticks([-100, 0, 100, 600])
                     axis.yaxis.tick_right()
                     axis.yaxis.set_label_position("right")
                 else:
@@ -336,17 +316,6 @@ def plot_metric(
         )
         for topology in TOPOLOGIES
     ]
-    if (deviations["relative_deviation"].abs() > 100.0).any():
-        handles.append(
-            plt.Line2D(
-                [0],
-                [0],
-                marker="^",
-                linestyle="",
-                color="black",
-                label=r"$|\Delta|>100\%$",
-            )
-        )
     handles.append(
         plt.Line2D(
             [0],
@@ -519,8 +488,15 @@ def run(input_path: Path, output_dir: Path) -> dict[str, object]:
     output_dir.mkdir(parents=True, exist_ok=True)
     for obsolete in output_dir.glob("*_nodes_*.pdf"):
         obsolete.unlink()
+    relative_values = pd.concat(
+        [frame["relative_deviation"] for frame in deviations_by_metric.values()]
+    )
+    relative_limits = (
+        min(-105.0, float(relative_values.min()) * 1.05),
+        max(650.0, float(relative_values.max()) * 1.05),
+    )
     figures = [
-        plot_metric(derived, deviations_by_metric[metric_key], metric_key, output_dir)
+        plot_metric(derived, deviations_by_metric[metric_key], metric_key, output_dir, relative_limits)
         for metric_key in METRICS
     ]
     manifest = pd.concat(
@@ -558,6 +534,12 @@ def run(input_path: Path, output_dir: Path) -> dict[str, object]:
         "png_count": 0,
         "plot_semantics": {
             "deviation_figures": "one circular marker per metric-eligible positive-service execution",
+            "relative_axis": {
+                "scale": "symlog",
+                "linear_threshold_percent": 100,
+                "shared_limits_percent": list(relative_limits),
+                "clipping": False,
+            },
             "mean_labels": (
                 "one vertical configuration-mean label on each populated "
                 "absolute panel position; the same mean defines zero in the "
@@ -604,9 +586,9 @@ def run(input_path: Path, output_dir: Path) -> dict[str, object]:
 def render_caption_replacements() -> str:
     return "\n".join(
         [
-            r"% Exact R1.5/R2.6 caption replacements for IEEE Access/4_Measurement_Results.tex",
+            r"% Caption replacements with the R3.10 relative-axis update for IEEE Access/4_Measurement_Results.tex",
             r"% fig:tps-deviations",
-            r"\caption{\vd[R1.5/R2.6]{Run-level throughput deviations across all six workloads at 10 and 40 nodes. Each colored circle is one point-valued positive-service TPS execution; deterministic horizontal offsets separate runs without changing their configuration. Left and right panels report absolute TPS deviation and relative deviation (\%), respectively. Vertical $m$ labels report configuration means and define zero in the paired relative panels; triangles mark relative deviations beyond $\pm100\%$, and $\times$ marks a configuration with no point-valued TPS execution. Non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
+            r"\caption{Run-level throughput deviations across all six workloads at 10 and 40 nodes. Each colored circle is one point-valued TPS observation from a positive-service execution; deterministic horizontal offsets separate runs without changing their configuration. Left and right panels report $\Delta$ TPS and $\Delta$ Percentage, respectively. Vertical $m$ labels report configuration means; zero denotes equality with the configuration mean in both panels; \vd[R3.10]{the percentage axis is linear within $\pm100\%$ and logarithmic beyond}, and $\times$ marks a configuration with no point-valued TPS execution. Non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}",
             r"% fig:latency-deviations",
             r"\caption{\vd[R1.5/R2.6]{Run-level block-latency deviations across all six workloads at 10 and 40 nodes. Each colored circle is one metric-eligible positive-service execution; conventions are as in Figure~\ref{fig:tps-deviations}, with left panels reporting absolute block-latency deviation (s). Non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
             r"% fig:energy-deviations",

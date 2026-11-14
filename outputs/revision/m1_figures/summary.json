@@ -95,7 +95,16 @@
   "plot_semantics": {
     "deviation_figures": "one circular marker per metric-eligible positive-service execution",
     "mean_labels": "one vertical configuration-mean label on each populated absolute panel position; the same mean defines zero in the paired relative panel",
-    "outcome_table": "configuration-regime, execution-outcome, and metric-valid counts aggregated by blockchain and validator-set size"
+    "outcome_table": "configuration-outcome-class, execution-outcome, and metric-valid counts aggregated by blockchain and validator-set size",
+    "relative_axis": {
+      "clipping": false,
+      "linear_threshold_percent": 100,
+      "scale": "symlog",
+      "shared_limits_percent": [
+        -105.0,
+        650.0
+      ]
+    }
   },
   "plotted_execution_manifest": "outputs/revision/m1_figures/plotted_execution_manifest.csv",
   "png_count": 0
