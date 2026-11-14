@@ -1,0 +1,7 @@
+workload,observed_runs,submitted_runs,zero_commit_runs,no_submission_runs,censored_positive_tps_runs,median_offered_tps,median_exported_committed_tps,median_per_run_committed_pct
+DDoS,671,671,217,0,0,9999.900000,16.500000,0.165418
+FIFA,673,673,224,0,0,34537.900000,4.000000,0.010552
+GAFAM,668,668,67,0,2,167.700000,42.800000,25.516161
+Gaming,683,681,229,2,1,13328.200000,1.000000,0.007774
+PayPal,688,688,87,0,0,200.000000,190.150000,95.075846
+VISA,697,697,129,0,4,1800.000000,16.000000,0.886852

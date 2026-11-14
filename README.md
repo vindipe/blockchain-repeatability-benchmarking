@@ -130,6 +130,14 @@ The archival record is available through the stable Zenodo concept DOI:
   configuration, `run` is reused and restarted, and `dataset` is constant. It
   writes provenance records only: it neither estimates within-/between-campaign
   variance nor generates a manuscript table.
+- `analysis/audit_offered_vs_committed.py` reproduces the R3.9 load comparison.
+  It writes workload-level and workload-by-blockchain-by-size CSVs under
+  `outputs/revision/r3_9_offered_load/`. It reports median exported offered and
+  committed TPS, plus the median of 100 × commits/submissions per valid run
+  with submissions. Zero-commit runs remain in these medians. Runs without
+  submissions appear in the counts only. Exported TPS retains its rounding;
+  the CSV counts positive-commit runs whose exported TPS rounds to zero.
+  Reproduce with `python3 analysis/audit_offered_vs_committed.py`.
 - `analysis/audit_campaign_sensitivity.py` compares late and early runs within
   each configuration and the last and first acquisition batches. It orders
   runs by start timestamp, hash and run index, omits the middle run for odd
