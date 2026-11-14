@@ -47,17 +47,17 @@ WORKLOADS = {
     },
     "Gaming": {
         "raw_label": "dota",
-        "transaction_profile": "Dota 2 smart contract",
-        "offered_load": "Dota-2-derived trace",
+        "transaction_profile": "Dota-named smart-contract profile",
+        "offered_load": "Median recorded offered load reported in r3_9_offered_load",
         "demand_regime": "High sending rate",
-        "source": "Diablo-v2",
+        "source": "Observed run dataset; see inputs/workloads/README.md",
     },
     "PayPal": {
         "raw_label": "paypal",
         "transaction_profile": "Simple transfer",
         "offered_load": "200 TPS (constant)",
         "demand_regime": "Moderate steady rate",
-        "source": "paymentSystems",
+        "source": "Lilith workload-paypal.yaml; see inputs/workloads/README.md",
     },
     "VISA": {
         "raw_label": "visa",
