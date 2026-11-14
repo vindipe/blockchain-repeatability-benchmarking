@@ -379,7 +379,8 @@ def render_latex_table(
     previous_blockchain: str | None = None
     for _, row in table_rows.iterrows():
         blockchain = str(row["blockchain"])
-        if previous_blockchain is not None and blockchain != previous_blockchain:
+        first_in_group = blockchain != previous_blockchain
+        if previous_blockchain is not None and first_in_group:
             lines.append(r"\midrule")
         previous_blockchain = blockchain
 
@@ -437,7 +438,7 @@ def render_latex_table(
             )
 
         values = [
-            BLOCKCHAIN_LATEX[blockchain],
+            BLOCKCHAIN_LATEX[blockchain] if first_in_group else "",
             latex_level(row["level"], factor_name),
         ]
         for metric_name in TABLE_METRIC_NAMES:
