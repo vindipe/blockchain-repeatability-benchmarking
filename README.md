@@ -122,8 +122,7 @@ The archival record is available through the stable Zenodo concept DOI:
   random-intercept ICCs within each blockchain on the natural-log scale and
   attaches configuration-cluster bootstrap intervals.
 - `analysis/workload_catalog.py` generates the six-workload definition and
-  outcome-accounting table used for M1/M2; its generated caption and note
-  already carry the manuscript's `\vd[Rx]{...}` revision marking.
+  outcome-accounting table used for M1/M2.
 - `analysis/audit_gafam_trace.py` verifies the mirrored GAFAM input checksum,
   schedule, units, source revision, raw-to-display label mapping, and its link
   to the 668 selected GAFAM observations.
@@ -164,10 +163,8 @@ The archival record is available through the stable Zenodo concept DOI:
   require rerunning the analysis to recover the manuscript tables or audit
   files.
 
-All generated manuscript tables carry their revision marking internally in the
-caption through `\vd[review point]{...}` with the relevant review identifiers.
-Table headings and values remain uncoloured. The factorial and ICC generators
-also emit the degrees of freedom, variance components, and bootstrap intervals
+Generated table captions, headings, and values omit the R1/R2 revision
+annotations. The factorial and ICC generators also emit the degrees of freedom, variance components, and bootstrap intervals
 shown in the manuscript, so copying the generated `.tex` file requires no
 manual numerical or highlighting edit.
 

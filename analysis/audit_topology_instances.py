@@ -256,7 +256,7 @@ def format_number(value: float) -> str:
 def latex_table(rows: Iterable[TopologyMetrics]) -> str:
     lines = [
         r"\begin{table}[t]",
-        r"\caption{\vd[R1.16]{Numerical audit of the instantiated topology XMLs. $V/E$: vertices/undirected edges; degree: min/median/max; $\bar{\ell}$: average shortest-path length; $\lambda$: global edge connectivity; $\bar{p}_{\mathrm{e}}$: mean pairwise edge-disjoint paths. Workload leaves are excluded and numbered hop bridges contracted. Both validator sizes yield the same overlay; only endpoint replication differs.}}",
+        r"\caption{Numerical audit of the instantiated topology XMLs. $V/E$: vertices/undirected edges; degree: min/median/max; $\bar{\ell}$: average shortest-path length; $\lambda$: global edge connectivity; $\bar{p}_{\mathrm{e}}$: mean pairwise edge-disjoint paths. Workload leaves are excluded and numbered hop bridges contracted. Both validator sizes yield the same overlay; only endpoint replication differs.}",
         r"\label{tab:topology_numeric_audit}",
         r"\centering",
         r"\TableFont",

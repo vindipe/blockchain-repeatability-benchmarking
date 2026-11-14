@@ -57,7 +57,7 @@ class TwoPartModelTests(unittest.TestCase):
         self.assertIn(r"\resizebox{\columnwidth}{!}{%", latex)
         self.assertIn(r"\begin{table}[t]", latex)
         self.assertNotIn(r"\color{olive}", latex)
-        self.assertIn(r"\caption{\vd[R1.9-10/R2.4]{", latex)
+        self.assertNotIn(r"\vd[R1.9-10/R2.4]{", latex)
         self.assertIn("Two-part factorial analysis", latex)
         self.assertIn("conditional log-performance ANOVAs", latex)
         self.assertIn(r"\TableFont", latex)
@@ -93,7 +93,7 @@ class TwoPartModelTests(unittest.TestCase):
         self.assertIn(r"\resizebox{\columnwidth}{!}{%", latex)
         self.assertIn(r"\begin{table}[t]", latex)
         self.assertNotIn(r"\color{olive}", latex)
-        self.assertIn(r"\caption{\vd[R1.11]{", latex)
+        self.assertNotIn(r"\vd[R1.11]{", latex)
         self.assertIn("likelihood-ratio", latex)
         self.assertIn("HC3 Type-II", latex)
         self.assertIn("quasi-separation", latex)
@@ -104,7 +104,7 @@ class TwoPartModelTests(unittest.TestCase):
             three_way_estimability(self.legacy, "TPS")
         )
         self.assertNotIn(r"\color{olive}", estimability_latex)
-        self.assertIn(r"\caption{\vd[R1.11]{", estimability_latex)
+        self.assertNotIn(r"\vd[R1.11]{", estimability_latex)
         self.assertIn(r"\begin{table*}[t]", estimability_latex)
 
     def test_primary_table_omits_redundant_explanatory_note(self):

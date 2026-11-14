@@ -100,7 +100,7 @@ class RunLevelDeviationPlotTests(unittest.TestCase):
 
     def test_outcome_table_reconciles_outcomes_and_metric_validity(self):
         table = render_outcome_table(outcome_table_frame(self.derived))
-        self.assertIn(r"\caption{\vd[R1.5/R2.6]{", table)
+        self.assertNotIn(r"\vd[R1.5/R2.6]{", table)
         self.assertIn(r"\TableFont", table)
         self.assertIn(
             r"\textbf{Total} & -- & 300 & 205 & 46 & 49 & 4080 & 4078 & "

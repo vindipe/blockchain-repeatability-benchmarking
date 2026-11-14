@@ -663,7 +663,7 @@ def render_term_table(
     lines = [
         r"\begin{table}[t]",
         r"\centering",
-        r"\caption{\vd[R1.9-10/R2.4]{Two-part factorial analysis. Outcome entries report likelihood-ratio $\chi^2$ statistics with df; conditional log-performance ANOVAs report Type-II HC3 $F$ statistics with numerator/residual df and partial $\eta_{\mathrm{p}}^2$. $B$, $T$, $W$, and $S$ denote blockchain, topology, workload, and validator-set size; main-factor rows are hierarchical omnibus tests.}}",
+        r"\caption{Two-part factorial analysis. Outcome entries report likelihood-ratio $\chi^2$ statistics with df; conditional log-performance ANOVAs report Type-II HC3 $F$ statistics with numerator/residual df and partial $\eta_{\mathrm{p}}^2$. $B$, $T$, $W$, and $S$ denote blockchain, topology, workload, and validator-set size; main-factor rows are hierarchical omnibus tests.}",
         r"\label{tab:two_part_factorial_models}",
         r"\TableFont",
         r"\setlength{\tabcolsep}{1pt}",
@@ -713,7 +713,7 @@ def render_estimability_table(table: pd.DataFrame) -> str:
     lines = [
         r"\begin{table*}[t]",
         r"\centering",
-        r"\caption{\vd[R1.11]{Design-matrix audit for targeted three-way interaction sensitivities. Added rank gives the supported degrees of freedom; a term can be tested on observed support even when empty positive-service cells reduce its nominal rank.}}",
+        r"\caption{Design-matrix audit for targeted three-way interaction sensitivities. Added rank gives the supported degrees of freedom; a term can be tested on observed support even when empty positive-service cells reduce its nominal rank.}",
         r"\label{tab:three_way_estimability}",
         r"\TableFont",
         r"\begin{tabular}{llrrc}",
@@ -740,7 +740,7 @@ def render_three_way_sensitivity_table(
     lines = [
         r"\begin{table}[t]",
         r"\centering",
-        r"\caption{\vd[R1.11]{Targeted three-way sensitivities: outcome rows use likelihood-ratio $\chi^2$ deletion tests and conditional-performance rows HC3 Type-II $F$ tests. For sparse positive-service support, df gives supported rank/nominal columns with no imputation; outcome tests are omnibus screening under quasi-separation.}}",
+        r"\caption{Targeted three-way sensitivities: outcome rows use likelihood-ratio $\chi^2$ deletion tests and conditional-performance rows HC3 Type-II $F$ tests. For sparse positive-service support, df gives supported rank/nominal columns with no imputation; outcome tests are omnibus screening under quasi-separation.}",
         r"\label{tab:three_way_sensitivity}",
         r"\TableFont",
         r"\setlength{\tabcolsep}{1pt}",
