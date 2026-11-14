@@ -163,9 +163,7 @@ The archival record is available through the stable Zenodo concept DOI:
   merges configuration-outcome-class counts, execution outcomes, and metric-validity
   counts into one compact LaTeX summary table, with an execution-level
   plotting manifest and exact figure captions
-  with the R3.10 percentage-axis update. The percentage panels share a symmetric
-  log scale, linear within ±100%, and show all deviations without clipping.
-  The figure PDFs use embedded TrueType
+  marked `\vd[R1.5/R2.6]{...}`. The remaining figure PDFs use embedded TrueType
   fonts and record the final panel/placement decision in the figure summary.
 - `outputs/revision/` contains the definitive versioned CSV, JSON, diagnostic
   PDF, and generated-table outputs from the completed revision analyses. A
