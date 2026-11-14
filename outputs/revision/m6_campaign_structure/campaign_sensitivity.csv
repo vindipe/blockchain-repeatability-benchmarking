@@ -1,0 +1,9 @@
+comparison,metric,eligible_configurations,q25,median,q75
+late_vs_early_half,positive_commit_pp,300,0.000000,0.000000,0.000000
+late_vs_early_half,tps_pct,240,-10.138618,-0.253940,3.378343
+late_vs_early_half,latency_pct,240,-7.382446,-0.000975,4.980709
+late_vs_early_half,energy_pct,300,-4.538651,0.927856,6.582489
+last_vs_first_batch,positive_commit_pp,300,0.000000,0.000000,0.000000
+last_vs_first_batch,tps_pct,240,-22.887344,-1.848024,6.135128
+last_vs_first_batch,latency_pct,240,-10.574800,-0.104937,8.674129
+last_vs_first_batch,energy_pct,300,-8.219659,-0.194323,9.139893

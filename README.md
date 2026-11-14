@@ -131,6 +131,15 @@ The archival record is available through the stable Zenodo concept DOI:
   configuration, `run` is reused and restarted, and `dataset` is constant. It
   writes provenance records only: it neither estimates within-/between-campaign
   variance nor generates a manuscript table.
+- `analysis/audit_campaign_sensitivity.py` compares late and early runs within
+  each configuration and the last and first acquisition batches. It orders
+  runs by start timestamp, hash and run index, omits the middle run for odd
+  cell counts, and orders batches by their first observed start. It compares
+  positive-commit shares in percentage points and the medians of eligible TPS,
+  latency and observed energy as relative percentage changes. Each CSV row
+  reports the number of eligible configurations and the unweighted median and
+  quartiles across them. This is a descriptive sensitivity analysis.
+  Reproduce it with `python3 analysis/audit_campaign_sensitivity.py`.
 - `analysis/generate_study_delta.py` records the M8/R2.5 row-by-row
   ACM-DLT-versus-IEEE comparison as CSV and JSON audit outputs and validates
   every quantitative IEEE claim against the completed revision outputs. It
