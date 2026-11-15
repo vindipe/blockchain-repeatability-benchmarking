@@ -10,13 +10,17 @@ paper outputs, dependency metadata, and expanded documentation.
 |---|---|---|
 | Stable concept DOI (all versions) | `10.5281/zenodo.17681717` | `17681717` |
 | Initial archived version | `10.5281/zenodo.17681718` | `17681718` |
-| Preceding archived version | `10.5281/zenodo.21381461` | `21381461` |
+| Archive of the aggregate dataset | `10.5281/zenodo.21381461` | `21381461` |
+| Previous full reproducibility package | `10.5281/zenodo.22869069` | `22869069` |
 
 The concept DOI remains the stable citation across versions. Zenodo assigns a
 new immutable version DOI when the updated package is published.
 
-The preceding version was published on 15 July 2026 with the aggregate dataset,
-ACM DLT companion instructions, and complete creator metadata.
+Record `21381461` was published on 15 July 2026 with the aggregate dataset,
+ACM DLT companion instructions, and complete creator metadata. Record
+`22869069` added the full reproducibility package. This update retains the
+archived input datasets and includes the scripts, documentation, and generated
+outputs for the IEEE Access minor revisions.
 
 ## Source and integrity
 
@@ -72,6 +76,11 @@ vintage. The exact versioned input is Lilith
 It is mirrored under `inputs/topologies/`. This label is independent of
 `start_bench`, whose selected campaign timestamps span 21 April 2024 through
 8 August 2025.
+
+The reference topology generator uses a fixed random seed of 443. This seed
+controls topology construction. The released Lilith launcher supplies no seed
+to the workload generator, which uses a time-derived default. Per-run workload
+seeds are absent from the released CSV.
 
 Lilith creates `topology.xml` at runtime and does not version generated XMLs.
 The ten files under `inputs/topologies/` were regenerated with the versioned

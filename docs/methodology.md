@@ -141,11 +141,11 @@ executions, two no-submission executions, and no inconsistent rows. At
 configuration level, 205 cells contain only positive commits, 46 have mixed
 outcomes, and 49 contain no positive-commit execution.
 
-Metric validity is separate from outcome classification. TPS and block latency
-enter conditional performance distributions only for positive-commit runs;
-block latency is structurally undefined when no block is committed. Energy and
-network traffic remain valid observed measurements when their stored values are
-finite and non-negative, regardless of commit outcome. An additional
+Metric validity is separate from outcome classification. TPS and transaction
+confirmation latency enter conditional performance distributions only for
+positive-commit runs. Confirmation latency is undefined when no transaction is
+reported as committed. Energy and network traffic remain valid observations
+when their stored values are finite and non-negative, regardless of commit outcome. An additional
 positive-commit energy mask supports direct alignment with TPS and latency.
 Seven positive-commit rows have stored TPS equal to `0.0`; they remain valid at
 the outcome level because TPS is not used to classify a run. Diablo computed

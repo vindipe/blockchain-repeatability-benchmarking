@@ -63,8 +63,8 @@ METRICS = {
     "latency": {
         "value": "average_latency",
         "eligible": "latency_valid_positive_commit",
-        "absolute_label": r"$\Delta$ Block latency (s)",
-        "panel_title": "Block latency deviations",
+        "absolute_label": r"$\Delta$ Confirmation latency (s)",
+        "panel_title": "Confirmation latency deviations",
     },
     "energy": {
         "value": "energy",
@@ -608,7 +608,7 @@ def render_caption_replacements() -> str:
             r"% fig:tps-deviations",
             r"\caption{\vd[R1.5/R2.6]{Run-level throughput deviations across all six workloads at 10 and 40 nodes. Each colored circle is one point-valued positive-service TPS execution; deterministic horizontal offsets separate runs without changing their configuration. Left and right panels report absolute TPS deviation and relative deviation (\%), respectively. Vertical $m$ labels report configuration means and define zero in the paired relative panels; triangles mark relative deviations beyond $\pm100\%$, and $\times$ marks a configuration with no point-valued TPS execution. Non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
             r"% fig:latency-deviations",
-            r"\caption{\vd[R1.5/R2.6]{Run-level block-latency deviations across all six workloads at 10 and 40 nodes. Each colored circle is one metric-eligible positive-service execution; conventions are as in Figure~\ref{fig:tps-deviations}, with left panels reporting absolute block-latency deviation (s). Non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
+            r"\caption{\vd[R1.5/R2.6]{Run-level deviations in transaction confirmation latency across all six workloads at 10 and 40 nodes. Each colored circle is one metric-eligible positive-service execution; conventions are as in Figure~\ref{fig:tps-deviations}, with left panels reporting absolute confirmation latency deviation (s). Non-positive outcomes are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
             r"% fig:energy-deviations",
             r"\caption{\vd[R1.5/R2.6]{Run-level positive-service energy deviations across all six workloads at 10 and 40 nodes. Each colored circle is one positive-service energy execution; conventions are as in Figure~\ref{fig:tps-deviations}, with left panels reporting absolute energy deviation (kWh). Energy measurements for non-positive outcomes are not plotted; their counts are reported in Table~\ref{tab:r26_outcome_accounting}.}}",
             "",

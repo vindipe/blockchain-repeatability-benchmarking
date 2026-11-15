@@ -282,8 +282,8 @@ classifies 3,125 positive-commit executions, 953 submitted zero-commit
 executions, and two no-submission executions. It does not label any row as a
 technical failure because deployment and execution logs are not available.
 
-Throughput and block latency are valid for conditional performance analysis
-only when a positive commit is observed. Energy and network measurements remain
+Throughput and transaction confirmation latency are valid for conditional
+performance analysis only when a positive commit is observed. Energy and network measurements remain
 available for all 4,080 selected executions, including zero-commit and
 no-submission outcomes. Seven positive-commit rows have stored TPS equal to
 `0.0` because Diablo exported TPS with one decimal place. The released files do
