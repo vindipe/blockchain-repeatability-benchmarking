@@ -256,7 +256,7 @@ def format_number(value: float) -> str:
 def latex_table(rows: Iterable[TopologyMetrics]) -> str:
     lines = [
         r"\begin{table}[t]",
-        r"\caption{Numerical audit of the instantiated topology XMLs. $V/E$: vertices/undirected edges; degree: min/median/max; $\bar{\ell}$: average shortest-path length; $\lambda$: global edge connectivity; $\bar{p}_{\mathrm{e}}$: mean pairwise edge-disjoint paths. Workload leaves are excluded and numbered hop bridges contracted. Both validator sizes yield the same overlay; only endpoint replication differs.}",
+        r"\caption{Numerical audit of the instantiated topology graphs. $V/E$: vertices/undirected edges; degree: min/median/max; Diam.: diameter; $\bar{\ell}$: average shortest-path length; $\lambda$: global edge connectivity; $\bar{p}_{\mathrm{e}}$: mean pairwise edge-disjoint paths. Workload leaves are excluded and numbered hop bridges contracted. Both validator-set sizes yield the same overlay; only endpoint replication differs.}",
         r"\label{tab:topology_numeric_audit}",
         r"\centering",
         r"\TableFont",
@@ -271,7 +271,7 @@ def latex_table(rows: Iterable[TopologyMetrics]) -> str:
             f"{row.degree_min}/{format_number(row.degree_median)}/{row.degree_max}"
         )
         lines.append(
-            f"{row.topology} & {row.vertices} & {row.edges} & {degree} & "
+            f"{row.topology.lower()} & {row.vertices} & {row.edges} & {degree} & "
             f"{row.diameter} & {row.average_shortest_path:.2f} & "
             f"{row.edge_connectivity} & "
             f"{row.average_pairwise_edge_disjoint_paths:.2f} \\\\"

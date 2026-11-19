@@ -114,7 +114,7 @@ class BootstrapDispersionTableTests(unittest.TestCase):
             )
             self.assertNotIn("Each metric block reports", workload_latex)
             self.assertIn(r"$^{\dagger}$", scaling_latex)
-            self.assertIn("need not contain", scaling_latex)
+            self.assertIn("may exclude", scaling_latex)
 
             factor = pd.read_csv(output / "factor_bootstrap_summary.csv")
             defined = factor["contributing_configuration_cells"] > 0

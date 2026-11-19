@@ -169,7 +169,7 @@ def render_icc_table(table: pd.DataFrame, repetitions: int) -> str:
     lines = [
         r"\begin{table}[t]",
         r"\centering",
-        rf"\caption{{Within-blockchain REML random-intercept decomposition of log positive-service observations. $C/N$ denotes metric-eligible configurations/executions; $\hat{{\tau}}^2/\hat{{\sigma}}^2$ are between-/within-configuration variances. Brackets give 95\% intervals from {repetitions:,} configuration-cluster bootstrap replicates.}}",
+        rf"\caption{{Within-blockchain REML random-intercept decomposition of log positive-service observations. $C/N$: metric-eligible configurations/executions; $\hat{{\tau}}^2/\hat{{\sigma}}^2$: between-/within-configuration variances. Brackets show 95\% configuration-cluster bootstrap intervals ({repetitions:,} replicas).}}",
         r"\label{tab:icc_by_blockchain}",
         r"\TableFont",
         r"\setlength{\tabcolsep}{1pt}",

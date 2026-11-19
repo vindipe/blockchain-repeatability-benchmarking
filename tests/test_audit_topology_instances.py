@@ -47,7 +47,7 @@ class TopologyInstanceAuditTests(unittest.TestCase):
         self.assertNotIn(r"\begin{table*}", table)
         self.assertIn(r"\begin{tabular}{lrrrrrrr}", table)
         self.assertIn(r"$\bar{p}_{\mathrm{e}}$", table)
-        self.assertIn("Both validator sizes yield the same overlay", table)
+        self.assertIn("Both validator-set sizes yield the same overlay", table)
 
 
 if __name__ == "__main__":

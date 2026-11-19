@@ -314,7 +314,7 @@ def render_latex_table(
     ).any()
     interval_note = (
         r" $\dagger$ marks a point estimate outside its asymmetric percentile "
-        r"interval, which need not contain the observed estimate."
+        r"interval, which may exclude the observed estimate."
         if outside_interval
         else ""
     )
