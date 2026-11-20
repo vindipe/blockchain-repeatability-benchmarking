@@ -179,14 +179,16 @@ def render_icc_table(table: pd.DataFrame, repetitions: int) -> str:
         r"Blockchain & TPS & Latency & Energy \\",
         r"\midrule",
     ]
-    for blockchain in sorted(table["blockchain"].unique()):
+    for blockchain_index, blockchain in enumerate(sorted(table["blockchain"].unique())):
+        if blockchain_index:
+            lines.append(r"\midrule")
         cells = [blockchain.replace("Ethereum", "Ethereum~Clique").replace("Quorum", "Quorum~IBFT")]
         for metric in METRIC_SPECS:
             row = table.loc[
                 (table["blockchain"] == blockchain) & (table["metric"] == metric)
             ].iloc[0]
             cells.append(
-                r"\shortstack{"
+                r"\begin{tabular}[t]{@{}c@{}}"
                 f"$C/N={int(row['n_configurations'])}/{int(row['n_observations'])}$"
                 r"\\"
                 f"$\\hat{{\\tau}}^2={row['between_configuration_variance']:.3f}$ "
@@ -199,7 +201,7 @@ def render_icc_table(table: pd.DataFrame, repetitions: int) -> str:
                 r"\\"
                 f"ICC={row['icc']:.3f} "
                 f"[{row['icc_ci_lower']:.3f},{row['icc_ci_upper']:.3f}]"
-                r"}"
+                r"\end{tabular}"
             )
         lines.append(" & ".join(cells) + r" \\")
     lines.extend(
